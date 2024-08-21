@@ -1,0 +1,254 @@
+/* Asegúrate de que el cuerpo y el html ocupen toda la altura del viewport */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+ /* Asegúrate de que el contenedor del carrusel tenga posición relativa para que los elementos hijos se posicionen correctamente */
+ .carousel {
+    position: relative;
+}
+
+/* Asegúrate de que cada carrusel-item ocupe toda la altura del carrusel */
+.carousel-item {
+    background-color: rgb(89, 181, 72); /* Fondo verde para cada diapositiva */
+    display: flex;
+    height: 100vh; /* Ajusta al tamaño de la ventana del navegador */
+    justify-content: center;
+    align-items: center;
+
+}
+
+/*.carouselb{
+    background-color: white; /* Fondo verde para cada diapositiva 
+    
+}
+
+.carousel-textb {
+    margin-left: 50px;
+    background-color: white; /* Fondo verde para la columna de texto 
+    color: rgb(89, 181, 72); /* Color de texto blanco para contraste
+ }
+*/
+
+
+.carousel-text {
+    margin-left: 50px;
+    background-color: rgb(89, 181, 72); /* Fondo verde para la columna de texto */
+    color: white; /* Color de texto blanco para contraste */
+}
+
+.carousel-content {
+    display: flex;
+    width: 100%;
+}
+
+.carousel-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px; /* Añade algo de espacio alrededor de la tarjeta */
+    
+}
+
+.card {
+    width: 80%;
+    height: 100%; /* Ocupa toda la altura del contenedor */
+    max-width: 450px; /* Tamaño máximo opcional para la tarjeta */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Sombra */
+    display: flex;
+    flex-direction: column; /* Organiza los elementos de la tarjeta en columna */
+}
+
+.card-title{
+    color: white;
+}
+
+/* Elimina el estilo predeterminado y aplica el nuevo estilo a los indicadores */
+.carousel-indicators {
+    display: flex !important; /* Asegura que el contenedor use flexbox */
+    justify-content: start !important; /* Puedes cambiar 'start' a 'center' o 'end' según tus necesidades */
+    padding: 0 !important; /* Elimina el padding por defecto */
+    margin-right: 0 !important; /* Elimina el margin por defecto */
+    margin-left: 5% !important; /* Elimina el margin por defecto */
+    position: absolute !important; /* Permite posicionar los indicadores de forma fija */
+    margin-bottom: 8% !important; /* Ajusta la distancia desde la parte inferior para dejar espacio para el botón */    z-index: 10; /* Asegura que los indicadores estén sobre otros elementos */
+}
+
+
+.carousel-indicators button {
+    width: 10px !important; /* Cambia el ancho del indicador */
+    border-radius: 50%; /* Asegura que los indicadores sean circulares */
+    background-color: rgba(0, 0, 0, 0.5); /* Color de fondo de los indicadores */
+    opacity: 1; /* Asegura que los indicadores sean completamente opacos */
+}
+
+/* Estiliza los controles del carrusel */
+.carousel-control-next .fas {
+    color: white; /* Color del ícono cuando no se pasa el ratón */
+    font-size: 3rem; /* Tamaño del ícono */
+
+}
+
+
+.carousel-control-next {
+    margin-right: 10px;
+    top: auto; /* Anula el valor por defecto de 'top' */
+    z-index: 10;
+    align-items: end !important;
+    color: white; 
+    opacity: 100%;
+    margin-bottom: 3%;
+
+
+}
+
+.card-body {
+    flex: 1; /* Hace que el card-body ocupe todo el espacio disponible */
+    display: flex;
+    flex-direction: column; /* Asegura que los elementos dentro del card-body se coloquen en columna */
+    justify-content: flex-end; /* Alinea el contenido al final del card-body */
+    padding: 0; /* Espaciado interno para el contenido de la tarjeta */
+    color: white; /* Color de texto blanco para contraste */
+    border-radius: 15px; /* Redondear las esquinas del contenido de la tarjeta */
+    background-color: rgba(0, 0, 0, 0.3); /* Fondo semi-transparente para el contenido */
+}
+
+      /* Estilo para el botón */
+.carousel .btn {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Sombra */
+    color: rgb(112, 110, 107);
+    position: absolute;
+    bottom: 10%; /* Ajusta la distancia desde la parte inferior */
+    left: 0;
+    margin-left: 4%; /* Añade un margen para separarlo del borde izquierdo */
+    z-index: 20; /* Asegura que el botón esté encima de otros elementos */
+}
+
+
+
+/* Ajustar para pantallas pequeñas */
+@media (max-width: 576px) {
+    .carousel-item {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .carousel-text {
+        position: absolute;
+        top: 40%;
+        left: 0;
+        right: 10%;
+        bottom: 50%;
+        z-index: 2;
+        background-color: rgba(0, 0, 0, 0.0);
+    }
+
+    .carousel-card {
+        position: relative;
+        margin-top: 90px;
+        margin-bottom: 150px;
+        margin-right: 0;
+        width: 100%;
+        height: 70%;
+    }
+    .card {
+        height: 50%;
+        padding: 0 !important;
+        width: 150% !important; /* La tarjeta ocupa el 80% del ancho del contenedor */
+        max-width: 100%; /* Asegura que no exceda el ancho del contenedor */
+    }
+
+    .carousel-control-next{
+        margin-top: 22rem;
+        text-decoration: none;
+    }
+
+    .card-body{
+        background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente para el contenido */
+    }
+
+    .carousel-indicators{
+        justify-content: center !important;
+        margin-top: 10%;
+        margin-bottom: 33% !important;
+    }
+
+    .carousel .btn{
+        top: 85%;
+        justify-content: center !important;
+        align-items: center !important;
+        left: 0;
+        right: 0;
+        margin-left: 37%;
+        margin-right: 34%;
+        bottom: 8%;
+    }
+    
+    .card-title{
+        font-size: 16px;
+    }
+}
+/* Ajusta el tamaño de la tarjeta en pantallas medianas */
+@media (min-width: 577px) and (max-width: 768px) {
+    .card {
+        width: 90%; /* La tarjeta ocupa el 80% del ancho del contenedor */
+        max-width: 100%; /* Asegura que no exceda el ancho del contenedor */
+    }
+    .carousel-card {
+        position: relative;
+        margin-top: 10px;
+        margin-right: 0;
+        width: 100%;
+    }
+
+    .card-title{
+        font-size: 17px;
+    }
+
+    .carousel-text {
+        width: 40%;
+        position: relative;
+        left: 0;
+        z-index: 2;
+        background-color: rgba(0, 0, 0, 0.0);
+    }
+
+    .carousel-text h4{
+        font-size:18px;
+    }
+
+    .carousel-indicators {
+        display: flex !important; /* Asegura que el contenedor use flexbox */
+        justify-content: start !important; /* Puedes cambiar 'start' a 'center' o 'end' según tus necesidades */
+        padding: 0 !important; /* Elimina el padding por defecto */
+        margin-right: 0 !important; /* Elimina el margin por defecto */
+        margin-left: 8% !important; /* Elimina el margin por defecto */
+        position: absolute !important; /* Permite posicionar los indicadores de forma fija */
+        margin-bottom: 11% !important; /* Ajusta la distancia desde la parte inferior para dejar espacio para el botón */    z-index: 10; /* Asegura que los indicadores estén sobre otros elementos */
+    }
+    .carousel .btn {
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Sombra */
+        color: rgb(112, 110, 107);
+        position: absolute;
+        bottom: 5%; /* Ajusta la distancia desde la parte inferior */
+        left: 0;
+        margin-left: 8%; /* Añade un margen para separarlo del borde izquierdo */
+        z-index: 20; /* Asegura que el botón esté encima de otros elementos */
+    }
+}
+/* Ajusta el tamaño de la tarjeta en pantallas grandes */
+@media (min-width: 769px) {
+    .card {
+        width: 90%; /* La tarjeta ocupa el 60% del ancho del contenedor */
+        max-width: 500px; /* Tamaño máximo opcional para la tarjeta */
+    }
+
+    .carousel-text{
+        width: 50%;
+    }
+}
+
+

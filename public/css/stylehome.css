@@ -1,0 +1,355 @@
+/* styles.css */
+
+/* Estilo general del cuerpo */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Fondo verde semitransparente */
+.overlay {
+    position: fixed; /* Cambia a fixed para cubrir toda la ventana */    
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(27, 160, 22, 0.459); /* Verde con 50% de opacidad */
+    z-index: 1; /* Asegura que la superposición esté encima de la imagen */
+    pointer-events: none; /* Permite que los clics pasen a través del overlay */
+}
+
+/* Sección carousel */
+.carousel-section {
+    position: relative;
+    height: 100vh; /* Ocupa toda la altura de la ventana */
+    width:auto;
+    color: white;
+    display: flex;
+
+}
+
+.carousel-section .navbar{
+    align-items:normal;
+    justify-content: 0;
+    text-align: 0;
+}
+
+.carousel-content{
+    height: 100vh; /* Ocupa toda la altura de la ventana */
+    width: 100%;
+    position: relative;
+    z-index: 2; /* Asegura que el texto esté encima de la superposición */
+}
+
+/* Asegúrate de que el carrusel ocupe toda la pantalla */
+#carouselBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Ocupa toda la altura de la ventana */
+    z-index: -1; /* Asegura que el carrusel esté detrás del contenido */
+}
+
+.carousel-inner img {
+    object-fit: cover; /* Asegura que las imágenes cubran todo el área sin distorsionarse */
+    height: 100vh; /* Ocupa toda la altura de la ventana */
+}
+
+/* Botón de desplazamiento */
+.scroll-down-button{
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 3rem;
+    color: white; /* Color inicial del icono */
+    text-decoration: none; /* Quita el subrayado del enlace */
+}
+
+/* Cambia el color del icono al pasar el ratón sobre el enlace */
+.scroll-down-button:hover i {
+    color: rgb(35, 199, 29); /* Color del icono al pasar el ratón */
+}
+
+/* Botones de inicio */
+#login{
+    border-radius: 10px;
+    color: rgb(89, 181, 72);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra */
+    padding: 10px;
+    align-items: center;
+
+    i {
+        vertical-align: middle; /* Alinea verticalmente el icono */
+    }
+}
+#msg{
+    border-radius: 100%;
+    background-color: rgb(89, 181, 72);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra */
+    color: white;
+    font-size: 28px;
+    
+}
+
+/* Texto del contenedor del carousel*/
+.container-text{
+    display: flex;
+    padding-left: 15%;
+    align-items: center;
+    height: 100vh;
+
+    h1{
+        text-shadow: 1.5px 1px 2px rgba(0, 0, 0, 0.8);
+        font-size: 4vw; /* Tamaño relativo a la ventana de visualización */
+        
+    }
+
+    img{
+        /*box-shadow: 2px 2px 5px rgba(0.3, 0, 0, 0.2); */
+        border-radius: 50%;
+        padding: 10px;
+    }
+
+}
+
+
+/* Sección con contenido largo */
+.section1 {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Ajusta según tus necesidades */
+    background-attachment: fixed; /* Mantiene la imagen fija al hacer scroll */
+    overflow: hidden;
+}
+
+.section1::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    z-index: -1; /* Asegúrate de que el fondo esté detrás del contenido */
+    animation: fadeInOut 5s infinite, changeImages 15s infinite; /* Aplica ambas animaciones */
+}
+
+.content-wrapper {
+    z-index: 1;
+    position: relative;
+    height: 100vh; /* Ocupa toda la altura de la ventana */
+    overflow: auto; /* Permite el scroll del contenido */
+}
+
+.text-content {
+    padding-top: 100px;
+    padding-left: 50px;
+    padding-right: 50px;
+    background: rgba(0, 0, 0, 0.3); /* Fondo semitransparente para el texto */
+    color: white;
+    width: 100%;
+    height: 100%; /* Ocupa toda la altura disponible */
+    overflow: auto; /* Permite el scroll dentro del texto */
+}
+
+.left-content, .right-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.divider {
+    width: 2px; /* Grosor de la barra divisoria */
+    background-color: #ccc; /* Color de la barra divisoria */
+    height: auto; /* Ajusta la altura automáticamente según el contenido */
+    align-self: stretch; /* Estira la barra para que ocupe toda la altura del contenido */
+}
+
+.content-container {
+    display: flex;
+    width: 100%;
+    max-width: 100%; 
+}
+
+
+
+
+/*Seccion con cards*/
+
+.container-card{
+    position: relative;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 100%;
+    
+}
+
+.card-home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 230px; 
+    
+}
+
+.card-body {
+    margin: 0; /* Elimina el margen que podría estar causando el espacio extra */
+    flex: 1; /* Hace que el card-body ocupe todo el espacio disponible */
+    display: flex;
+    flex-direction: column; /* Asegura que los elementos dentro del card-body se coloquen en columna */
+    justify-content: flex-end; /* Alinea el contenido al final del card-body */
+    padding: 0; /* Espaciado interno para el contenido de la tarjeta */
+    color: white; /* Color de texto blanco para contraste */
+    border-radius: 15px; /* Redondear las esquinas del contenido de la tarjeta */
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente para el contenido */
+}
+
+.bodyg {
+    flex: 1; /* Hace que el card-body ocupe todo el espacio disponible */
+    display: flex;
+    flex-direction: column; /* Asegura que los elementos dentro del card-body se coloquen en columna */
+    justify-content: flex-end; /* Alinea el contenido al final del card-body */
+    padding: 0; /* Espaciado interno para el contenido de la tarjeta */
+    color: white; /* Color de texto blanco para contraste */
+    border-radius: 15px; /* Redondear las esquinas del contenido de la tarjeta */
+    background-color: rgba(27, 126, 23, 0.781); /* Fondo semi-transparente para el contenido */
+}
+
+.card-title{
+    color: white;
+}
+
+.card-body img, .bodyg img {
+    width: 100%; /* Asegúrate de que la imagen cubra todo el ancho del contenedor */
+    height: auto; /* Ajusta la altura automáticamente para mantener la relación de aspecto */
+    object-fit: cover; /* Asegura que la imagen cubra el área sin distorsión */
+}
+
+/* seccion informacion e imagen circular*/
+.container-info{
+    text-align: justify;
+}
+
+.row2{
+    text-align: justify;
+
+}
+
+.img-circle {
+    border-radius: 50%;
+    width: 200px; /* Ajusta el tamaño según necesites */
+    height: 200px; /* Ajusta el tamaño según necesites */
+    object-fit: cover;
+}
+
+
+
+@media (min-width: 300px) and (max-width: 576px) {
+    .container-text img{
+        width: 100%;
+        height: 165px;
+        margin-top: 20px;
+    }
+    .container-text h1{
+        margin-left: 2%;
+        font-size: 25px;
+    }
+    .scroll-down-button{
+        font-size: 3.5rem;
+    }
+    
+    /* Seccion información */
+    .content-container {
+        flex-direction: column; /* Apila los contenidos verticalmente */
+    }
+
+    .left-content, .right-content {
+        width: 100%; /* Asegura que cada contenido ocupe todo el ancho disponible */
+        padding-top: 50px;
+
+        h1{
+            text-align: center;
+        }
+    }
+    .left-content{
+        padding-top: 100px;
+    }
+
+    .text-content {
+        padding: 10px; /* Ajusta el padding según sea necesario */
+    }
+
+    .container-info{
+        h2{
+            text-align: center;
+            margin-top: 25px;
+        }
+    }
+
+    .row2{
+        padding-left: 10px;
+        h2{
+            text-align: center;
+        }
+        img{
+            margin-bottom: 80px;
+        }
+    }
+
+    .container-card{
+        margin-bottom: 130px;
+    }
+
+}
+
+/* Ajusta el tamaño de la tarjeta en pantallas medianas */
+@media (min-width: 577px) and (max-width: 768px) {
+    .container-text img{
+        width: 110%;
+        height:210px;
+    }
+    .container-text h1{
+        margin-left: 7%;
+        font-size: 40px;
+    }
+    
+
+    
+}
+
+@media (min-width: 769px) {
+    .container-text img{
+        width: 30%;
+        height: 100x;
+        margin-left: 6%;
+    }
+    .container-text h1{
+        margin-left: 4%;
+        font-size: 60px;
+    }
+
+    .container-info{
+        padding-top: 70px;
+        padding-left: 100px;  /* Padding izquierdo */
+        padding-right: 100px; /* Padding derecho */
+    }
+
+    .row2{
+        padding-left: 150px;  /* Padding izquierdo */
+        padding-right: 100px; /* Padding derecho */
+
+
+    }
+
+    .container-card{
+        position: relative;
+        padding-left: 150px;
+        padding-right: 150px;
+        width: 100%;
+        padding-top: 60px;
+        
+    }
+
+}
