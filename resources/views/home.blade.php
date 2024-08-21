@@ -56,8 +56,9 @@
         }
 
         .card:hover {
-            transform: scale(1.05); /* Escala la tarjeta al pasar el ratón */
+            transform: scale(1.05); /* Hacer zoom al pasar el mouse */
         }
+        
     </style>
 </head>
 <body>
@@ -81,6 +82,7 @@
         </div>
         
         <div class="carousel-content">
+    <!--Navbar-->
             <nav class="navbar navbar-light bg-transparent pt-4 fixed-top">
                 <div class="container" style="max-width: 1800px; ">
                     <div class="d-flex w-100 justify-content-between align-items-center">
@@ -90,8 +92,10 @@
                                 <a href="/home" class="" role="button" style="color: white; opacity: 1;">
                                 <i class="fas fa-screwdriver-wrench"></i></a>
                             </button>
-                            <button id="login" class="btn btn-light mx-2 fw-semibold">
-                            <i class="fa-solid fa-right-to-bracket pe-2 " style="font-size: 26px;"></i>Iniciar Sesión</button>
+                            <button id="login" class="btn btn-light mx-2 fw-semibold" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <i class="fa-solid fa-right-to-bracket pe-2 " style="font-size: 26px;"></i>Iniciar Sesión
+                            </button>
+
                         </div>
                     </div>
                 </div>
@@ -233,9 +237,104 @@
                     </div>
                 </div>
     
+            </div>
         </div>
+        <!-- Modal LogIn -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Iniciar Sesión</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Formulario de inicio de sesión -->
+                            <form method="POST" action="{{ route('login') }}">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" required autofocus>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Contraseña</label>
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                </div>
+                                <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe" name="remember">
+                                    <label class="form-check-label" for="rememberMe">Remember me</label>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Log in</button>
+                                <button type="button" class="btn btn-link" id="showRegisterModal">Create an account</button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+    <!-- Modal Register -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">Create an Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ route('register') }}">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required autofocus>
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="registerEmail" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="registerPassword" name="password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerPasswordConfirmation" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="registerPasswordConfirmation" name="password_confirmation" required>
+                        </div>
+                        @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
+                                    <label class="form-check-label" for="terms">
+                                        I agree to the <a href="{{ route('terms.show') }}" target="_blank">Terms of Service</a> and <a href="{{ route('policy.show') }}" target="_blank">Privacy Policy</a>
+                                    </label>
+                                </div>
+                            </div>
+                        @endif
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
+    </div>
     </section>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var loginModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+        var registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
+
+        document.getElementById('showRegisterModal').addEventListener('click', function () {
+            loginModal.hide();
+            registerModal.show();
+        });
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-mQ93iN/wj1PI/f2BqYDQGAt7b8c6v8pUksbO9GOG3Xp7vcQx8gIoU0eMxI9NezKQ" crossorigin="anonymous"></script>
 </body>
 </html>
