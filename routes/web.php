@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,13 +23,18 @@ Route::get('/home', function () {
     return view('home');
 });
 
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
+
+
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
+
+
+Route::post('/check-document', [AuthController::class, 'sendVerificationCode'])->name('check.document');
+// Ruta para verificar el código de verificación
+Route::post('/verify-code', [AuthController::class, 'verifyCode'])->name('verify.code');
+// Ruta para enviar el código de verificación
+Route::post('/verify-code-ing', [AuthController::class, 'verifyCodeIng'])->name('verify.codeIng');
+

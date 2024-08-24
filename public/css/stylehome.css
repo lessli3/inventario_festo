@@ -50,7 +50,6 @@ body {
 
 }
 
-
 #carouselBackground {
     position: absolute;
     top: 0;
@@ -125,7 +124,6 @@ body {
 
 }
 
-
 /* Sección con contenido largo */
 .section1 {
     position: relative;
@@ -185,11 +183,7 @@ body {
     max-width: 100%; 
 }
 
-
-
-
 /*Seccion con cards*/
-
 .container-card{
     position: relative;
     padding-left: 5px;
@@ -257,6 +251,55 @@ body {
 }
 
 
+/*Estilos modales*/
+/*Modal Login*/
+.modal-content {
+    background-color: #f8f9fa; /* Color de fondo claro */
+    border-radius: 0.5rem; /* Bordes redondeados más suaves */
+    padding: 15px;
+}
+
+.modal-header .modal-title {
+   /* color: rgb(89, 181, 72);  Color del título */
+   color: rgb(73, 148, 59); 
+}
+
+.modal-footer .btn {
+    border-radius: 0.25rem; /* Bordes redondeados para el botón */
+}
+
+
+
+#login2{
+    border-radius: 10px;
+    background-color: green;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+    padding: 10px;
+    align-items: center;
+
+}
+
+#register{
+    border-radius: 10px;
+    background-color: rgb(40, 182, 15);
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+    padding: 10px;
+    align-items: center;
+
+}
+
+#code{
+    border-radius: 10px;
+    background-color: rgb(11, 197, 11);
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+    padding: 10px;
+    align-items: center;
+
+}
+
 /* Ajusta el tamaño de la tarjeta en pantallas pequeñas */
 @media (min-width: 300px) and (max-width: 576px) {
     .container-text img{
@@ -288,18 +331,15 @@ body {
     .left-content{
         padding-top: 100px;
     }
-
     .text-content {
         padding: 10px; /* Ajusta el padding según sea necesario */
     }
-
     .container-info{
         h2{
             text-align: center;
             margin-top: 25px;
         }
     }
-
     .row2{
         padding-left: 10px;
         h2{
@@ -309,7 +349,6 @@ body {
             margin-bottom: 80px;
         }
     }
-
     .container-card{
         margin-bottom: 130px;
     }
@@ -361,6 +400,14 @@ body {
         width: 100%;
         padding-top: 60px;
         
+    }
+
+    /*Modal Login*/
+    .modal-content{
+    margin-left: 140px;
+    margin-right: 140px;
+    padding-left: 15px;
+    padding-right: 15px;
     }
 
 }

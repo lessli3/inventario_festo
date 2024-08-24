@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{!! asset('css/stylehome.css') !!}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -58,13 +59,25 @@
         .card:hover {
             transform: scale(1.05); /* Hacer zoom al pasar el mouse */
         }
+
+        /* Ocultar las flechas en Chrome, Safari y Edge */
+            input[type="number"]::-webkit-inner-spin-button,
+            input[type="number"]::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            /* Ocultar las flechas en Firefox */
+            input[type="number"] {
+                -moz-appearance: textfield;
+            }
         
     </style>
 </head>
 <body>
 <div class="overlay"></div> <!-- Fondo verde semitransparente -->
 
-    <!-- Sección de imagen con texto -->
+<!-- Sección de imagen con texto -->
     <section class="carousel-section">
         <!-- Carrusel como fondo -->
         <div id="carouselBackground" class="carousel slide" data-bs-ride="carousel">
@@ -112,11 +125,11 @@
         </div>
     </section>
 
-    <!-- Sección con otra información -->
+<!-- Sección con otra información -->
     <section id="section1" class="section1">
         <div class="content-wrapper">
-    <!--Contenido de información-->
-        <div class="text-content">
+<!--Contenido de información-->
+    <div class="text-content">
             <div class="content-container">
                 <div class="left-content ps-4">
                     <h1 class="fw-bold">¿Qué es FESTO?</h1>
@@ -140,7 +153,7 @@
                     </ul>
                 </div>
             </div>
-            <!--Contenido de información FESTO-SENA -->
+    <!--Contenido de información FESTO-SENA -->
     <div class="container-info" style="margin-top: 10px; margin-bottom: 20px">
             <div class="row align-items-center pt-5" style="padding-left: 20px; padding-right: 10px;">
                 <!-- Columna con imagen circular -->
@@ -173,7 +186,7 @@
             </div> 
 
         
-    <!--Contenido de información en cards-->
+<!--Contenido de información en cards-->
            <!--Contenido de información en cards-->
            <div class="container-card mt-5">
                     <center>
@@ -239,102 +252,270 @@
     
             </div>
         </div>
-        <!-- Modal LogIn -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Iniciar Sesión</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- Formulario de inicio de sesión -->
-                            <form method="POST" action="{{ route('login') }}">
-                                @csrf
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email" required autofocus>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="password" class="form-label">Contraseña</label>
-                                    <input type="password" class="form-control" id="password" name="password" required>
-                                </div>
-                                <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="rememberMe" name="remember">
-                                    <label class="form-check-label" for="rememberMe">Remember me</label>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Log in</button>
-                                <button type="button" class="btn btn-link" id="showRegisterModal">Create an account</button>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
 
-    <!-- Modal Register -->
-    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="registerModalLabel">Create an Account</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- Modal LogIn -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title fw-semibold" id="exampleModalLabel"> INICIAR SESIÓN - CONTROL FESTO</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center mb-1">
+                <img src="img/logov.png" alt="Imagen Circular" style="width: 100px;" alt="logo">
                 </div>
-                <div class="modal-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" name="name" required autofocus>
-                        </div>
-                        <div class="mb-3">
-                            <label for="registerEmail" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="registerEmail" name="email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="registerPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="registerPassword" name="password" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="registerPasswordConfirmation" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" id="registerPasswordConfirmation" name="password_confirmation" required>
-                        </div>
-                        @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
-                                    <label class="form-check-label" for="terms">
-                                        I agree to the <a href="{{ route('terms.show') }}" target="_blank">Terms of Service</a> and <a href="{{ route('policy.show') }}" target="_blank">Privacy Policy</a>
-                                    </label>
-                                </div>
-                            </div>
-                        @endif
-                        <button type="submit" class="btn btn-primary">Register</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <!-- Formulario para verificar el documento -->
+                <form id="checkDocumentForm" method="POST" action="{{ route('verify.code') }}">
+                    @csrf
+                    <div class="mb-4">
+                        <label for="document_number" class="form-label mt-3 fw-semibold" style="color: green;"><i class="fas fa-user pe-1" style="font-size: 15px; color: green;" ></i>
+                        N° Identificación</label>
+                        <input id="document_number" name="document_number" type="text" class="form-control"
+                            placeholder="Ingresa tu número de identificación" required />
+                    </div>
+                    <div class="text-center mb-1">
+                    <button type="submit" id="login2" class="btn px-4 fw-semibold">Iniciar Sesión</button>
+                    </div>
+                </form>
+                <hr>
+                <div id="loginError" class="mt-3 text-danger" style="display: none;"></div>
+                
+                <div class="d-flex align-items-center justify-content-center mt-4">
+                    <p class="mb-0 me-2" style="font-size: 15px">¿No tienes una cuenta?</p>
+                    <button type="button" class="btn btn-outline-success" style="border-radius: 10px;" data-bs-toggle="modal"
+                        data-bs-target="#registerModal">Crear una cuenta</button>
                 </div>
             </div>
         </div>
     </div>
-    </section>
+</div>
+
+<!-- Modal Register -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title fw-semibold" id="registerModalLabel" style="color: rgb(89, 181, 72);">CREAR CUENTA - CONTROL FESTO</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ route('register') }}">
+                    @csrf
+                    <div class="mb-1">
+                        <label for="name" class="form-label mt-3 fw-semibold" style="color: rgb(89, 181, 72);"><i class="fas fa-user-pen pe-1" style="font-size: 15px; color: rgb(89, 181, 72);" ></i>
+                        Nombre</label>
+                        <input id="name" name="name" type="text" class="form-control" :value="old('name')" required autofocus autocomplete="name"
+                            placeholder="Ingresa tu nombre" required />
+                    </div>
+                    <div class="mb-1">
+                        <label for="email" class="form-label mt-3 fw-semibold" style="color: rgb(89, 181, 72);"><i class="fas fa-at pe-1" style="font-size: 15px; color: rgb(89, 181, 72);" ></i>
+                        Email</label>
+                        <input id="email" name="email" type="email" class="form-control" :value="old('email')" required autofocus autocomplete="email"
+                            placeholder="Ingresa tu correo eléctronico" required />
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-1">
+                            <label for="registerIdentity" class="form-label mt-3 fw-semibold" style="color: rgb(89, 181, 72);"><i class="fas fa-id-card pe-1" style="font-size: 15px; color: rgb(89, 181, 72);" ></i>
+                            N° de identificación</label>
+                            <input id="registerIdentity" name="identity" type="number" class="form-control"
+                                placeholder="Ingresa tu identificación" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                        <div class="mb-1">
+                            <label for="role" class=" mt-3 form-label fw-semibold" style="color: rgb(89, 181, 72);"><i class="fas fa-circle-check pe-1" style="font-size: 15px; color: rgb(89, 181, 72);" ></i>
+                            Rol</label>
+                            <select class="form-select" id="role" name="role" required>
+                                <option disabled selected value="">Seleccionar rol</option>
+                                <option value="Administrador">Administrador</option>
+                                <option value="Instructor">Instructor</option>
+                            </select>
+                        </div>
+                        </div>
+                    </div>
+                    <!--<div>
+                        <x-label for="name" value="{{ __('Name') }}" />
+                        <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                    </div>
+                    <div class="mt-4">
+                        <x-label for="email" value="{{ __('Email') }}" />
+                        <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+                    </div>
+                    <div class="mb-3">
+                                <label for="registerIdentity" class="form-label">No. de documento</label>
+                                <input type="number" class="form-control" id="registerIdentity" name="identity" required>
+                    </div>--->
+                    @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
+                        <div class="mt-4">
+                            <x-label for="terms">
+                                <div class="flex items-center">
+                                    <x-checkbox name="terms" id="terms" required />
+
+                                    <div class="ml-2">
+                                        {!! __('I agree to the :terms_of_service and :privacy_policy', [
+                                                'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Terms of Service').'</a>',
+                                                'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Privacy Policy').'</a>',
+                                        ]) !!}
+                                    </div>
+                                </div>
+                            </x-label>
+                        </div>
+                    @endif
+
+                    <div class="text-center mt-3">
+                    <button type="submit" id="register" class="btn px-4 fw-semibold">{{ __('Register') }}</button>
+                    </div>
+
+                </form>
+                <hr>
+                <div class="d-flex align-items-center justify-content-center">
+                        <p class="mb-0 me-2" style="font-size: 15px">¿Ya tienes una cuenta?</p>
+                        <button type="button" class="btn btn-outline-secondary" style="border-radius: 10px;" data-bs-dismiss="modal">Iniciar Sesión</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Verification -->
+<div class="modal fade" id="verificationModal" tabindex="-1" aria-labelledby="verificationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header">
+                <h4 class="modal-title fw-semibold" id="verificationModalLabel">Código de Verificación</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center mb-1">
+                    <i class="fas fa-envelope-open pe-1 pb-2" style="font-size: 75px; color: rgb(89, 181, 72);" ></i>
+                </div>
+                <h6 class="text-center" id="verificationMessage"></h6> 
+                <form id="verificationForm" method="POST" action="{{ route('verify.codeIng') }}">
+                    @csrf
+                    <div class="mb-1">
+                        <label for="verification_code" class="form-label mt-3 fw-semibold" style="color: rgb(89, 181, 72);"><i class="fas fa-unlock pe-1" style="font-size: 15px; color: rgb(89, 181, 72);" ></i>
+                        Código</label>
+                        <input id="verification_code" name="verification_code" type="text" class="form-control" placeholder="Código de verificación" required />
+                    </div>
+
+                    <div class="text-center mt-3">
+                    <button id="code" class="btn px-4 fw-semibold" type="submit">Verificar Código</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</section>
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var loginModal = new bootstrap.Modal(document.getElementById('exampleModal'));
-        var registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
+document.addEventListener('DOMContentLoaded', function () {
+    var loginModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+    var verificationModal = new bootstrap.Modal(document.getElementById('verificationModal'));
+    var registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
 
-        document.getElementById('showRegisterModal').addEventListener('click', function () {
-            loginModal.hide();
-            registerModal.show();
+    var checkDocumentForm = document.getElementById('checkDocumentForm');
+    var verificationForm = document.getElementById('verificationForm');
+
+    if (checkDocumentForm) {
+        checkDocumentForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var form = e.target;
+            var csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
+            var csrfToken = csrfTokenMeta ? csrfTokenMeta.getAttribute('content') : '';
+
+            fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json',
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return response.text().then(text => {
+                        throw new Error(text);
+                    });
+                }
+            })
+            .then(data => {
+                if (data.message === 'Código de verificación enviado') {
+                   // Mostrar el correo electrónico en el modal de verificación
+                   var emailPart = data.email.replace(/(.{3})(.*)(@.*)/, '$1******$3');
+                    var verificationMessage = `Revisa el correo ${emailPart} para obtener el código de verificación`;
+                    document.getElementById('verificationMessage').textContent = verificationMessage;
+
+                    loginModal.hide();
+                    verificationModal.show();
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Ocurrió un error. Por favor, inténtalo de nuevo.');
+            });
         });
-    });
+    } else {
+        console.error('Formulario #checkDocumentForm no encontrado');
+    }
+
+    if (verificationForm) {
+        verificationForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var form = e.target;
+            var csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
+            var csrfToken = csrfTokenMeta ? csrfTokenMeta.getAttribute('content') : '';
+
+            fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json',
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return response.text().then(text => {
+                        throw new Error(text);
+                    });
+                }
+            })
+            .then(data => {
+                if (data.message === 'Código de verificación válido') {
+                    window.location.href = '/dashboard'; // Redirige al dashboard
+                } else {
+                    // Manejo de mensajes de error en la interfaz
+                    alert(data.message); // Muestra un mensaje de error
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Se ha producido un error en la verificación del código.');
+            });
+        });
+    } else {
+        console.error('Formulario #verificationForm no encontrado');
+    }
+});
+
+
 </script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-mQ93iN/wj1PI/f2BqYDQGAt7b8c6v8pUksbO9GOG3Xp7vcQx8gIoU0eMxI9NezKQ" crossorigin="anonymous"></script>
 </body>
 </html>
