@@ -38,3 +38,5 @@ Route::post('/verify-code', [AuthController::class, 'verifyCode'])->name('verify
 // Ruta para enviar el código de verificación
 Route::post('/verify-code-ing', [AuthController::class, 'verifyCodeIng'])->name('verify.codeIng');
 
+
+

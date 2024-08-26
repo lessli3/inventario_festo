@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{!! asset('css/stylehome.css') !!}">
+    <script src="{{ asset('js/home.js') }}"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -263,7 +264,13 @@
             </div>
             <div class="modal-body">
                 <div class="text-center mb-1">
-                <img src="img/logov.png" alt="Imagen Circular" style="width: 100px;" alt="logo">
+                <img src="img/logov.png" alt="Imagen" style="width: 100px;" alt="logo">
+                </div>
+                <!-- Spinner de carga (inicialmente oculto) -->
+                <div id="loadingSpinner" class="text-center mb-4" style="display: none;">
+                    <div class="spinner-border text-success" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
                 </div>
                 <!-- Formulario para verificar el documento -->
                 <form id="checkDocumentForm" method="POST" action="{{ route('verify.code') }}">
@@ -292,7 +299,7 @@
 </div>
 
 <!-- Modal Register -->
-    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content rounded-4 shadow">
             <div class="modal-header border-bottom-0">
@@ -313,6 +320,7 @@
                         Email</label>
                         <input id="email" name="email" type="email" class="form-control" :value="old('email')" required autofocus autocomplete="email"
                             placeholder="Ingresa tu correo eléctronico" required />
+                        <span id="emailError" class="text-danger"></span>
                     </div>
 
                     <div class="row">
@@ -322,6 +330,7 @@
                             N° de identificación</label>
                             <input id="registerIdentity" name="identity" type="number" class="form-control"
                                 placeholder="Ingresa tu identificación" required />
+                            <span id="identityError" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -369,6 +378,8 @@
                     <button type="submit" id="register" class="btn px-4 fw-semibold">{{ __('Register') }}</button>
                     </div>
 
+                    <div id="registerMessage" class="text-success mt-3" style="display: none;"></div>
+
                 </form>
                 <hr>
                 <div class="d-flex align-items-center justify-content-center">
@@ -411,111 +422,23 @@
     </div>
 </div>
 
-
-
 </section>
 </div>
 
+
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    var loginModal = new bootstrap.Modal(document.getElementById('exampleModal'));
-    var verificationModal = new bootstrap.Modal(document.getElementById('verificationModal'));
-    var registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
+    document.getElementById('checkDocumentForm').addEventListener('submit', function() {
+        // Mostrar el spinner
+        document.getElementById('loadingSpinner').style.display = 'block';
+    });
 
-    var checkDocumentForm = document.getElementById('checkDocumentForm');
-    var verificationForm = document.getElementById('verificationForm');
+    // Ocultar el spinner después de un tiempo simulado o cuando el formulario haya sido procesado
+    setTimeout(function() {
+        document.getElementById('loadingSpinner').style.display = 'none';
+    }, 5000); // Ajusta el tiempo según tus necesidades
 
-    if (checkDocumentForm) {
-        checkDocumentForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            var form = e.target;
-            var csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
-            var csrfToken = csrfTokenMeta ? csrfTokenMeta.getAttribute('content') : '';
-
-            fetch(form.action, {
-                method: 'POST',
-                body: new FormData(form),
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Accept': 'application/json',
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    return response.text().then(text => {
-                        throw new Error(text);
-                    });
-                }
-            })
-            .then(data => {
-                if (data.message === 'Código de verificación enviado') {
-                   // Mostrar el correo electrónico en el modal de verificación
-                   var emailPart = data.email.replace(/(.{3})(.*)(@.*)/, '$1******$3');
-                    var verificationMessage = `Revisa el correo ${emailPart} para obtener el código de verificación`;
-                    document.getElementById('verificationMessage').textContent = verificationMessage;
-
-                    loginModal.hide();
-                    verificationModal.show();
-                } else {
-                    alert('Error: ' + data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Ocurrió un error. Por favor, inténtalo de nuevo.');
-            });
-        });
-    } else {
-        console.error('Formulario #checkDocumentForm no encontrado');
-    }
-
-    if (verificationForm) {
-        verificationForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            var form = e.target;
-            var csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
-            var csrfToken = csrfTokenMeta ? csrfTokenMeta.getAttribute('content') : '';
-
-            fetch(form.action, {
-                method: 'POST',
-                body: new FormData(form),
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Accept': 'application/json',
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    return response.text().then(text => {
-                        throw new Error(text);
-                    });
-                }
-            })
-            .then(data => {
-                if (data.message === 'Código de verificación válido') {
-                    window.location.href = '/dashboard'; // Redirige al dashboard
-                } else {
-                    // Manejo de mensajes de error en la interfaz
-                    alert(data.message); // Muestra un mensaje de error
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Se ha producido un error en la verificación del código.');
-            });
-        });
-    } else {
-        console.error('Formulario #verificationForm no encontrado');
-    }
-});
-
-
+    var registerFormAction = "{{ route('register') }}";
 </script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-mQ93iN/wj1PI/f2BqYDQGAt7b8c6v8pUksbO9GOG3Xp7vcQx8gIoU0eMxI9NezKQ" crossorigin="anonymous"></script>
 </body>
 </html>

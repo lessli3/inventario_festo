@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// routes/api.php
+Route::get('/has-admin', function () {
+    $adminExists = \App\Models\User::where('role', 'Administrador')->exists();
+    return response()->json(['has_admin' => $adminExists]);
+});
