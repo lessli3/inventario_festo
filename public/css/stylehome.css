@@ -268,8 +268,6 @@ body {
     border-radius: 0.25rem; /* Bordes redondeados para el botón */
 }
 
-
-
 #login2{
     border-radius: 10px;
     background-color: green;
@@ -301,21 +299,28 @@ body {
 }
 
 /* Ajusta el tamaño de la tarjeta en pantallas pequeñas */
-@media (min-width: 300px) and (max-width: 576px) {
-    .container-text img{
-        width: 100%;
-        height: 165px;
-        margin-top: 20px;
-    }
-    .container-text h1{
-        margin-left: 2%;
-        font-size: 25px;
-    }
-    .scroll-down-button{
-        font-size: 3.5rem;
+@media (min-width: 300px) and (max-width: 676px) {
+    .container-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centra la imagen y el texto horizontalmente */
+        justify-content: center;
     }
     
-    /* Seccion información */
+    .container-text img {
+        width: 51%;
+        height: 170px;
+    }
+    
+    .container-text h1 {
+        font-size: 30px;
+        text-align: center; /* Centra el texto */
+    }
+    .scroll-down-button{
+        font-size: 3.8rem;
+    }
+    
+/* Seccion información */
     .content-container {
         flex-direction: column; /* Apila los contenidos verticalmente */
     }
@@ -334,42 +339,107 @@ body {
     .text-content {
         padding: 10px; /* Ajusta el padding según sea necesario */
     }
-    .container-info{
-        h2{
-            text-align: center;
-            margin-top: 25px;
-        }
+
+/*Informacion img circular*/
+    .col-md-12 {
+        flex: 0 0 100%;
+        text-align: justify;
+        max-width: 100%;
     }
-    .row2{
-        padding-left: 10px;
+
+    .container-info .row {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
         h2{
             text-align: center;
         }
         img{
-            margin-bottom: 80px;
+            margin-bottom: 6%;
         }
     }
+
+    .row2{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+        padding-left: 10px;
+        
+        img{
+            margin-top: 5%;
+        }
+        h2{
+            margin-top: 10%;
+            text-align: center;
+        }
+    }
+
+/*Cards*/
     .container-card{
+        margin-top: 25%;
         margin-bottom: 130px;
     }
 
 }
 /* Ajusta el tamaño de la tarjeta en pantallas medianas */
-@media (min-width: 577px) and (max-width: 768px) {
-    .container-text img{
-        width: 110%;
-        height:210px;
-    }
-    .container-text h1{
-        margin-left: 7%;
-        font-size: 40px;
+@media (min-width: 677px) and (max-width: 1000px) {
+    .container-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centra la imagen y el texto horizontalmente */
+        justify-content: center;
     }
     
+    .container-text img {
+        width: 36%;
+        height: 230px;
+    }
+    
+    .scroll-down-button{
+        font-size: 4rem;
+    }
+    .container-text h1{
+        text-align: center; /* Centra el texto */
+        font-size: 45px;
+    }
 
+    .right-content {
+        width: 100%; /* Asegura que cada contenido ocupe todo el ancho disponible */
+
+        h1{
+            text-align: center;
+            padding-bottom: 20px;
+        }
+    }
+
+    .container-info{
+        h2{
+            margin-top: 5%;
+            text-align: center;
+        }
+    }
+
+    .row2{
+        h2{
+            margin-top: 5%;
+            text-align: center;
+        }
+
+        img{
+            margin-bottom: 15%;
+        }
+    }
+    .container-card{
+        margin-bottom: 130px;
+    }
     
 }
 
-@media (min-width: 769px) {
+@media (min-width: 1001px) {
     .container-text img{
         width: 30%;
         height: 100x;
@@ -384,6 +454,7 @@ body {
         padding-top: 70px;
         padding-left: 100px;  /* Padding izquierdo */
         padding-right: 100px; /* Padding derecho */
+        
     }
 
     .row2{

@@ -19,14 +19,14 @@
             <div class="carousel-item active">
                 <div class="d-flex h-100">
                     <!-- Columna izquierda: texto y botones -->
-                    <div class="carousel-text col-lg-6 col-md-2 d-flex flex-column justify-content-center ">
+                    <div class="carousel-text col-lg-6 d-flex flex-column justify-content-center ">
                     <h4 class=" fw-semibold">El servicio nacional de aprendizaje (SENA) ofrece una formación que abarca conocimientos 
                         teóricos y prácticos en diversos campos, permitiendo a los aprendices desarrollar habilidades sólidas para 
                         desempeñarse en el mercado laboral.</h4>
 
                     </div>
                     <!-- Columna derecha: card -->
-                    <div class="carousel-card col-md-6  d-flex justify-content-center align-items-center p-4">
+                    <div class="carousel-card  d-flex justify-content-center align-items-center p-4">
                         <div class="card" style="height: 100%; border-radius: 15px; background: url('img/crspl/sena1.jpeg') no-repeat center center; background-size: cover;">
                             <div class="card-body position-relative bottom-0 start-0 ">
                                <h5 class="card-title mb-2 fw-bold" style="color: white;">Formación profesional integral</h5>
@@ -42,13 +42,13 @@
             <div class="carousel-item carousel">
                 <div class="d-flex h-100">
                     <!-- Columna izquierda: texto y botones -->
-                    <div class="carousel-text col-lg-6 col-md-2 d-flex flex-column justify-content-center ">
+                    <div class="carousel-text col-lg-6 d-flex flex-column justify-content-center ">
                     <h4 class=" fw-semibold">El ambiente de FESTO es un sector especializado de la industria que se especializa 
                     en las áreas de electricidad, automatización industrial, hidráulica y neumática.</h4>
 
                     </div>
                     <!-- Columna derecha: card -->
-                    <div class="carousel-card col-md-6  d-flex justify-content-center align-items-center p-4">
+                    <div class="carousel-card  d-flex justify-content-center align-items-center p-4">
                         <div class="card" style="height: 100%; border-radius: 15px; background: url('img/crspl/sena2.jpeg') no-repeat center center; background-size: cover;">
                             <div class="card-body position-relative bottom-0 start-0 ">
                                <h5 class="card-title mb-2 fw-bold" style="color: white;">Especializado en automatización</h5>
@@ -64,13 +64,13 @@
             <div class="carousel-item">
                 <div class="d-flex h-100">
                     <!-- Columna izquierda: texto y botones -->
-                    <div class="carousel-text col-lg-6 col-md-2 d-flex flex-column justify-content-center ">
+                    <div class="carousel-text col-lg-6 d-flex flex-column justify-content-center ">
                         <h4 class=" fw-semibold">El SENA es una institución pública de Colombia que ofrece educación gratuita a través de programas técnicos, tecnológicos y complementarios. Está adscrito al Ministerio de Trabajo de Colombia y goza de autonomía administrativa.
                 </h4>
 
                     </div>
                     <!-- Columna derecha: card -->
-                    <div class="carousel-card col-md-6  d-flex justify-content-center align-items-center p-4">
+                    <div class="carousel-card  d-flex justify-content-center align-items-center p-4">
                         <div class="card" style="height: 100%; border-radius: 15px; background: url('img/crspl/sena3.jpg') no-repeat center center; background-size: cover;">
                             <div class="card-body position-relative bottom-0 start-0 ">
                                <h5 class="card-title mb-2 fw-bold" style="color: white;">Educación gratuita</h5>
@@ -86,7 +86,7 @@
             <div class="carousel-item carousel">
             <div class="d-flex h-100">
                     <!-- Columna izquierda: texto y botones -->
-                    <div class="carousel-text col-lg-6 col-md-2 d-flex flex-column justify-content-center ">
+                    <div class="carousel-text col-lg-6 d-flex flex-column justify-content-center ">
                     <h4 class=" fw-semibold">La certificación internacional otorgada por Festo tiene alcance para 66 países ubicados en Europa y América, y garantiza que la formación que imparte el SENA está acorde a las normas, 
                         condiciones y pertinencia exigida a nivel mundial, además facilita al aprendiz su ingreso al aparato productivo de enfoque industrial.
                     </h4>
@@ -94,7 +94,7 @@
 
                     </div>
                     <!-- Columna derecha: card -->
-                    <div class="carousel-card col-md-6  d-flex justify-content-center align-items-center p-4">
+                    <div class="carousel-card  d-flex justify-content-center align-items-center p-4">
                         <div class="card" style="height: 100%; border-radius: 15px; background: url('img/crspl/sena4.jpg') no-repeat center center; background-size: cover;">
                             <div class="card-body position-relative bottom-0 start-0 ">
                                <h5 class="card-title mb-2 fw-bold" style="color: white;">Preparación técnica</h5>

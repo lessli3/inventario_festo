@@ -17,17 +17,18 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        $role1 = Role::create(['name'=>'Administrador']);
-        $role2 = Role::create(['name'=>'Instructor']);
+        // Usa firstOrCreate para evitar crear roles duplicados
+        $role1 = Role::firstOrCreate(['name' => 'Administrador']);
+        $role2 = Role::firstOrCreate(['name' => 'Instructor']);
 
-        Permission::create(['name'=>'solicitarHerramienta'])->syncRoles([$role2]);
-        Permission::create(['name'=>'editarHerramienta'])->syncRoles([$role1]);
-        Permission::create(['name'=>'eliminarHerramienta'])->syncRoles([$role1]);
-        Permission::create(['name'=>'crearHerramienta'])->syncRoles([$role1]);
-        Permission::create(['name'=>'verSolicitud'])->syncRoles([$role2]);
-        Permission::create(['name'=>'agregarAdministrador'])->syncRoles([$role1]);
-        Permission::create(['name'=>'accesoAdministrador'])->syncRoles([$role1]);
-        Permission::create(['name'=>'accesoSolicitudes'])->syncRoles([$role1,$role2]);
-        Permission::create(['name'=>'accesoPerfil'])->syncRoles([$role1,$role2]);
+        Permission::firstOrCreate(['name'=>'editarHerramienta'])->syncRoles([$role1]);
+        Permission::firstOrCreate(['name'=>'eliminarHerramienta'])->syncRoles([$role1]);
+        Permission::firstOrCreate(['name'=>'crearHerramienta'])->syncRoles([$role1]);
+        Permission::firstOrCreate(['name'=>'agregarAdministrador'])->syncRoles([$role1]);
+        Permission::firstOrCreate(['name'=>'editarSolicitud'])->syncRoles([$role1]);
+        /*Permission::firstOrCreate(['name'=>'accesoAdministrador'])->syncRoles([$role1]);*/
+        Permission::firstOrCreate(['name'=>'solicitarHerramienta'])->syncRoles([$role2]);
+        Permission::firstOrCreate(['name'=>'verSolicitud'])->syncRoles([$role1, $role2]);
+        Permission::firstOrCreate(['name'=>'accesoPerfil'])->syncRoles([$role1,$role2]);
     }
 }

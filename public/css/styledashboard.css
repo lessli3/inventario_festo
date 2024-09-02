@@ -1,0 +1,278 @@
+/* Estilos generales */
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: transparent;
+    display: flex;
+}
+
+.header {
+    background-color: transparent;
+    color: #000000;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    position: fixed;
+    width: calc(100% - 250px); /* Ajusta el ancho para considerar la barra lateral */
+    top: 0;
+    left: 250px; /* Ancho de la barra lateral */
+    z-index: 1000;
+}
+
+.header .admin-title {
+    font-size: 21px;
+    font-weight: bold;
+    margin-left: 2%;
+}
+
+.header .search-container {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.header .search-container input[type="text"] {
+    padding: 5px;
+    border: none;
+    border-radius: 3px;
+    background-color: #ffffff;
+    color: #000000;
+    outline: none;
+    width: 200px;
+}
+
+.header .search-container .search-icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: #bbb;
+}
+
+
+.capa{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.493);
+    z-index: -1;
+    top: 0;left: 0;
+}
+
+.sidebar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 260px;
+    display: flex;
+    overflow-x: hidden;
+    flex-direction: column;
+    background: #161a2d;
+    padding: 25px 20px;
+    transition: all 0.4s ease;
+}
+
+.sidebar-header{
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-header img {
+ width: 42px;
+ border-radius: 50%;
+}
+
+.sidebar-links {
+    list-style: none;
+    margin-top: 20px;
+    height: 80%;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.sidebar-links h4 span {
+    opacity: 1;
+}
+
+.sidebar-header h2{
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #fff;
+    margin-left: 23px;
+}
+
+.sidebar-links h4 {
+ color: #fff;
+ font-weight: 500;
+ margin: 10px 0;
+ white-space: nowrap;
+ position: relative;
+}
+
+.sidebar-links li a{
+color: #dbd4d4e3;
+font-weight: 500;
+display:flex;
+align-items: center;
+gap: 0 20px;
+padding: 15px 10px;
+white-space: nowrap;
+text-decoration: none;
+}
+
+.sidebar-links li a:hover{
+    background: #ffffff2d;
+    color: #fff;
+    border-radius: 4px;
+}
+
+
+.main-content {
+    flex: 1; /* Para ocupar el espacio restante */
+    margin-left: 280px; 
+    padding-top: 8%;
+    z-index: 2;
+}
+
+/* Estilos responsive */
+@media (max-width: 768px) {
+    .header {
+        width: calc(100% - 85px);
+        left: 85px;
+    }
+
+    .sidebar {
+        width: 85px;
+    }
+
+    .sidebar.minimized {
+        width: 85px;
+    }
+
+    .sidebar:hover {
+        width: 260px;
+    }
+
+    .sidebar-links h4 span {
+        opacity: 0;
+    }
+
+    .sidebar-links .menu-separator {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 100%;
+        height: 1px;
+        transform: scaleX(1);
+        transform: translateY(-50%);
+        background: #333578;
+        transform-origin: right;
+        transition-duration: 0.2s;
+    }
+
+    .sidebar:hover .sidebar-links .menu-separator {
+        transition-delay: 0s;
+        transform: scaleX(0);
+    }
+
+    .header {
+        left: 85px;
+        width: calc(100% - 85px);
+    }
+
+    .header:hover + .sidebar,
+    .sidebar:hover {
+        width: 250px;
+    }
+    
+    /* Oculta el botón hamburguesa en pantallas de tablet y laptop */
+    .hamburger-menu {
+        display: none;
+    }
+}
+
+@media (max-width: 425px) {
+
+
+
+    .header .admin-title {
+        font-size: 18px; 
+    }
+
+    .header .search-container {
+        padding: 5px 10px;
+    }
+
+    .header .search-container input[type="text"] {
+        width: 80px; 
+        font-size: 12px; 
+    }
+
+    .header .user-info span {
+        font-size: 26px; 
+        margin-left: 8px; 
+    }
+
+    .sidebar-header img {
+        width: 28px; /* Reducir el tamaño del logo en la barra lateral */
+    }
+
+    .sidebar-header h2 {
+        font-size: 1rem; /* Reducir el tamaño del texto en la barra lateral */
+    }
+
+    .sidebar-links h4 {
+        font-size: 12px; /* Reducir el tamaño del texto de los títulos */
+    }
+
+    .sidebar-links li a {
+        
+        font-size: 10px; /* Reduce aún más el tamaño del texto */
+        padding: 6px 5px; /* Ajusta el padding para un mejor ajuste */
+        gap: 0 5px; /* Reduce el espacio entre el icono y el texto */
+    }
+
+    /* Ocultar la barra lateral en móviles */
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        width: 180px;
+    }
+
+    /* Mostrar la barra lateral cuando esté activa */
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .header {
+        width: 100%;
+        left: 0;
+    }
+
+    /* Estilo del botón hamburguesa solo visible en móviles */
+    .hamburger-menu {
+        display: block;
+        font-size: 32px;
+        cursor: pointer;
+        margin-right: 15px;
+    }
+}
+@media (min-width: 769px) {
+    .hamburger-menu {
+        display: none;
+    }
+}
+
+

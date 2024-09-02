@@ -3,22 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var verificationModal = new bootstrap.Modal(document.getElementById('verificationModal'));
     var registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
 
-    // Verifica si ya hay un administrador
-    fetch('/api/has-admin')
-        .then(response => response.json())
-        .then(data => {
-            if (data.has_admin) {
-                // Si ya hay un administrador, oculta la opción de Administrador
-                var adminOption = document.querySelector('option[value="Administrador"]');
-                if (adminOption) {
-                    adminOption.style.display = 'none';
-                }
-            }
-        })
-        .catch(error => {
-            // Muestra un mensaje de error si ocurre un problema al verificar el administrador
-            alert('Error al verificar administrador:', error.message);
-        });
 
     var checkDocumentForm = document.getElementById('checkDocumentForm');
     var verificationForm = document.getElementById('verificationForm');

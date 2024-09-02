@@ -6,7 +6,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{!! asset('css/stylehome.css') !!}">
     <script src="{{ asset('js/home.js') }}"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-RANDOM_HASH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YOUR_HASH" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -158,15 +159,15 @@
     <div class="container-info" style="margin-top: 10px; margin-bottom: 20px">
             <div class="row align-items-center pt-5" style="padding-left: 20px; padding-right: 10px;">
                 <!-- Columna con imagen circular -->
-                <div class="col col-lg-4  col-md-2  text-center">
+                <div class="col col-lg-4 col-md-12  text-center">
                 <img src="img/home/festosb.png" alt="Imagen Circular" class="img-circle">
                 </div>
                 <!-- Columna con contenido -->
-                <div class="col col-lg-8">
+                <div class="col col-lg-8 col-md-12">
                     <h2 class="fw-bold pb-2">FESTO | SENA</h2>
-                    <p style="font-size: 18px">Este ambiente de formación se generó por medio de un convenio que existió entre el SENA y la empresa FESTO (Alemana), 
-                        cuyo objetivo principal es la preparación técnica de toda la población, así como la certificación 
-                        en competencias de manera internacional en los países donde FESTO tiene cobertura.</p>
+                    <p style="font-size: 18px">Este ambiente de formación se generó por medio de un convenio entre el SENA y la empresa FESTO (Alemana), 
+                        cuyo objetivo principal es la preparación técnica de toda la población y la certificación 
+                        en los países donde FESTO tiene cobertura.</p>
                 </div>
                 </div>
 
@@ -174,14 +175,14 @@
 
             <div class="row row2 align-items-center pt-2" style="padding-right: 10px;">
                 <!-- Columna con contenido -->
-                <div class="col col-lg-8">
+                <div class="col col-lg-8 col-md-12">
                     <h2 class="fw-bold pb-2">CONTROL FESTO</h2>
                     <p style="font-size: 18px">Este aplicativo está diseñado con el fin de que los recursos alojados en el ambiente FESTO puedan ser utilizados, garantizando organización y
-                        control de entrada - salida de elementos del ambiente, para que así aprendices e instructores puedan sacar provecho de estos.</p>
+                        control de entrada - salida de elementos del ambiente.</p>
                 </div>
 
                 <!-- Columna con imagen circular -->
-                <div class="col col-lg-4  col-md-2  text-center">
+                <div class="col col-lg-4 col-md-12  text-center">
                     <img src="img/home/info2.jpg" alt="Imagen Circular" class="img-circle">
                 </div>
             </div> 
@@ -189,11 +190,11 @@
         
 <!--Contenido de información en cards-->
            <!--Contenido de información en cards-->
-           <div class="container-card mt-5">
+           <div class="container-card ">
                     <center>
                     <h2 class="fw-bold">DISPONIBLE EN CONTROL FESTO</h2>
                     </center>
-                    <div class="row pt-5 pb-4">
+                    <div class="row pt-4 pb-4">
                         <!-- Tarjeta 1 -->
                         <div class="card-home pb-4 col-12 col-md-6 col-lg-4 d-flex justify-content-center align-items-center mb-4 mb-md-0">
                             <div class="card" style="background: url('img/home/card1.jpg') no-repeat center center; background-size: cover;">
@@ -298,6 +299,37 @@
     </div>
 </div>
 
+<!-- Modal Verification -->
+<div class="modal fade" id="verificationModal" tabindex="-1" aria-labelledby="verificationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header">
+                <h4 class="modal-title fw-semibold" id="verificationModalLabel">Código de Verificación</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center mb-1">
+                    <i class="fas fa-envelope-open pe-1 pb-2" style="font-size: 75px; color: rgb(89, 181, 72);" ></i>
+                </div>
+                <h6 class="text-center" id="verificationMessage"></h6> 
+                <form id="verificationForm" method="POST" action="{{ route('verify.codeIng') }}">
+                    @csrf
+                    <div class="mb-1">
+                        <label for="verification_code" class="form-label mt-3 fw-semibold" style="color: rgb(89, 181, 72);"><i class="fas fa-unlock pe-1" style="font-size: 15px; color: rgb(89, 181, 72);" ></i>
+                        Código</label>
+                        <input id="verification_code" name="verification_code" type="text" class="form-control" placeholder="Código de verificación" required />
+                    </div>
+
+                    <div class="text-center mt-3">
+                    <button id="code" class="btn px-4 fw-semibold" type="submit">Verificar Código</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Modal Register -->
 <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -334,16 +366,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                        <div class="mb-1">
-                            <label for="role" class=" mt-3 form-label fw-semibold" style="color: rgb(89, 181, 72);"><i class="fas fa-circle-check pe-1" style="font-size: 15px; color: rgb(89, 181, 72);" ></i>
-                            Rol</label>
-                            <select class="form-select" id="role" name="role" required>
-                                <option disabled selected value="">Seleccionar rol</option>
-                                <option value="Administrador">Administrador</option>
-                                <option value="Instructor">Instructor</option>
-                            </select>
-                        </div>
-                        </div>
+                        
                     </div>
                     <!--<div>
                         <x-label for="name" value="{{ __('Name') }}" />
@@ -391,37 +414,6 @@
     </div>
 </div>
 
-<!-- Modal Verification -->
-<div class="modal fade" id="verificationModal" tabindex="-1" aria-labelledby="verificationModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content rounded-4 shadow">
-            <div class="modal-header">
-                <h4 class="modal-title fw-semibold" id="verificationModalLabel">Código de Verificación</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="text-center mb-1">
-                    <i class="fas fa-envelope-open pe-1 pb-2" style="font-size: 75px; color: rgb(89, 181, 72);" ></i>
-                </div>
-                <h6 class="text-center" id="verificationMessage"></h6> 
-                <form id="verificationForm" method="POST" action="{{ route('verify.codeIng') }}">
-                    @csrf
-                    <div class="mb-1">
-                        <label for="verification_code" class="form-label mt-3 fw-semibold" style="color: rgb(89, 181, 72);"><i class="fas fa-unlock pe-1" style="font-size: 15px; color: rgb(89, 181, 72);" ></i>
-                        Código</label>
-                        <input id="verification_code" name="verification_code" type="text" class="form-control" placeholder="Código de verificación" required />
-                    </div>
-
-                    <div class="text-center mt-3">
-                    <button id="code" class="btn px-4 fw-semibold" type="submit">Verificar Código</button>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
 </section>
 </div>
 
@@ -439,6 +431,6 @@
 
     var registerFormAction = "{{ route('register') }}";
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-mQ93iN/wj1PI/f2BqYDQGAt7b8c6v8pUksbO9GOG3Xp7vcQx8gIoU0eMxI9NezKQ" crossorigin="anonymous"></script>
+
 </body>
 </html>

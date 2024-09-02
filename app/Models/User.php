@@ -18,6 +18,7 @@ class User extends Authenticatable
     use HasFactory, HasRoles, SoftDeletes;
     use HasProfilePhoto;
     use Notifiable;
+    use HasRoles;
     use TwoFactorAuthenticatable;
 
     /**
@@ -26,7 +27,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', 'email', 'identity', 'role',
+        'name', 'email', 'identity',
     ];
 
 

@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role; // Importa la clase Role
+use Spatie\Permission\Models\Permission; // Importa la clase Permission
+use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,11 +16,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call(RoleSeeder::class);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // Obtener los roles
+        $instructorRole = Role::where('name', 'Instructor')->first();
+        $adminRole = Role::where('name', 'Administrador')->first();
+
+        // Crear usuarios y asignarles roles
+        $user1 = User::firstOrCreate([
+            'name' => 'Angie',
+            'email' => 'angie@gmail.com',
+            'identity' => '123456789' // Solo el valor, no `bcrypt`
+        ]);
+        $user1->assignRole($instructorRole);
+
+        $user2 = User::firstOrCreate([
+            'name' => 'Salome',
+            'email' => 'salome26u.u@gmail.com',
+            'identity' => '1070386098' // Solo el valor, no `bcrypt`
+        ]);
+        $user2->assignRole($adminRole);
     }
 }
