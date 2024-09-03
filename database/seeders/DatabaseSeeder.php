@@ -26,14 +26,14 @@ class DatabaseSeeder extends Seeder
         $user1 = User::firstOrCreate([
             'name' => 'Angie',
             'email' => 'angie@gmail.com',
-            'identity' => '123456789' // Solo el valor, no `bcrypt`
+            'identity' => '123456789' 
         ]);
         $user1->assignRole($instructorRole);
 
         $user2 = User::firstOrCreate([
             'name' => 'Salome',
             'email' => 'salome26u.u@gmail.com',
-            'identity' => '1070386098' // Solo el valor, no `bcrypt`
+            'identity' => '1070386098' 
         ]);
         $user2->assignRole($adminRole);
     }

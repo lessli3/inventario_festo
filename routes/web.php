@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HerramientaController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,7 +33,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 
-
 Route::post('/check-document', [AuthController::class, 'sendVerificationCode'])->name('check.document');
 // Ruta para verificar el código de verificación
 Route::post('/verify-code', [AuthController::class, 'verifyCode'])->name('verify.code');
@@ -39,4 +40,5 @@ Route::post('/verify-code', [AuthController::class, 'verifyCode'])->name('verify
 Route::post('/verify-code-ing', [AuthController::class, 'verifyCodeIng'])->name('verify.codeIng');
 
 
+Route::resource('/herramientas', HerramientaController::class);
 

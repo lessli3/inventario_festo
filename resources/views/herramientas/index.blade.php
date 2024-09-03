@@ -2,6 +2,6 @@
 @section('titulo', 'Herramientas')
 @section('content')
 
-<livewire:productlist :productos="$productos" :categorias="$categorias" />
+<livewire:herramientalist :herramientas="$herramientas" :categorias="$categorias" />
 
 @endsection

@@ -1,46 +1,39 @@
-/* Estilos generales */
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
     background-color: transparent;
     display: flex;
 }
 
 .header {
-    background-color: transparent;
+    background-color:#b5b8b477;
     color: #000000;
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     position: fixed;
     width: calc(100% - 250px); /* Ajusta el ancho para considerar la barra lateral */
     top: 0;
-    left: 250px; /* Ancho de la barra lateral */
+    left: 18%; /* Ancho de la barra lateral */
     z-index: 1000;
+    box-shadow: 0 0px 1px rgba(0, 0, 0, 0.3);
+
 }
 
 .header .admin-title {
-    font-size: 21px;
+    font-size: 23px;
     font-weight: bold;
-    margin-left: 2%;
+    margin-top: 1%;
+    margin-left: 1%;
+    color: #504f4f;
 }
 
 .header .search-container {
     display: flex;
     align-items: center;
     background-color: #ffffff;
-    border-radius: 5px;
+    border-radius: 22px;
     padding: 5px;
 }
 
@@ -51,7 +44,7 @@ body {
     background-color: #ffffff;
     color: #000000;
     outline: none;
-    width: 200px;
+    width: 100%;
 }
 
 .header .search-container .search-icon {
@@ -59,6 +52,7 @@ body {
     cursor: pointer;
     color: #bbb;
 }
+
 
 
 .capa{
@@ -75,13 +69,15 @@ body {
     top: 0;
     left: 0;
     height: 100%;
-    width: 260px;
+    width: 18%;
     display: flex;
     overflow-x: hidden;
     flex-direction: column;
-    background: #161a2d;
-    padding: 25px 20px;
+    background: #b5b8b477;
+    padding: 20px;
     transition: all 0.4s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+
 }
 
 .sidebar-header{
@@ -89,14 +85,16 @@ body {
     align-items: center;
 }
 
+
 .sidebar-header img {
- width: 42px;
+ width: 50px;
  border-radius: 50%;
+ margin-left: 15px;
 }
 
 .sidebar-links {
     list-style: none;
-    margin-top: 20px;
+    margin-top: 15px;
     height: 80%;
     overflow-y: auto;
     scrollbar-width: none;
@@ -104,44 +102,47 @@ body {
 
 .sidebar-links h4 span {
     opacity: 1;
+
 }
 
 .sidebar-header h2{
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #fff;
-    margin-left: 23px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #17971e;
+    margin-left: 20px;
 }
+
 
 .sidebar-links h4 {
- color: #fff;
- font-weight: 500;
- margin: 10px 0;
- white-space: nowrap;
- position: relative;
-}
-
+    color: #504f4f;
+    font-weight: 500;
+    margin: 8px 0;
+    white-space: nowrap;
+    position: relative;
+   }
+   
 .sidebar-links li a{
-color: #dbd4d4e3;
-font-weight: 500;
+color: #504f4f;
+font-weight: 600;
 display:flex;
 align-items: center;
-gap: 0 20px;
-padding: 15px 10px;
+gap: 0 15px;
+padding: 12px 8px;
 white-space: nowrap;
 text-decoration: none;
+font-size: 16px;
 }
-
-.sidebar-links li a:hover{
-    background: #ffffff2d;
-    color: #fff;
-    border-radius: 4px;
-}
+   
+   .sidebar-links li a:hover{
+       background: #ffffff6e;
+       color: #000000;
+       border-radius: 4px;
+   }
 
 
 .main-content {
     flex: 1; /* Para ocupar el espacio restante */
-    margin-left: 280px; 
+    margin-left: 22%; 
     padding-top: 8%;
     z-index: 2;
 }
@@ -150,11 +151,11 @@ text-decoration: none;
 @media (max-width: 768px) {
     .header {
         width: calc(100% - 85px);
-        left: 85px;
     }
 
     .sidebar {
         width: 85px;
+        z-index: 2000;
     }
 
     .sidebar.minimized {
@@ -200,13 +201,17 @@ text-decoration: none;
     /* Oculta el botón hamburguesa en pantallas de tablet y laptop */
     .hamburger-menu {
         display: none;
+        padding-top: 0;
     }
+  
+.sidebar-header img {
+    width: 50px;
+    border-radius: 50%;
+    margin-left: 0px;
+   }
 }
 
 @media (max-width: 425px) {
-
-
-
     .header .admin-title {
         font-size: 18px; 
     }

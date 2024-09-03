@@ -3,17 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Dashboard')</title>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>@yield('title', 'Dashboard')</title>    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset('css/styledashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styletools.css') }}">
     @livewireStyles
 
 </head>
 <body>
 @livewireScripts
+<div class="row">
     <header class="header">
         <span class="hamburger-menu material-symbols-outlined">menu</span>
-        <div class="admin-title">
+        <div class="admin-title col col-md-2">
             @if(Auth::user()->can('agregarAdministrador'))
                 <p>Administrador</p>
             @elseif(Auth::user()->can('solicitarHerramienta'))
@@ -22,11 +28,11 @@
                 <p>Sin permisos específicos</p>
             @endif
         </div>
-        <div class="search-container">
-            <input type="text" placeholder="Buscar...">
+        <div class="search-container col col-md-5 ">
+            <input wire:model.debounce.300ms="search" type="text" placeholder="Buscar herramientas...">
             <span class="search-icon"><i class="fas fa-search"></i></span>
         </div>
-        <div class="user-info">
+        <div class="user-info col col-md-1">
             @auth
                 @if (Auth::user()->currentTeam)
                     <span class="inline-flex rounded-md">
@@ -39,16 +45,21 @@
                     </span>
                 @endif
             @endauth 
-        </div>        
+
+            <button class="btn">
+                <a href="">user</a>
+            </button>
+        </div>      
     </header>
+    </div>  
 
     <aside class="sidebar">
         <div class="sidebar-header">
-            <img src="img/senalogo.png" alt="">
+            <img src="img/logov.png" alt="">
             <h2>FESTO</h2>
         </div>
-        <ul class="sidebar-links">
-            <h4>
+        <ul class="sidebar-links" style="padding: 0;">
+            <h4 class="fw-bold">
                 <span>Menu</span>
                 <div class="menu-separator"></div>
             </h4>
@@ -56,7 +67,7 @@
                 <a href="/dashboard"><span class="material-symbols-outlined">home</span>Home</a>
             </li>
             <li>
-                <a href="#"><span class="material-symbols-outlined">build</span>Herramientas</a>
+                <a href="/herramientas"><span class="material-symbols-outlined">build</span>Herramientas</a>
             </li>
             <li>
                 <a href="#"><span class="material-symbols-outlined">folder</span>Solicitudes</a>
@@ -66,10 +77,7 @@
                 <a href="#"><span class="material-symbols-outlined">groups</span>Administradores</a>
             </li>
             @endcan
-            <h4>
-                <span>Account</span>
-                <div class="menu-separator"></div>
-            </h4>
+            <hr>
             <li>
                 <a href="{{ route('profile.show') }}"><span class="material-symbols-outlined">account_circle</span>Perfil</a>
             </li>

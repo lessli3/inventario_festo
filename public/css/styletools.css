@@ -1,0 +1,76 @@
+
+.box {
+    background: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.btn-plus {
+    background-color: #2b9baa;
+    color: white;
+    border: transparent;
+}
+
+
+.box{
+    margin-right: 25px;
+    min-width: none;
+    border-color: transparent;
+}
+
+
+
+.card {
+    position: relative;
+    overflow: hidden; /* Evita que la imagen de fondo se desborde */
+    border: none; /* Elimina el borde si no es necesario */
+    background-size: cover; /* Asegura que la imagen cubra toda la tarjeta */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    height: 210px; /* Asegura que la tarjeta tenga una altura adecuada */
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.16);
+    border-color: transparent;
+    border-radius: 18px;
+    width: 90%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-body {
+    position: relative; /* Necesario para que el contenido se posicione correctamente sobre la imagen */
+    z-index: 1; /* Asegura que el contenido esté encima de la imagen de fondo */
+    color: #fff; 
+    background: rgba(0, 0, 0, 0.7);
+    align-content: end;
+}
+
+.herramienta-card .btn-info {
+    align-self: flex-start;
+}
+
+.herramienta-card .text-warning, 
+.herramienta-card .badge {
+    font-size: 14px;
+}
+
+.herramienta-card .text-warning, 
+.herramienta-card .badge, 
+.herramienta-card .btn-success {
+    margin-top: -5px;
+
+    i{
+        margin-bottom: 5px;
+        font-size: larger;
+        color: white;
+        margin-right: 5px;
+    }
+}
+
+.btn-success{
+    width: 40px;
+    background-color: transparent;
+    border-color: white;
+}
+
+

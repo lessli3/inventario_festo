@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Herramienta;
 use Illuminate\Http\Request;
+use App\Models\Herramienta;
+use App\Models\Categoria;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -22,12 +23,13 @@ class HerramientaController extends Controller
             $categorias = $request->input('categoria');
             $query->where('categoria', $categorias);
         }
-    
+
         $herramientas = $query->get();
-        $categorias = Categoria::all();
-    
-        return view('herramientas.index', compact('herramientas', 'categorias'));
+        $categorias = Categoria::all(); // Obtener categorías
+
+        return view('herramientas.index', compact('herramientas', 'categorias')); // Pasar categorías a la vista
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -38,8 +40,7 @@ class HerramientaController extends Controller
     {
         $user = Auth::user();
         $categorias = Categoria::all(); 
-
-        return view('herramientas.create');
+        return view('herramientas.create', compact('categorias'));
 
     }
 
@@ -63,7 +64,7 @@ class HerramientaController extends Controller
         $newHerramienta -> stock = $request->get('stock');
         $newHerramienta -> categoria = $request->get('categoria');
 
-        $newProduct -> save();
+        $newHerramienta -> save();
 
         return redirect('/herramientas');
     }
@@ -90,7 +91,7 @@ class HerramientaController extends Controller
         $herramientaEditar = Herramienta::findOrFail($id);
         $categorias = Categoria::all();
         return view('herramientas.edit', [
-            'herramienEditar' => $herramientaEditar,
+            'herramientaEditar' => $herramientaEditar, 
             'categorias' => $categorias
         ]);
     }
