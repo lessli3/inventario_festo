@@ -1,0 +1,16 @@
+<?php
+
+namespace App\Http\Livewire;
+
+use Livewire\Component;
+use App\Models\Solicitud;
+
+class Solicitudeslist extends Component
+{
+    public function render()
+    {
+
+        $solicitudes = Solicitud::all(); 
+        return view('livewire.solicitudeslist', compact('solicitudes'));
+    }
+}

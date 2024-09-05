@@ -1,0 +1,72 @@
+@extends('layouts.dashboard')
+@section('titulo', 'Crear Solicitud')
+@section('content')
+<main class="main-content">
+        <form action="{{ route('solicitudes.store') }}" method="POST">
+            @csrf
+    
+            <h3>Crear Solicitud</h3> <!-- Título del formulario -->
+    
+            <div class="form-group">
+                <label for="fecha">Fecha:</label>
+                <small>Por favor ingrese la fecha de la solicitud</small>
+                <input type="date" id="fecha" name="fecha" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="herramienta">Herramienta:</label>
+                <small>Ingrese el nombre de la herramienta que necesita</small>
+                <input type="text" id="herramienta" name="herramienta" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="cantidad">Cantidad:</label>
+                <small>Indique la cantidad requerida</small>
+                <input type="number" id="cantidad" name="cantidad" required min="1">
+            </div>
+            
+            <button type="submit">Enviar Solicitud</button>
+        </form>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.ver-detalles-btn').forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    var modalId = this.getAttribute('data-modal');
+                    document.getElementById(modalId).style.display = 'block';
+                });
+            });
+        });
+
+        function closeModal(id) {
+            document.getElementById('modal-' + id).style.display = 'none';
+        }
+    </script>
+@endsection
+
+@section('scripts')
+    <script>
+        function openModal(id) {
+            document.getElementById('modal-' + id).style.display = 'block';
+        }
+
+        function closeModal(id) {
+            document.getElementById('modal-' + id).style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            @foreach($solicitudes as $solicitud)
+                if (event.target == document.getElementById('modal-{{ $solicitud->id }}')) {
+                    document.getElementById('modal-{{ $solicitud->id }}').style.display = 'none';
+                }
+            @endforeach
+        }
+    </script>
+@endsection
+    <script>
+   document.querySelector('.hamburger-menu').addEventListener('click', function() {
+    document.querySelector('.sidebar').classList.toggle('active');
+});
+    </script>

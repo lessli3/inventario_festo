@@ -59,9 +59,11 @@ class HerramientaController extends Controller
         $request -> imagen -> move($destino,$nombreimg);
 
         $newHerramienta -> imagen = $nombreimg;
+        $newHerramienta -> cod_herramienta = $request->get('cod_herramienta');
         $newHerramienta -> nombre = $request->get('nombre');
         $newHerramienta -> descripcion = $request->get('descripcion');
         $newHerramienta -> stock = $request->get('stock');
+        $newHerramienta -> estado = $request->get('estado');
         $newHerramienta -> categoria = $request->get('categoria');
 
         $newHerramienta -> save();
@@ -108,6 +110,8 @@ class HerramientaController extends Controller
         $editarherramienta = Herramienta::findOrFail($id);
 
         $editarherramienta -> nombre = $request -> get('nombreEdit');
+        $editarherramienta -> cod_herramienta = $request -> get('codigoEdit');
+        $editarherramienta -> estado = $request -> get('estadoEdit');
         $editarherramienta -> descripcion = $request -> get('descripEdit');
         $editarherramienta -> stock = $request -> get('stockEdit');
         $editarherramienta -> categoria = $request -> get('categoriaEdit');

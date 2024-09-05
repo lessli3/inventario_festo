@@ -13,17 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('herramientas', function (Blueprint $table) {
+        Schema::create('solicitud_tools', function (Blueprint $table) {
             $table->id();
-            $table->string('cod_herramienta');
-            $table->string('nombre');
-            $table->string('descripcion');
-            $table->integer('stock');
-            $table->string('categoria');
-            $table->string('imagen');
-            $table->string('estado');
+            $table->foreignId('cod_herramienta')->constrained('herramientas')->onDelete('cascade');
+            $table->foreignId('user_identity')->constrained()->onDelete('cascade');
+            $table->integer('cantidad')->default(1);
             $table->timestamps();
-
         });
     }
 
@@ -34,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('herramientas');
+        Schema::dropIfExists('solicitud_tools');
     }
 };

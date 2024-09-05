@@ -1,10 +1,10 @@
 <div class="container">
     @include('layouts.mensaje')
     <div class="row mb-5">
-        <h1 class="col-12 text-center fw-bold">Herramientas</h1>
+        <h1 class="col-12 text-center fw-bold mt-4">Herramientas</h1>
         
         @can('agregarAdministrador')
-        <div class="row mt-5 mb-5">
+        <div class="row mt-5 mb-5 ps-5">
             <div class="col-lg-6 d-flex justify-content-start">
                 <div class="me-3">
                     <a href="/herramientas/create" class="btn btn-plus">
@@ -47,7 +47,7 @@
             <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
             <div class="card herramienta-card" style="background-image: url('{{ asset('imagenes/herramientas/' . $herramientaVista->imagen) }}');">
                  <div class="card-body">
-                    <div class="row" style="margin-bottom: 25%">
+                    <div class="row" style="margin-bottom: 25%;">
                     <div class="d-flex justify-content-between align-items-start mb-2">
                             @if($herramientaVista->stock > 0 && $herramientaVista->stock <= 3)
                                 @can('editarHerramienta')
@@ -66,7 +66,7 @@
 
                                 @if($herramientaVista->stock > 0)
                                     @can('solicitarHerramienta')
-                                    <button type="button" class="btn btn-success d-flex gap-2" wire:click="agregarCarro({{ $herramientaVista->id }})">
+                                    <button type="button" class="btn btn-success d-flex gap-2" wire:click="agregarSolicitud({{ $herramientaVista->id }})">
                                         <i class="fas fa-clipboard-list" style="font-size: 20px"></i>
                                     </button>
                                     @endcan

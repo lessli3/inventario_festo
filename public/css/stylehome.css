@@ -18,6 +18,10 @@ body {
     pointer-events: none; /* Permite que los clics pasen a través del overlay */
 }
 
+.modal-backdrop {
+    background-color: rgba(30, 180, 24, 0.911); /* Cambia el 0.5 por la opacidad deseada */
+}
+
 /* Modal */
 .modal {
     z-index: 4; /* Asegura que el modal esté encima de todo */
@@ -192,24 +196,13 @@ body {
     
 }
 
-.card-home {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 230px; 
-    
-}
 
 .card-body {
-    margin: 0; /* Elimina el margen que podría estar causando el espacio extra */
-    flex: 1; /* Hace que el card-body ocupe todo el espacio disponible */
-    display: flex;
-    flex-direction: column; /* Asegura que los elementos dentro del card-body se coloquen en columna */
-    justify-content: flex-end; /* Alinea el contenido al final del card-body */
-    padding: 0; /* Espaciado interno para el contenido de la tarjeta */
-    color: white; /* Color de texto blanco para contraste */
-    border-radius: 15px; /* Redondear las esquinas del contenido de la tarjeta */
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente para el contenido */
+    position: relative; /* Necesario para que el contenido se posicione correctamente sobre la imagen */
+    z-index: 1; /* Asegura que el contenido esté encima de la imagen de fondo */
+    color: #fff; 
+    background: rgba(0, 0, 0, 0.7);
+    align-content: end;
 }
 
 .bodyg {
@@ -227,11 +220,8 @@ body {
     color: white;
 }
 
-.card-body img, .bodyg img {
-    width: 100%; /* Asegúrate de que la imagen cubra todo el ancho del contenedor */
-    height: auto; /* Ajusta la altura automáticamente para mantener la relación de aspecto */
-    object-fit: cover; /* Asegura que la imagen cubra el área sin distorsión */
-}
+
+
 
 /* seccion informacion e imagen circular*/
 .container-info{
@@ -253,16 +243,26 @@ body {
 
 /*Estilos modales*/
 /*Modal Login*/
-.modal-content {
-    background-color: #f8f9fa; /* Color de fondo claro */
-    border-radius: 0.5rem; /* Bordes redondeados más suaves */
-    padding: 15px;
+
+.modal-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8); /* Color negro semi-transparente */
+    z-index: 2; /* Se asegura de que esté detrás del contenido */
+    border-radius: 2rem;
 }
 
-.modal-header .modal-title {
-   /* color: rgb(89, 181, 72);  Color del título */
-   color: rgb(73, 148, 59); 
+.modal-content .modal-body, .modal-content .modal-header, .modal-content .modal-footer {
+    position: relative;
+    z-index: 2; /* Se asegura de que el contenido esté encima del pseudo-elemento */
 }
+
+
+
 
 .modal-footer .btn {
     border-radius: 0.25rem; /* Bordes redondeados para el botón */

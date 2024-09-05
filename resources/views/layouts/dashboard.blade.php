@@ -45,10 +45,15 @@
                     </span>
                 @endif
             @endauth 
-
-            <button class="btn">
+            
+            @can('solicitarHerramienta')
+            <div class="Usuario ms-xs-5 ps-xs-5  ms-1 mt-3 mb-2">
+                <livewire:solicitud-contador />
+            </div>
+            @endcan
+            <!--<button class="btn">
                 <a href="">user</a>
-            </button>
+            </button>-->
         </div>      
     </header>
     </div>  
@@ -70,7 +75,7 @@
                 <a href="/herramientas"><span class="material-symbols-outlined">build</span>Herramientas</a>
             </li>
             <li>
-                <a href="#"><span class="material-symbols-outlined">folder</span>Solicitudes</a>
+                <a href="/solicitudes"><span class="material-symbols-outlined">folder</span>Solicitudes</a>
             </li>
             @can('crearHerramienta')
             <li>
@@ -82,11 +87,15 @@
                 <a href="{{ route('profile.show') }}"><span class="material-symbols-outlined">account_circle</span>Perfil</a>
             </li>
             <li>
+                <a href="/home"><span class="material-symbols-outlined">logout</span>Cerrar Sesión</a>
+            </li>
+            <!---
+            <li>
                 <form method="POST" action="{{ route('logout') }}" x-data>
                     @csrf
                     <a href="{{ route('logout') }}" @click.prevent="$root.submit();"><span class="material-symbols-outlined">logout</span>Cerrar Sesión</a>
                 </form>
-            </li>
+            </li>-->
         </ul>
     </aside>
 

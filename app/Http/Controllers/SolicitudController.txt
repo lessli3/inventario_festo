@@ -1,0 +1,66 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Solicitud;
+use Illuminate\Support\Facades\Auth;
+
+
+class SolicitudController extends Controller
+{
+    public function store(Request $request)
+    {
+        // Validar y almacenar la solicitud
+        $request->validate([
+            'fecha' => 'required|date',
+            'herramienta' => 'required|string|max:255',
+            'cantidad' => 'required|integer|min:1',
+        ]);
+
+        // Crear la solicitud
+        Solicitud::create([
+            'fecha' => $request->fecha,
+            'herramienta' => $request->herramienta,
+            'cantidad' => $request->cantidad,
+            'instructor_id' => auth()->user()->id,
+        ]);
+
+        
+    }
+
+    public function create()
+    {
+        $user = Auth::user();
+        return redirect()->route('solicitudes.create')->with('success', 'Solicitud creada con éxito');
+    }
+
+    public function index()
+    {
+          
+    $solicitudes = Solicitud::all(); 
+
+    return view('solicitudes.index', compact('solicitudes')); 
+
+    }
+
+    public function aceptar($id)
+    {
+        $solicitud = Solicitud::find($id);
+        $solicitud->estado = 'aceptada';
+        $solicitud->save();
+
+        return redirect()->route('admin.solicitudes')->with('success', 'Solicitud aceptada con éxito');
+    }
+
+    public function rechazar($id)
+    {
+        $solicitud = Solicitud::find($id);
+        $solicitud->estado = 'rechazada';
+        $solicitud->save();
+
+        return redirect()->route('admin.solicitudes')->with('error', 'Solicitud rechazada');
+    }
+}
+
+

@@ -19,7 +19,7 @@ class AuthController extends Controller
             'document_number' => 'required|numeric',
         ]);
 
-        $user = User::where('identity', $request->document_number)->first();
+        $user = User::where('user_identity', $request->document_number)->first();
         
         if (!$user) {
             return response()->json(['message' => 'Usuario no encontrado'], 404);

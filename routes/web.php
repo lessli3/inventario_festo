@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HerramientaController;
+use App\Http\Controllers\SolicitudController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,4 +42,20 @@ Route::post('/verify-code-ing', [AuthController::class, 'verifyCodeIng'])->name(
 
 
 Route::resource('/herramientas', HerramientaController::class);
+Route::resource('/solicitudes', SolicitudController::class);
 
+
+Route::get('/solicitudItems', function () {
+    return view('solicitudItems');
+})->name('solicitudItems');
+
+/*Route::get('/solicitudes', function () {
+    return view('solicitudes');
+})->name('solicitudes.create');
+
+Route::post('/solicitudes', [SolicitudController::class, 'store'])->name('solicitudes.store');
+
+Route::get('/admin/solicitudes', [SolicitudController::class, 'index'])->name('admin.solicitudes');
+Route::post('/admin/solicitudes/{id}/aceptar', [SolicitudController::class, 'aceptar'])->name('admin.solicitudes.aceptar');
+Route::post('/admin/solicitudes/{id}/rechazar', [SolicitudController::class, 'rechazar'])->name('admin.solicitudes.rechazar');
+*/

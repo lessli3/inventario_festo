@@ -47,16 +47,24 @@
                 }
             }
 
-        .card{
+            .card {
+            position: relative;
+            overflow: hidden; /* Evita que la imagen de fondo se desborde */
+            border: none; /* Elimina el borde si no es necesario */
+            background-size: cover; /* Asegura que la imagen cubra toda la tarjeta */
+            background-position: center; /* Centra la imagen */
+            background-repeat: no-repeat; /* Evita que la imagen se repita */
+            height: 210px; /* Asegura que la tarjeta tenga una altura adecuada */
+            box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.16);
+            border-color: transparent;
+            border-radius: 18px;
             width: 100%;
-            height: 100%; /* Ocupa toda la altura del contenedor */
-            max-width: 450px; /* Tamaño máximo opcional para la tarjeta */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8); /* Sombra */
-            display: flex;
-            flex-direction: column; /* Organiza los elementos de la tarjeta en columna */
-            border-radius: 20px;
+            flex-direction: column;
+            justify-content: space-between;
             transition: transform 0.3s ease, box-shadow 0.3s ease; /* Añade transición suave */
+
         }
+
 
         .card:hover {
             transform: scale(1.05); /* Hacer zoom al pasar el mouse */
@@ -74,6 +82,18 @@
                 -moz-appearance: textfield;
             }
         
+            .modal-content {
+                background-size: cover;
+                background-position: center;
+                color: white;
+                position: relative; /* Necesario para el pseudo-elemento */
+                border: none; /* Elimina el borde si no es necesario */
+                border-color: transparent ;
+                background-position: center; /* Centra la imagen */
+                border-radius: 2rem; /* Bordes redondeados más suaves */
+                padding: 15px;
+                background: rgba(0, 0, 0, 0.7);
+            }
     </style>
 </head>
 <body>
@@ -196,7 +216,7 @@
                     </center>
                     <div class="row pt-4 pb-4">
                         <!-- Tarjeta 1 -->
-                        <div class="card-home pb-4 col-12 col-md-6 col-lg-4 d-flex justify-content-center align-items-center mb-4 mb-md-0">
+                        <div class="pb-4 col-12 col-md-6 col-lg-4 d-flex justify-content-center align-items-center mb-4 mb-md-0">
                             <div class="card" style="background: url('img/home/card1.jpg') no-repeat center center; background-size: cover;">
                                 <div class="card-body position-relative bottom-0 start-0 ">
                                     <h5 class="card-title mb-2 fw-bold" style="color: white;">Préstamo de recursos</h5>
@@ -258,10 +278,10 @@
 <!-- Modal LogIn -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content rounded-4 shadow">
+        <div class="modal-content rounded-4 shadow" style="background: url('img/login0.jpg');">
             <div class="modal-header border-bottom-0">
-                <h5 class="modal-title fw-semibold" id="exampleModalLabel"> INICIAR SESIÓN - CONTROL FESTO</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title fw-bold" id="exampleModalLabel"> INICIAR SESIÓN - CONTROL FESTO</h5>
+                <button type="button" data-bs-dismiss="modal" class="btn mb-1" style="background-color: transparent;"><i class="fas fa-close" style="color: white; font-size: 28px;"></i></button>
             </div>
             <div class="modal-body">
                 <div class="text-center mb-1">
@@ -277,7 +297,7 @@
                 <form id="checkDocumentForm" method="POST" action="{{ route('verify.code') }}">
                     @csrf
                     <div class="mb-4">
-                        <label for="document_number" class="form-label mt-3 fw-semibold" style="color: green;"><i class="fas fa-user pe-1" style="font-size: 15px; color: green;" ></i>
+                        <label for="document_number" class="form-label mt-3 fw-bold" style="color: white;"><i class="fas fa-user pe-1" style="font-size: 15px; color: white;" ></i>
                         N° Identificación</label>
                         <input id="document_number" name="document_number" type="text" class="form-control"
                             placeholder="Ingresa tu número de identificación" required />
@@ -336,13 +356,13 @@
         <div class="modal-content rounded-4 shadow">
             <div class="modal-header border-bottom-0">
                 <h5 class="modal-title fw-semibold" id="registerModalLabel" style="color: rgb(89, 181, 72);">CREAR CUENTA - CONTROL FESTO</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" data-bs-dismiss="modal" class="btn mb-1" style="background-color: transparent;"><i class="fas fa-close" style="color: white; font-size: 28px;"></i></button>
             </div>
             <div class="modal-body">
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
                     <div class="mb-1">
-                        <label for="name" class="form-label mt-3 fw-semibold" style="color: rgb(89, 181, 72);"><i class="fas fa-user-pen pe-1" style="font-size: 15px; color: rgb(89, 181, 72);" ></i>
+                        <label for="name" class="form-label fw-semibold" style="color: rgb(89, 181, 72);"><i class="fas fa-user-pen pe-1" style="font-size: 15px; color: rgb(89, 181, 72);" ></i>
                         Nombre</label>
                         <input id="name" name="name" type="text" class="form-control" :value="old('name')" required autofocus autocomplete="name"
                             placeholder="Ingresa tu nombre" required />
@@ -356,7 +376,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="mb-1">
                             <label for="registerIdentity" class="form-label mt-3 fw-semibold" style="color: rgb(89, 181, 72);"><i class="fas fa-id-card pe-1" style="font-size: 15px; color: rgb(89, 181, 72);" ></i>
                             N° de identificación</label>
@@ -397,7 +417,7 @@
                         </div>
                     @endif
 
-                    <div class="text-center mt-3">
+                    <div class="text-center mt-3 mb-3">
                     <button type="submit" id="register" class="btn px-4 fw-semibold">{{ __('Register') }}</button>
                     </div>
 

@@ -14,6 +14,10 @@
         <div class="container mt-2">
             <div class="row">
                 <div class="col-lg-6 mb-4">
+                    <label class="form-label fw-semibold">Código de la Herramienta</label>
+                    <input type="text" class="form-control" value="{{$herramientaEditar->cod_herramienta}}" name="codigoEdit">                
+                </div>
+                <div class="col-lg-6 mb-4">
                     <label for="nombreHerramienta" class="form-label">Nombre</label>
                     <input type="text" class="form-control" value="{{$herramientaEditar->nombre}}" name="nombreEdit">
                 </div>
@@ -36,6 +40,15 @@
                         @endforeach
                     </select>
                 </div>
+
+                <div class="col-lg-6 mb-4">
+                            <label class="form-label fw-semibold">Estado</label>
+                            <select class="form-control" name="estadoEdit" required>
+                                <option value="" disabled selected>Selecciona un estado</option>
+                                    <option value="activo">Activo</option>
+                                    <option value="Inctivo">Inactivo</option>
+                            </select>
+                        </div>
                 <div class="col-lg-12 mb-4">
                     <label for="imagen" class="form-label fw-semibold">Imagen</label>
                     <input type="file" class="form-control" name="imagen" value="{{$herramientaEditar->imagen}}">
@@ -62,7 +75,7 @@
     border-radius: 20px;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
     max-width: 800px;
-    max-height: 480px;
+    max-height: 600px;
     width: 100%;
     overflow: hidden; /* Para asegurar que el pseudo-elemento respete los bordes redondeados */
     background: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente para el contenido del formulario */
