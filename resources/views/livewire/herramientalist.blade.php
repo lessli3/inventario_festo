@@ -66,9 +66,10 @@
 
                                 @if($herramientaVista->stock > 0)
                                     @can('solicitarHerramienta')
-                                    <button type="button" class="btn btn-success d-flex gap-2" wire:click="agregarSolicitud({{ $herramientaVista->id }})">
+                                    <button type="button" class="btn btn-success d-flex gap-2" wire:click="agregarSolicitud('{{ $herramientaVista->cod_herramienta }}')">
                                         <i class="fas fa-clipboard-list" style="font-size: 20px"></i>
                                     </button>
+
                                     @endcan
                                 @endif
                     </div>

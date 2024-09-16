@@ -54,11 +54,17 @@ class HerramientaController extends Controller
     {
         $newHerramienta = new Herramienta();
         $imagen = $request->file('imagen');
+        $imagencode = $request->file('imagencode');
         $nombreimg = time().'.'.$imagen -> getClientOriginalExtension();
+        $nombreimgcode = time().'.'.$imagencode -> getClientOriginalExtension();
+
         $destino = public_path('imagenes/herramientas');
+        $destinocode = public_path('imagenes/codeb');
+        $request -> imagencode -> move($destinocode,$nombreimgcode);
         $request -> imagen -> move($destino,$nombreimg);
 
         $newHerramienta -> imagen = $nombreimg;
+        $newHerramienta -> imagencode = $nombreimgcode;
         $newHerramienta -> cod_herramienta = $request->get('cod_herramienta');
         $newHerramienta -> nombre = $request->get('nombre');
         $newHerramienta -> descripcion = $request->get('descripcion');
@@ -131,6 +137,21 @@ class HerramientaController extends Controller
             $imagen->move($destino, $nombreimg);
     
             $editarherramienta->imagen = $nombreimg;
+        }
+        if ($request->hasFile('imagencode')) {
+            if ($editarherramienta->imagencode) {
+                $rutaImagenActualCode = public_path('imagenes/codeb/' . $editarherramienta->imagencode);
+                if (file_exists($rutaImagenActualCode)) {
+                    unlink($rutaImagenActualCode);
+                }
+            }
+    
+            $imagencode = $request->file('imagencode');
+            $nombreimgcode = time() . '.' . $imagencode->getClientOriginalExtension();
+            $destinocode = public_path('imagenes/codeb');
+            $imagencode->move($destinocode, $nombreimgcode);
+    
+            $editarherramienta->imagencode = $nombreimgcode;
         }
 
         $editarherramienta -> save();

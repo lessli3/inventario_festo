@@ -10,11 +10,13 @@ class CreateSolicitudesTable extends Migration
     {
         Schema::create('solicitudes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('instructor_id')->constrained('users');
+            $table->bigInteger('user_identity')->unsigned(); // Se debe marcar como unsigned
+            $table->foreign('user_identity')->references('user_identity')->on('users')->onDelete('cascade');
+            $table->string('nombre');
+            $table->string('telefono');
+            $table->string('email');
             $table->date('fecha');
-            $table->string('herramienta');
-            $table->integer('cantidad');
-            $table->enum('estado', ['pendiente', 'aceptada', 'rechazada'])->default('pendiente');
+            $table->time('hora');
             $table->timestamps();
         });
     }

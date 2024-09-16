@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Herramienta;
-use App\Models\SolicitudTools;
+use App\Models\CarritoTools;
 use App\Models\Categoria;
 
 class Herramientalist extends Component
@@ -51,23 +51,34 @@ class Herramientalist extends Component
     ]);
 }
 
-public function agregarSolicitud($id){
 
-    
-    if(auth()->user()){
+public function agregarSolicitud($cod_herramienta)
+{
+    if (auth()->user()) {
+        // Verificar si el código de la herramienta existe en la tabla herramientas
+        $herramientaExistente = Herramienta::where('cod_herramienta', $cod_herramienta)->exists();
+        if (!$herramientaExistente) {
+            session()->flash('error', 'El código de herramienta "' . $cod_herramienta . '" no existe.');
+            return;
+        }
+
+        // Define los datos que deseas insertar
         $data = [
-            'user_identity' => auth()->user()->id,
-            'cod_herramienta' => $id,
+            'user_identity' => auth()->user()->user_identity,
+            'cod_herramienta' => $cod_herramienta,
         ];
 
-        $solicitudItem = SolicitudTools::where($data)->first();
+        // Busca un registro existente con el mismo user_identity y cod_herramienta
+        $solicitudItem = CarritoTools::where('user_identity', $data['user_identity'])
+            ->where('cod_herramienta', $data['cod_herramienta'])
+            ->first();
 
         if ($solicitudItem) {
             session()->flash('error', 'Esta herramienta ya se encuentra en la solicitud.');
         } else {
-            SolicitudTools::create($data);
+            CarritoTools::create($data);
             $this->emit('updateCartCount');
-            session()->flash('success', 'Herramienta agregado al solicitud exitosamente.');
+            session()->flash('success', 'Herramienta agregada a la solicitud exitosamente.');
         }
     }
 }

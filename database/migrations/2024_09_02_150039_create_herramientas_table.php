@@ -15,13 +15,15 @@ return new class extends Migration
     {
         Schema::create('herramientas', function (Blueprint $table) {
             $table->id();
-            $table->string('cod_herramienta');
+            $table->string('cod_herramienta')->unique();
             $table->string('nombre');
             $table->string('descripcion');
             $table->integer('stock');
             $table->string('categoria');
             $table->string('imagen');
+            $table->string('imagencode');
             $table->string('estado');
+            
             $table->timestamps();
 
         });

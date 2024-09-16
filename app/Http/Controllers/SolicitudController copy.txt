@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Herramienta;
-use App\Models\Solicitud;
-use App\Models\DetalleSolicitud;
 use App\Models\CarritoTools;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -21,11 +19,7 @@ class SolicitudController extends Controller
      */
     public function index()
     {
-        // Obtener todas las solicitudes
-        $solicitudes = Solicitud::all();
-
-        // Pasar las solicitudes a la vista
-        return view('solicitudes.index', compact('solicitudes'));
+        //
     }
 
     /**
@@ -56,7 +50,6 @@ class SolicitudController extends Controller
 
         return view('solicitudes.create', compact('solicituditemsArray'));
     }
-    
 
 
     /**
@@ -66,41 +59,44 @@ class SolicitudController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-        {
-            // Validar los datos del formulario
-            $request->validate([
-                'nombre' => 'required|string|max:255',
-                'telefono' => 'required|numeric',
-                'email' => 'required|email',
-                'fecha' => 'required|date',
-                'hora' => 'required|date_format:H:i',
-                'cod_herramienta.*' => 'required|exists:herramientas,cod_herramienta',
-                'cantidad.*' => 'required|integer|min:1',
-            ]);
+    {
+        Log::info('Método store llamado');
+        
+        // Validar los datos del formulario
+        $validated = $request->validate([
+            'nombre' => 'required|string',
+            'email' => 'required|email',
+            'telefono' => 'required|numeric',
+            'fecha' => 'required|date',
+            'hora' => 'required|date_format:H:i',
+            'solicituditemsArray' => 'required|array',
+            'solicituditemsArray.*.id' => 'required|exists:carritoTools,id',
+            'solicituditemsArray.*.cantidad' => 'required|integer|min:1',
+        ]);
     
-            // Crear una nueva solicitud
-            $solicitud = Solicitud::create([
-                'user_identity' => auth()->user()->user_identity,
-                'nombre' => $request->nombre,
-                'telefono' => $request->telefono,
-                'email' => $request->email,
-                'fecha' => $request->fecha,
-                'hora' => $request->hora,
-            ]);
+        // Mostrar los datos validados para depuración
+        Log::info('Datos validados: ', $validated);
+        
+        // Crear la solicitud
+        $solicitud = new Solicitud();
+        $solicitud->nombre = $request->input('nombre');
+        $solicitud->email = $request->input('email');
+        $solicitud->telefono = $request->input('telefono');
+        $solicitud->fecha = $request->input('fecha');
+        $solicitud->hora = $request->input('hora');
+        $solicitud->save();
     
-            // Crear los detalles de la solicitud
-            foreach ($request->cod_herramienta as $index => $codHerramienta) {
-                DetalleSolicitud::create([
-                    'solicitud_id' => $solicitud->id,
-                    'cod_herramienta' => $codHerramienta,
-                    'cantidad' => $request->cantidad[$index],
-                    'estado' => 'pendiente', // Estado por defecto
-                ]);
-            }
-    
-            // Redirigir o mostrar un mensaje de éxito
-            return redirect()->route('solicitudes.index')->with('success', 'Solicitud creada con éxito.');
+        // Guardar los detalles de la solicitud
+        foreach ($request->input('solicituditemsArray') as $item) {
+            $detalle = new DetalleSolicitud();
+            $detalle->solicitud_id = $solicitud->id;
+            $detalle->herramienta_id = $item['id'];
+            $detalle->cantidad = $item['cantidad'];
+            $detalle->save();
         }
+    
+        return redirect()->route('solicitudes.index')->with('success', 'Solicitud realizada con éxito');
+    }
     
     
     
@@ -147,14 +143,5 @@ class SolicitudController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function actualizarEstado(Request $request, $id)
-    {
-        $detalleSolicitud = DetalleSolicitud::findOrFail($id);
-        $detalleSolicitud->estado = $request->input('estado');
-        $detalleSolicitud->save();
-
-        return redirect()->route('solicitudes.index');
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Models\SolicitudTools;
+use App\Models\CarritoTools;
 
 
 class SolicitudContador extends Component
@@ -20,7 +20,7 @@ class SolicitudContador extends Component
     public function obtenerSolicitudCount()
 {
     if(auth()->check()) {
-        $this->total = SolicitudTools::where('user_identity', auth()->user()->id)->count();
+        $this->total = CarritoTools::where('user_identity', auth()->user()->user_identity)->count();
     } else {
         $this->total = 0;
     }

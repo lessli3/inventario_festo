@@ -42,12 +42,19 @@ Route::post('/verify-code-ing', [AuthController::class, 'verifyCodeIng'])->name(
 
 
 Route::resource('/herramientas', HerramientaController::class);
-Route::resource('/solicitudes', SolicitudController::class);
 
 
 Route::get('/solicitudItems', function () {
     return view('solicitudItems');
 })->name('solicitudItems');
+
+
+
+Route::post('/solicitudes', [SolicitudController::class, 'store'])->name('solicitudes.store');
+Route::get('/solicitudIndex', [SolicitudController::class, 'index'])->name('solicitudes.index')->middleware('auth');
+Route::get('/solicitudes/create', [SolicitudController::class, 'create'])->name('solicitudes.create');
+Route::put('/solicitudes/{id}/estado', [SolicitudController::class, 'actualizarEstado'])->name('solicitud.actualizarEstado');
+
 
 /*Route::get('/solicitudes', function () {
     return view('solicitudes');
