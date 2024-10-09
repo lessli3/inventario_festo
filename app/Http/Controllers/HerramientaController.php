@@ -18,6 +18,7 @@ class HerramientaController extends Controller
     public function index(Request $request)
     {
         $query = Herramienta::query();
+        $herramientaCont = Herramienta::where('estado', 'activo')->get();
 
         if ($request->has('categoria')) {
             $categorias = $request->input('categoria');

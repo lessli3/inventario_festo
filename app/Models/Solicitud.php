@@ -30,4 +30,5 @@ class Solicitud extends Model
         return $this->hasMany(DetalleSolicitud::class);
     }
 
+
 }

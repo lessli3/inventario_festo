@@ -11,22 +11,36 @@ class Herramientalist extends Component
 {
     public $herramientaCont;
     public $search = '';
-    public $herramientas;
     public $categorias;
     public $categoriaSeleccionada = '';
     public $sinResultados = '';
+    public $mostrarInactivas = false; // Variable para controlar si se muestran herramientas inactivas
 
-    public function render()
+
+public function render()
 {
     // Iniciar la consulta base para Herramienta
     $query = Herramienta::query();
 
-    // Aplicar filtros según sea necesario (por ejemplo, categoría, búsqueda)
-    if (!empty($this->categoriaSeleccionada)) {
+    // Filtrar herramientas según la opción seleccionada
+    if ($this->categoriaSeleccionada === 'inactivas') {
+        $query->where('estado', 'inactivo');
+    } elseif ($this->categoriaSeleccionada === 'activas') {
+        $query->where('estado', 'activo');
+    } elseif (!empty($this->categoriaSeleccionada)) {
+        // Filtrar por categoría si se selecciona una
         $query->where('categoria', $this->categoriaSeleccionada);
     }
 
+    // Si se deben mostrar herramientas inactivas
+    if ($this->mostrarInactivas) {
+        $query->orWhere('estado', 'inactivo');
+    } else {
+        $query->where('estado', 'activo');
+    }
+
     if (!empty($this->search)) {
+        // Filtrar por búsqueda si es necesario
         $query->where('nombre', 'like', '%' . $this->search . '%');
     }
 
@@ -50,6 +64,13 @@ class Herramientalist extends Component
         'categorias' => $this->categorias,
     ]);
 }
+
+public function toggleHerramientasInactivas()
+{
+    $this->mostrarInactivas = !$this->mostrarInactivas;
+    $this->render(); // Volver a renderizar para aplicar el cambio
+}
+    
 
 
 public function agregarSolicitud($cod_herramienta)
@@ -83,3 +104,4 @@ public function agregarSolicitud($cod_herramienta)
     }
 }
 }
+

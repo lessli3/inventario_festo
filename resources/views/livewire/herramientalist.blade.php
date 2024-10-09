@@ -5,7 +5,7 @@
         
         @can('agregarAdministrador')
         <div class="row mt-5 mb-5 ps-5">
-            <div class="col-lg-6 d-flex justify-content-start">
+            <div class="col-lg-5 d-flex justify-content-start">
                 <div class="me-3">
                     <a href="/herramientas/create" class="btn btn-plus">
                         <i class="fas fa-check me-1"></i> Gestionar Inventario
@@ -13,19 +13,26 @@
                 </div>
                 <div>
                     <a href="/herramientas/create" class="btn btn-plus">
-                        <i class="fas fa-plus me-1"></i> Agregar Herramienta
+                        <i class="fas fa-plus "></i> Agregar Herramienta
                     </a>
                 </div>
             </div>
 
-            <div class="col-lg-3  offset-lg-3 d-flex justify-content-end">
-            <select wire:model="categoriaSeleccionada" class="btn btn-outline-success form-select">
-                <option value="">Todas las categorías</option>
-                @foreach ($categorias as $categoria)
-                    <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
-                @endforeach
-            </select>
-        </div>
+            <div class="col-lg-7 d-flex justify-content-end">
+                <div class="me-3">
+                    <select wire:model="categoriaSeleccionada" class="btn btn-outline-success form-select">
+                        <option value="" disabled>Filtrar</option>
+                        @foreach ($categorias as $categoria)
+                            <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div>
+                    <button wire:click="toggleHerramientasInactivas" class="btn btn-outline-success">
+                    {{ $mostrarInactivas ? 'Herramientas Activas' : 'Herramientas Inactivas' }}
+                    </button>
+                </div>
+            </div>
         </div>
         @endcan
 
@@ -40,24 +47,28 @@
         </div>
         @endcan
 
+
         @if($herramientaCont->isEmpty())
             <p>No hay herramientas disponibles.</p>
         @else
-            @foreach($herramientaCont as $herramientaVista)
-            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-            <div class="card herramienta-card" style="background-image: url('{{ asset('imagenes/herramientas/' . $herramientaVista->imagen) }}');">
-                 <div class="card-body">
+            
+        @foreach($herramientaCont as $herramientaVista)
+    @if($herramientaVista->estado == ($mostrarInactivas ? 'inactivo' : 'activo'))
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <!-- Añade la clase 'inactive-tool' si la herramienta está inactiva -->
+            <div class="card herramienta-card {{ $herramientaVista->estado == 'inactivo' ? 'inactive-tool' : '' }}" style="background-image: url('{{ asset('imagenes/herramientas/' . $herramientaVista->imagen) }}');">
+                <div class="card-body">
                     <div class="row" style="margin-bottom: 25%;">
-                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
                             @if($herramientaVista->stock > 0 && $herramientaVista->stock <= 3)
                                 @can('editarHerramienta')
                                 <p class="badge bg-warning m-0"><strong>¡Quedan {{ $herramientaVista->stock }} unidades!</strong></p>
                                 @endcan
-                                @elseif($herramientaVista->stock == 0)
+                            @elseif($herramientaVista->stock == 0)
                                 <p class="badge bg-danger m-0"><strong>No hay stock disponible.</strong></p>
-                                @endif
+                            @endif
 
-                                <div class="d-flex gap-2 ">
+                            <div class="d-flex gap-2">
                                 @can('editarHerramienta')
                                 <a href="/herramientas/{{$herramientaVista->id}}/edit" class="btn btn-success">
                                     <i class="fas fa-edit"></i>
@@ -69,19 +80,19 @@
                                     <button type="button" class="btn btn-success d-flex gap-2" wire:click="agregarSolicitud('{{ $herramientaVista->cod_herramienta }}')">
                                         <i class="fas fa-clipboard-list" style="font-size: 20px"></i>
                                     </button>
-
                                     @endcan
                                 @endif
-                    </div>
-                    </div>
+                            </div>
                         </div>
-                        <h4 class="card-title fw-bold">{{ $herramientaVista->nombre }}</h4>
-                        <p class="card-text fw-semibold" style="font-size: 18px">{{ $herramientaVista->descripcion }}</p>
-
                     </div>
+                    <h4 class="card-title fw-bold">{{ $herramientaVista->nombre }}</h4>
+                    <p class="card-text fw-semibold" style="font-size: 18px">{{ $herramientaVista->descripcion }}</p>
                 </div>
             </div>
-            @endforeach
+        </div>
+    @endif
+    @endforeach
+
         @endif
     </div>
 
@@ -109,3 +120,12 @@
         });
     });
 </script>
+
+<style>
+    /* Estilo para las herramientas inactivas */
+    .inactive-tool {
+        .card-body{
+            color: gray; /* Color de fondo gris */
+        }
+    }
+</style>

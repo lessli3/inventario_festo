@@ -121,23 +121,28 @@
         }
     }
     
+tr{
+    height: 30px;
+}
 </style>
-
 <script>
+    var solicitudesAceptadas = @json($solicitudesAceptadas);
+
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var eventAdded = false; // Variable para rastrear si se ha añadido un evento
+        var today = new Date(); // Fecha y hora actuales
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'timeGridWeek',  // Vista semanal por defecto
+            initialView: 'timeGridWeek',
             locale: 'es',
-            selectable: true,             // Permite seleccionar días
-            editable: true,               // Permite editar eventos
-            headerToolbar: {              // Barra de herramientas personalizada
+            selectable: true,
+            editable: true,
+            headerToolbar: {
                 left: 'prev,next today',
                 right: 'title',
             },
-            hiddenDays: [0, 6],
+            hiddenDays: [0, 6], // Ocultar domingos y sábados
             validRange: function(nowDate) {
                 var start = new Date(nowDate);
                 var end = new Date(nowDate);
@@ -155,38 +160,54 @@
                 meridiem: 'short',
                 hour12: true
             },
+            events: solicitudesAceptadas.map(function(solicitud) {
+                return {
+                    title: `${solicitud.nombre}`,
+                    start: solicitud.fecha + 'T' + solicitud.hora, // Asumiendo que solicitud.fecha y solicitud.hora están formateados correctamente
+                    allDay: false,
+                    color: 'green'
+                };
+            }),
             dateClick: function(info) {
-                if (eventAdded) { // Si ya se añadió un evento, muestra un mensaje
+                // Obtener fecha y hora actuales
+                var currentHour = today.getHours();
+                var currentMinute = today.getMinutes();
+
+                var selectedDate = info.date;
+                var selectedHour = info.date.getHours();
+                var selectedMinute = info.date.getMinutes();
+
+                // Si el día seleccionado es hoy, y la hora seleccionada es anterior a la actual, mostrar alerta
+                if (
+                    selectedDate.toDateString() === today.toDateString() &&
+                    (selectedHour < currentHour || (selectedHour === currentHour && selectedMinute < currentMinute))
+                ) {
+                    alert("No puedes seleccionar una hora en el pasado.");
+                    return;
+                }
+
+                if (eventAdded) {
                     alert("Ya se ha creado una solicitud.");
                     return;
                 }
 
-                // Extraer la fecha y hora seleccionadas
-                var selectedDate = info.date.toISOString().split('T')[0]; // 'YYYY-MM-DD'
-                var selectedHour = info.date.getHours();
-                var selectedMinute = info.date.getMinutes();
-                var formattedHour = selectedHour + ":" + ("0" + selectedMinute).slice(-2); // 'HH:MM'
-                var formattedDateTime = selectedDate + " " + formattedHour;
+                var formattedDate = selectedDate.toISOString().split('T')[0];
+                var formattedHour = selectedHour + ":" + ("0" + selectedMinute).slice(-2);
 
-                // Mostrar el mensaje de confirmación con la fecha y hora
-                var confirmMessage = "Confirmar fecha y hora: " + formattedDateTime;
+                var confirmMessage = "Confirmar fecha y hora: " + formattedDate + " " + formattedHour;
                 if (confirm(confirmMessage)) {
-                    // Asignar la fecha y hora seleccionadas a los campos ocultos
-                    document.getElementById('fecha').value = selectedDate;
+                    document.getElementById('fecha').value = formattedDate;
                     document.getElementById('hora').value = formattedHour;
 
-                    // Agregar el evento al calendario
                     calendar.addEvent({
-                        title: "Solicitud",
-                        start: selectedDate + 'T' + formattedHour + ':00', // Formato ISO 8601: 'YYYY-MM-DDTHH:MM:SS'
+                        title: "Tu solicitud",
+                        start: formattedDate + 'T' + formattedHour + ':00',
                         allDay: false,
-                        color: 'blue' // Color del evento
+                        color: 'blue'
                     });
 
-                    eventAdded = true; // Marcar que ya se ha añadido un evento
-                    
-                    // Log para depuración
-                    console.log("Evento agregado: ", selectedDate + 'T' + formattedHour + ':00');
+                    eventAdded = true;
+                    console.log("Evento agregado: ", formattedDate + 'T' + formattedHour + ':00');
                 }
             }
         });
@@ -194,6 +215,7 @@
         calendar.render();
     });
 </script>
+
 
 
 

@@ -20,21 +20,33 @@ class SolicitudController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        // Obtener todas las solicitudes
-        $solicitudes = Solicitud::all();
+{
 
-        // Pasar las solicitudes a la vista
-        return view('solicitudes.index', compact('solicitudes'));
-    }
+    
+    $solicitudesAceptadas = Solicitud::where('estado', 'aceptada')->get();
+    
+    // Pasar ambas colecciones a la vista
+    return view('solicitudes.index', compact( 'solicitudesAceptadas'));
+}
+
+public function calendario()
+{
+    // Obtener solo las solicitudes con estado pendiente
+    $solicitudesPendientes = Solicitud::where('estado', 'pendiente')->get();
+
+
+    // Pasar las solicitudes pendientes a la vista
+    return view('calendario', compact('solicitudesPendientes'));
+}
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    /*public function create(Request $request)
     {
+        $solicitudes = Solicitud::all(); // Obtenemos todas las solicitudes
         $user = auth()->user();
         $solicituditems = CarritoTools::where('user_identity', $user->user_identity)->get();
 
@@ -48,17 +60,48 @@ class SolicitudController extends Controller
                     'nombre' => $item->herramienta->nombre,
                     'cod_herramienta' => $item->herramienta->cod_herramienta,
                     'cantidad' => $item->cantidad,
-                    /*'id_instructor' => $item->herramienta->user_identity,*/
+                    /*'id_instructor' => $item->herramienta->user_identity,
                 ];
             } 
             $solicituditemsArray[] = $itemArray;
         }
 
-        return view('solicitudes.create', compact('solicituditemsArray'));
+        return view('solicitudes.create', compact('solicituditemsArray', 'solicitudes'));
+    }*/
+
+    public function create(Request $request)
+{
+    $user = auth()->user();
+    $solicituditems = CarritoTools::where('user_identity', $user->user_identity)->get();
+
+    $solicituditemsArray = [];
+
+    foreach ($solicituditems as $item) {
+        $itemArray = [];
+        if ($item->herramienta) {                
+            $itemArray = [
+                'id' => $item->herramienta->id,
+                'nombre' => $item->herramienta->nombre,
+                'cod_herramienta' => $item->herramienta->cod_herramienta,
+                'cantidad' => $item->cantidad,
+            ];
+        } 
+        $solicituditemsArray[] = $itemArray;
     }
-    
 
+    // Obtener los códigos de las herramientas en el carrito
+    $codigosHerramientas = array_column($solicituditemsArray, 'cod_herramienta');
 
+    // Obtener las solicitudes aceptadas que contienen estas herramientas
+    $solicitudesAceptadas = Solicitud::where('estado', 'aceptada')
+        ->whereHas('detalles', function($query) use ($codigosHerramientas) {
+            $query->whereIn('cod_herramienta', $codigosHerramientas);
+        })
+        ->with('detalles') // Obtener los detalles de las solicitudes aceptadas
+        ->get();
+
+    return view('solicitudes.create', compact('solicituditemsArray', 'solicitudesAceptadas'));
+}
     /**
      * Store a newly created resource in storage.
      *
@@ -97,11 +140,46 @@ class SolicitudController extends Controller
                     'estado' => 'pendiente', // Estado por defecto
                 ]);
             }
+            $this->eliminarItemDelCarrito(auth()->user()->user_identity);
     
-            // Redirigir o mostrar un mensaje de éxito
             return redirect()->route('solicitudes.index')->with('success', 'Solicitud creada con éxito.');
         }
+
+    public function actualizarEstado(Request $request, $id)
+    {
+        $detalleSolicitud = DetalleSolicitud::findOrFail($id);
+        $detalleSolicitud->estado = $request->input('estado');
+        $detalleSolicitud->save();
+
+        return redirect()->route('solicitudes.index');
+    }
+
+    public function actualizar(Request $request, $id)
+{
+    $solicitud = Solicitud::findOrFail($id);
+    $solicitud->estado = $request->input('estado', 'pendiente'); // Puedes cambiar 'pendiente' por el estado predeterminado que desees.
+    $solicitud->save();
+
+    return response()->json(['message' => 'Solicitud actualizada correctamente']);
+}
+
+
+    private function eliminarItemDelCarrito($instructorId)
+    {
+        CarritoTools::where('user_identity', $instructorId)->delete();
+    }
     
+    public function verificarCodigo($herramientaId, $codigoBarras)
+{
+    $herramienta = Herramienta::find($herramientaId);
+
+    if ($herramienta && $herramienta->cod_herramienta == $codigoBarras) {
+        return response()->json(['success' => true]);
+    }
+
+    return response()->json(['success' => false]);
+}
+
     
     
     /**
@@ -149,12 +227,4 @@ class SolicitudController extends Controller
         //
     }
 
-    public function actualizarEstado(Request $request, $id)
-    {
-        $detalleSolicitud = DetalleSolicitud::findOrFail($id);
-        $detalleSolicitud->estado = $request->input('estado');
-        $detalleSolicitud->save();
-
-        return redirect()->route('solicitudes.index');
-    }
 }

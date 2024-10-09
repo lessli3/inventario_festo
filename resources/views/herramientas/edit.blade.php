@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 @section('titulo', 'Editar Herramienta')
 @section('content')
-@can('agregarAdministrador')
+@can('crearHerramienta')
 
 <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh">
     <div class="gcontainer py-3 bg-container" style=" max-height: 1900px">
@@ -47,7 +47,7 @@
                             <select class="form-control" name="estadoEdit" required>
                                 <option value="" disabled selected>Selecciona un estado</option>
                                     <option value="activo">Activo</option>
-                                    <option value="Inctivo">Inactivo</option>
+                                    <option value="inactivo">Inactivo</option>
                             </select>
                         </div>
                         <div class="col-lg-6 mb-4">

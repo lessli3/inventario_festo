@@ -52,8 +52,17 @@ Route::get('/solicitudItems', function () {
 
 Route::post('/solicitudes', [SolicitudController::class, 'store'])->name('solicitudes.store');
 Route::get('/solicitudIndex', [SolicitudController::class, 'index'])->name('solicitudes.index')->middleware('auth');
+Route::put('/solicitudes/update', [SolicitudController::class, 'update'])->name('solicitudes.update');
+Route::get('/calendario', [SolicitudController::class, 'calendario'])->name('solicitudes.calendario')->middleware('auth');
 Route::get('/solicitudes/create', [SolicitudController::class, 'create'])->name('solicitudes.create');
 Route::put('/solicitudes/{id}/estado', [SolicitudController::class, 'actualizarEstado'])->name('solicitud.actualizarEstado');
+Route::put('/solicitudes/{id}/actualizar', [SolicitudController::class, 'actualizar'])->name('solicitudes.actualizar');
+
+
+Route::get('/verificar-codigo-herramienta/{herramientaId}/{codigoBarras}', [SolicitudController::class, 'verificarCodigo']);
+
+Route::get('/profile', [UserController::class, 'index'])->name('profile');
+Route::resource('/users', UserController::class);
 
 
 /*Route::get('/solicitudes', function () {

@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('user_identity')->unique();
+            $table->enum('user_estado', ['activo', 'inactivo'])->default('activo');
+            $table->biginteger('telefono')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

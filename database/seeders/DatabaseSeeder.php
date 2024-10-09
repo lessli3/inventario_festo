@@ -20,21 +20,35 @@ class DatabaseSeeder extends Seeder
 
         // Obtener los roles
         $instructorRole = Role::where('name', 'Instructor')->first();
-        $adminRole = Role::where('name', 'Administrador')->first();
+        $cuentadanteRole = Role::where('name', 'Cuentadante')->first();
+        $monitorRole = Role::where('name', 'Monitor')->first();
 
         // Crear usuarios y asignarles roles
         $user1 = User::firstOrCreate([
             'name' => 'Angie',
             'email' => 'angie@gmail.com',
-            'user_identity' => '123456789' 
+            'user_identity' => '123456789',
+            'telefono' => '312548648',
+            'user_estado' => 'activo' 
         ]);
         $user1->assignRole($instructorRole);
 
         $user2 = User::firstOrCreate([
             'name' => 'Salome',
             'email' => 'salome26u.u@gmail.com',
-            'user_identity' => '1070386098' 
+            'user_identity' => '1070386098',
+            'telefono' => '3043035695',
+            'user_estado' => 'activo'  
         ]);
-        $user2->assignRole($adminRole);
+        $user2->assignRole($cuentadanteRole);
+
+        $user3 = User::firstOrCreate([
+            'name' => 'Lesly',
+            'email' => 'lesly@gmail.com',
+            'user_identity' => '1070386099',
+            'telefono' => '3102511208',
+            'user_estado' => 'activo'  
+        ]);
+        $user3->assignRole($monitorRole);
     }
 }

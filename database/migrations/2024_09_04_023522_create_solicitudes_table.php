@@ -17,6 +17,7 @@ class CreateSolicitudesTable extends Migration
             $table->string('email');
             $table->date('fecha');
             $table->time('hora');
+            $table->enum('estado', ['pendiente', 'aceptada'])->default('pendiente');
             $table->timestamps();
         });
     }

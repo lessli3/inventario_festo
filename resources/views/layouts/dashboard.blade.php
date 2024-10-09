@@ -28,19 +28,21 @@
     <header class="header">
         <span class="hamburger-menu material-symbols-outlined">menu</span>
         <div class="admin-title col col-md-2">
-            @if(Auth::user()->can('agregarAdministrador'))
-                <p>Administrador</p>
+            @if(Auth::user()->can('crearHerramienta'))
+                <p>Cuentadante</p>
             @elseif(Auth::user()->can('solicitarHerramienta'))
                 <p>Instructor</p>
+            @elseif(Auth::user()->can('editarSolicitud'))
+                <p>Monitor</p>
             @else
                 <p>Sin permisos específicos</p>
             @endif
         </div>
-        <div class="search-container col col-md-5 ">
+        <div class="search-container col col-md-4 ">
             <input wire:model.debounce.300ms="search" type="text" placeholder="Buscar herramientas...">
             <span class="search-icon"><i class="fas fa-search"></i></span>
         </div>
-        <div class="user-info col col-md-1">
+        <div class="user-info col col-md-3">
             @auth
                 @if (Auth::user()->currentTeam)
                     <span class="inline-flex rounded-md">
@@ -55,7 +57,7 @@
             @endauth 
             
             @can('solicitarHerramienta')
-            <div class="Usuario ms-xs-5 ps-xs-5  ms-1 mt-3 mb-2">
+            <div class="Usuario ms-xs-4 ps-xs-5  ms-1 mt-3 mb-2">
                 <livewire:solicitud-contador />
             </div>
             @endcan
@@ -68,31 +70,47 @@
 
     <aside class="sidebar">
         <div class="sidebar-header">
+            <div class="row">
             <img src="img/logov.png" alt="">
-            <h2>FESTO</h2>
+            </div>
+            <h4 class="mt-2 fw-bold" style="color: rgb(25, 161, 13)">FESTO</h4>
         </div>
         <ul class="sidebar-links" style="padding: 0;">
-            <h4 class="fw-bold">
+            <!---<h4 class="fw-bold">
                 <span>Menu</span>
                 <div class="menu-separator"></div>
-            </h4>
+            </h4>-->
             <li>
                 <a href="/dashboard"><span class="material-symbols-outlined">home</span>Home</a>
             </li>
             <li>
                 <a href="/herramientas"><span class="material-symbols-outlined">build</span>Herramientas</a>
             </li>
+            @can('solicitarHerramienta', 'crearHerramienta')
             <li>
                 <a href="/solicitudIndex"><span class="material-symbols-outlined">folder</span>Solicitudes</a>
             </li>
+            @endcan
+            @can('editarSolicitud')
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+          <span class="material-symbols-outlined">folder</span>Solicitudes
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink" style="height: 80px; width: 200px">
+            <li><a class="dropdown-item" href="/calendario" style="height: 30px">Calendario</a></li>
+            <li><a class="dropdown-item" href="/solicitudIndex" style="height: 30px">Todas las solicitudes</a></li>
+          </ul>
+        </li>
+            @endcan
+
             @can('crearHerramienta')
             <li>
-                <a href="#"><span class="material-symbols-outlined">groups</span>Administradores</a>
+                <a href="#"><span class="material-symbols-outlined">groups</span>Monitores</a>
             </li>
             @endcan
             <hr>
             <li>
-                <a href="{{ route('profile.show') }}"><span class="material-symbols-outlined">account_circle</span>Perfil</a>
+                <a href="{{ route('profile') }}"><span class="material-symbols-outlined">account_circle</span>Perfil</a>
             </li>
             <li>
                 <a href="/home"><span class="material-symbols-outlined">logout</span>Cerrar Sesión</a>
@@ -118,3 +136,5 @@
     </script>
 </body>
 </html>
+
+

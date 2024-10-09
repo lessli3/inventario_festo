@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 @section('titulo', 'Crear Herramienta')
 @section('content')
-@can('agregarAdministrador')
+@can('crearHerramienta')
 
 <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
     <div class="gcontainer py-3 bg-container" style="max-height: 2000px">
