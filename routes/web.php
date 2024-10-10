@@ -57,6 +57,7 @@ Route::get('/calendario', [SolicitudController::class, 'calendario'])->name('sol
 Route::get('/solicitudes/create', [SolicitudController::class, 'create'])->name('solicitudes.create');
 Route::put('/solicitudes/{id}/estado', [SolicitudController::class, 'actualizarEstado'])->name('solicitud.actualizarEstado');
 Route::put('/solicitudes/{id}/actualizar', [SolicitudController::class, 'actualizar'])->name('solicitudes.actualizar');
+Route::post('/solicitudes/{solicitud}/agregar-herramienta', [SolicitudController::class, 'agregarHerramienta'])->name('solicitud.agregarHerramienta');
 
 
 Route::get('/verificar-codigo-herramienta/{herramientaId}/{codigoBarras}', [SolicitudController::class, 'verificarCodigo']);

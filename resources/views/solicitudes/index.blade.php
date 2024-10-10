@@ -15,6 +15,14 @@
                 <strong style="color: green;">Teléfono:</strong> {{ $solicitud->telefono }}<br>
                 <strong style="color: green;">Estado:</strong> {{ $solicitud->estado }}<br>
                 </p>
+                <center>
+                <div class=" mb-3">
+                    <button class="btn btn-outline-success agregarHerramientaBtn" data-bs-toggle="modal" data-bs-target="#agregarHerramientaModal" data-solicitud-id="{{ $solicitud->id }}">
+                        <i class="fas fa-plus"></i> Agregar herramienta
+                    </button>
+                </div>
+                </center>
+
                 <div class="row">
                     @foreach($solicitud->detalles as $detalle)
                     <div class="col-md-12 mb-3">
@@ -47,8 +55,15 @@
                                     </button>
                                 </div>
                             </form>
-                            @endcan
 
+                            <div class="mt-3">
+                                <button class="btn btn-success agregarHerramientaBtn">
+                                    <i class="fas fa-plus"></i> Agregar nueva herramienta
+                                </button>
+                            </div>
+
+                            
+                            @endcan
                         </div>
                     </div>
                     @endforeach
@@ -58,6 +73,9 @@
         @endforeach
     </div>
 </div>
+
+
+
 
 <!-- Modal para lector de código de barras -->
 <div class="modal fade" id="codigoBarrasModal" tabindex="-1" aria-labelledby="codigoBarrasModalLabel" aria-hidden="true" data-bs-backdrop="false">
@@ -83,6 +101,47 @@
   </div>
 </div>
 
+<!-- Modal para agregar herramienta -->
+<!-- Modal para agregar herramienta -->
+<div class="modal fade" id="agregarHerramientaModal" tabindex="-1" aria-labelledby="agregarHerramientaModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="agregarHerramientaModalLabel">Seleccionar Herramienta</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="agregarHerramientaForm" action="" method="POST">
+            @csrf
+            <div class="form-group mb-3 d-flex">
+                <input type="text" id="buscarHerramienta" class="form-control" placeholder="Buscar herramienta...">
+                <button type="button" class="btn btn-outline-primary ms-2" id="filtrarBtn">
+                    <i class="fas fa-search"></i> Filtrar
+                </button>
+            </div>
+
+            <div class="form-group">
+                <div class="herramientas-list">
+                    <ul class="list-group">
+                        @foreach($herramientasDisponibles as $herramienta)
+                        <li class="list-group-item d-flex justify-content-between align-items-center herramienta-item">
+                            {{ $herramienta->nombre }} - {{ $herramienta->cod_herramienta }}
+                            <button type="submit" class="btn btn-outline-success agregar-btn" data-herramienta-id="{{ $herramienta->id }}">
+                                <i class="fas fa-plus"></i> Agregar
+                            </button>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 @else
     <div class="alert alert-success text-center mx-5" role="alert">
         Acceso no Autorizado
@@ -101,11 +160,14 @@
 
 }
 
-
+.modal-backdrop {
+    display: none !important;
+}
 
 </style>
 
 <!---<div class="modal-backdrop fade show" style="background-color: transparent"></div>--->
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -148,6 +210,37 @@
                 });
         }
     });
+    document.addEventListener('DOMContentLoaded', function() {
+    // Abrir el modal y cargar el ID de la solicitud en el formulario
+    document.querySelectorAll('.agregarHerramientaBtn').forEach(button => {
+        button.addEventListener('click', function() {
+            const solicitudId = this.getAttribute('data-solicitud-id');
+            const form = document.getElementById('agregarHerramientaForm');
+            form.action = `/solicitud/${solicitudId}/agregar-herramienta`;
+        });
+    });
+
+    // Función de búsqueda de herramientas
+    document.getElementById('buscarHerramienta').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            document.querySelectorAll('.herramienta-item').forEach(function(item) {
+                const herramientaName = item.textContent.toLowerCase();
+                item.style.display = herramientaName.includes(searchTerm) ? '' : 'none';
+            });
+        });
+
+        // Manejo del botón de filtrar
+
+        document.getElementById('buscarHerramienta').addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        document.querySelectorAll('.herramienta-item').forEach(function(item) {
+            const herramientaName = item.textContent.toLowerCase();
+            item.style.display = herramientaName.includes(searchTerm) ? '' : 'none';
+        });
+    });
+});
+
+
 </script>
 
 

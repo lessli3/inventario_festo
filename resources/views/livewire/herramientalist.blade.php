@@ -3,7 +3,7 @@
     <div class="row mb-5">
         <h1 class="col-12 text-center fw-bold mt-4">Herramientas</h1>
         
-        @can('agregarAdministrador')
+        @can('crearHerramienta')
         <div class="row mt-5 mb-5 ps-5">
             <div class="col-lg-5 d-flex justify-content-start">
                 <div class="me-3">

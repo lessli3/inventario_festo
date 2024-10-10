@@ -21,7 +21,7 @@
 
                         <div class="form-group col-lg-6 mb-3">
                             <label for="telefono">Teléfono:</label>
-                            <input type="number" id="telefono" name="telefono" class="form-control" placeholder="Ej. 3015488445" required>
+                            <input type="number" id="telefono" name="telefono" class="form-control" value="{{ auth()->user()->telefono }}" required>
                         </div>
                     </div>
 

@@ -86,11 +86,14 @@
             <li>
                 <a href="/herramientas"><span class="material-symbols-outlined">build</span>Herramientas</a>
             </li>
-            @can('solicitarHerramienta', 'crearHerramienta')
-            <li>
-                <a href="/solicitudIndex"><span class="material-symbols-outlined">folder</span>Solicitudes</a>
-            </li>
-            @endcan
+            @canany(['solicitarHerramienta', 'crearHerramienta'])
+                <li>
+                    <a href="/solicitudIndex">
+                        <span class="material-symbols-outlined">folder</span>Solicitudes
+                    </a>
+                </li>
+            @endcanany
+
             @can('editarSolicitud')
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">

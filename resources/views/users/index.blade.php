@@ -17,7 +17,7 @@
             @can('editarHerramienta')
               <img src="img/admin.png" alt="Avatar" class="img-fluid mt-5 mb-3" style="width: 150px;"/>
               <p style="font-size: 23px">{{$usuario->name}}</p>
-              <h6>Administrador</h6>
+              <h6>Cuentadante</h6>
             @endcan
             @can('solicitarHerramienta')
             <img src="img/instructor.png" alt="Avatar" class="img-fluid mt-5 mb-3" style="width: 150px;"/>

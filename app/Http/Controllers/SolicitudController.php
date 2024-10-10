@@ -19,15 +19,20 @@ class SolicitudController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-{
-
+    public function index() {
+        $solicitudesAceptadas = Solicitud::with('detalles.herramienta')->get();
+        $herramientasDisponibles = Herramienta::all(); // Cargar todas las herramientas
     
-    $solicitudesAceptadas = Solicitud::where('estado', 'aceptada')->get();
+        // Filtrar herramientas que ya están en la solicitud
+        $herramientasUsadas = $solicitudesAceptadas->flatMap(function($solicitud) {
+            return $solicitud->detalles->pluck('herramienta_id');
+        });
+        
+        $herramientasDisponibles = $herramientasDisponibles->whereNotIn('id', $herramientasUsadas); // Excluir herramientas usadas
     
-    // Pasar ambas colecciones a la vista
-    return view('solicitudes.index', compact( 'solicitudesAceptadas'));
-}
+        return view('solicitudes.index', compact('solicitudesAceptadas', 'herramientasDisponibles'));
+    }
+    
 
 public function calendario()
 {
@@ -102,6 +107,24 @@ public function calendario()
 
     return view('solicitudes.create', compact('solicituditemsArray', 'solicitudesAceptadas'));
 }
+
+public function agregarHerramienta(Request $request, $solicitudId)
+{
+    $solicitud = Solicitud::findOrFail($solicitudId);
+    $herramientasDisponibles = Herramienta::all();
+    
+    // Crear un nuevo detalle de solicitud con la herramienta seleccionada
+    $detalleSolicitud = new DetalleSolicitud();
+    $detalleSolicitud->solicitud_id = $solicitud->id;
+    $detalleSolicitud->herramienta_id = $request->input('herramienta_id');
+    $detalleSolicitud->cantidad = 1; // Puedes ajustar la cantidad según la lógica
+    $detalleSolicitud->estado = 'aceptada'; // Estado por defecto
+    
+    $detalleSolicitud->save();
+    
+    return redirect()->back()->with('success', 'Herramienta agregada correctamente.');
+}
+
     /**
      * Store a newly created resource in storage.
      *
