@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Herramienta;
 use App\Models\Categoria;
+use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -170,4 +171,44 @@ class HerramientaController extends Controller
     {
         //
     }
+
+    public function handlePost(Request $request, $id = null)
+    {
+        // Si es una solicitud GET, mostramos todos los posts.
+        if ($request->isMethod('get')) {
+            $posts = Herramienta::all();
+            
+            return view('posts.index', compact('posts'));
+        }
+
+        // Si es una solicitud POST, almacenamos un nuevo post.
+        if ($request->isMethod('post')) {
+            $validatedData = $request->validate([
+                'title' => 'required|string|max:255',
+                'body' => 'required|string',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
+
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('public/images');
+                $validatedData['image_url'] = basename($imagePath);
+            }
+
+            $validatedData['active'] = true;
+            Herramienta::create($validatedData);
+
+            return redirect()->route('posts.index')->with('success', 'Post creado exitosamente');
+        }
+
+        // Si es una solicitud DELETE, eliminamos el post correspondiente.
+        if ($request->isMethod('delete') && $id) {
+            $post = Herramienta::findOrFail($id);
+            $post->delete();
+
+            return redirect()->route('posts.index')->with('success', 'Post eliminado exitosamente');
+        }
+
+        return redirect()->route('posts.index')->with('error', 'Acción no permitida');
+    }
+    
 }
