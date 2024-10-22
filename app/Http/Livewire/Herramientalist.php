@@ -11,6 +11,7 @@ class Herramientalist extends Component
 {
     public $herramientaCont;
     public $search = '';
+    public $herramientas;
     public $categorias;
     public $categoriaSeleccionada = '';
     public $sinResultados = '';
@@ -39,10 +40,10 @@ public function render()
         $query->where('estado', 'activo');
     }
 
-    if (!empty($this->search)) {
+    //if (!empty($this->search)) {
         // Filtrar por búsqueda si es necesario
-        $query->where('nombre', 'like', '%' . $this->search . '%');
-    }
+      //  $query->where('nombre', 'like', '%' . $this->search . '%');
+    //}
 
     // Obtener las herramientas según la consulta
     $this->herramientaCont = $query->get();
@@ -63,6 +64,19 @@ public function render()
         'herramientas' => $this->herramientaCont,
         'categorias' => $this->categorias,
     ]);
+}
+
+public function filtrarPorBusqueda()
+{
+    // Filtrar solo por nombre
+    $herramientasFiltradas = Herramienta::where('nombre', 'like', '%' . $this->search . '%')->get();
+
+    // Verificar si hay resultados
+    if ($herramientasFiltradas->isEmpty()) {
+        $this->dispatchBrowserEvent('show-no-results-alert', ['message' => 'No se encontraron coincidencias.']);
+    }
+
+    return $herramientasFiltradas;
 }
 
 public function toggleHerramientasInactivas()

@@ -19,30 +19,55 @@ class SolicitudController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
-        $solicitudesAceptadas = Solicitud::with('detalles.herramienta')->get();
-        $herramientasDisponibles = Herramienta::all(); // Cargar todas las herramientas
-    
-        // Filtrar herramientas que ya están en la solicitud
-        $herramientasUsadas = $solicitudesAceptadas->flatMap(function($solicitud) {
-            return $solicitud->detalles->pluck('herramienta_id');
-        });
+    public function index(Request $request) {
+        $user = auth()->user();
         
-        $herramientasDisponibles = $herramientasDisponibles->whereNotIn('id', $herramientasUsadas); // Excluir herramientas usadas
+        // Obtener todas las solicitudes con sus detalles
+        $solicitudesAceptadas = Solicitud::with('detalles.herramienta');
+        
+        // Filtrar por número de user_identity si está presente
+        if ($user->hasRole('Instructor')) {
+            $solicitudesAceptadas->where('user_identity', $user->user_identity);
+        } 
+        
+        // Filtrar por número de solicitud
+        if ($request->has('solicitud') && $request->input('solicitud') != '') {
+            $solicitudNumber = $request->input('solicitud');
+            $solicitudesAceptadas->where('user_identity', 'like', '%' . $solicitudNumber . '%');
+        }
+    
+        // Obtener las solicitudes filtradas
+        $solicitudesAceptadas = $solicitudesAceptadas->get();
+    
+        // Comprobar si la colección está vacía después de aplicar los filtros
+        if ($solicitudesAceptadas->isEmpty()) {
+            return redirect()->back()->withErrors(['mensaje' => 'No se encontraron solicitudes que coincidan.']);
+        }
+    
+        // Cargar herramientas disponibles
+        $herramientasDisponibles = Herramienta::query();
+        
+        // Filtrar herramientas si se ha ingresado un término de búsqueda
+        if ($request->has('search') && $request->input('search') != '') {
+            $searchTerm = $request->input('search');
+            $herramientasDisponibles->where('nombre', 'LIKE', '%' . $searchTerm . '%');
+        }
+        // Excluir herramientas usadas
+        $herramientasDisponibles = $herramientasDisponibles->get();
     
         return view('solicitudes.index', compact('solicitudesAceptadas', 'herramientasDisponibles'));
     }
     
 
-public function calendario()
-{
-    // Obtener solo las solicitudes con estado pendiente
-    $solicitudesPendientes = Solicitud::where('estado', 'pendiente')->get();
+    public function calendario()
+    {
+        // Obtener solo las solicitudes con estado pendiente
+        $solicitudesPendientes = Solicitud::where('estado', 'pendiente')->get();
 
 
-    // Pasar las solicitudes pendientes a la vista
-    return view('calendario', compact('solicitudesPendientes'));
-}
+        // Pasar las solicitudes pendientes a la vista
+        return view('calendario', compact('solicitudesPendientes'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -75,55 +100,38 @@ public function calendario()
     }*/
 
     public function create(Request $request)
-{
-    $user = auth()->user();
-    $solicituditems = CarritoTools::where('user_identity', $user->user_identity)->get();
+    {
+        $user = auth()->user();
+        $solicituditems = CarritoTools::where('user_identity', $user->user_identity)->get();
 
-    $solicituditemsArray = [];
+        $solicituditemsArray = [];
 
-    foreach ($solicituditems as $item) {
-        $itemArray = [];
-        if ($item->herramienta) {                
-            $itemArray = [
-                'id' => $item->herramienta->id,
-                'nombre' => $item->herramienta->nombre,
-                'cod_herramienta' => $item->herramienta->cod_herramienta,
-                'cantidad' => $item->cantidad,
-            ];
-        } 
-        $solicituditemsArray[] = $itemArray;
+        foreach ($solicituditems as $item) {
+            $itemArray = [];
+            if ($item->herramienta) {                
+                $itemArray = [
+                    'id' => $item->herramienta->id,
+                    'nombre' => $item->herramienta->nombre,
+                    'cod_herramienta' => $item->herramienta->cod_herramienta,
+                    'cantidad' => $item->cantidad,
+                ];
+            } 
+            $solicituditemsArray[] = $itemArray;
+        }
+
+        // Obtener los códigos de las herramientas en el carrito
+        $codigosHerramientas = array_column($solicituditemsArray, 'cod_herramienta');
+
+        // Obtener las solicitudes aceptadas que contienen estas herramientas
+        $solicitudesAceptadas = Solicitud::where('estado', 'aceptada')
+            ->whereHas('detalles', function($query) use ($codigosHerramientas) {
+                $query->whereIn('cod_herramienta', $codigosHerramientas);
+            })
+            ->with('detalles') // Obtener los detalles de las solicitudes aceptadas
+            ->get();
+
+        return view('solicitudes.create', compact('solicituditemsArray', 'solicitudesAceptadas'));
     }
-
-    // Obtener los códigos de las herramientas en el carrito
-    $codigosHerramientas = array_column($solicituditemsArray, 'cod_herramienta');
-
-    // Obtener las solicitudes aceptadas que contienen estas herramientas
-    $solicitudesAceptadas = Solicitud::where('estado', 'aceptada')
-        ->whereHas('detalles', function($query) use ($codigosHerramientas) {
-            $query->whereIn('cod_herramienta', $codigosHerramientas);
-        })
-        ->with('detalles') // Obtener los detalles de las solicitudes aceptadas
-        ->get();
-
-    return view('solicitudes.create', compact('solicituditemsArray', 'solicitudesAceptadas'));
-}
-
-public function agregarHerramienta(Request $request, $solicitudId)
-{
-    $solicitud = Solicitud::findOrFail($solicitudId);
-    $herramientasDisponibles = Herramienta::all();
-    
-    // Crear un nuevo detalle de solicitud con la herramienta seleccionada
-    $detalleSolicitud = new DetalleSolicitud();
-    $detalleSolicitud->solicitud_id = $solicitud->id;
-    $detalleSolicitud->herramienta_id = $request->input('herramienta_id');
-    $detalleSolicitud->cantidad = 1; // Puedes ajustar la cantidad según la lógica
-    $detalleSolicitud->estado = 'aceptada'; // Estado por defecto
-    
-    $detalleSolicitud->save();
-    
-    return redirect()->back()->with('success', 'Herramienta agregada correctamente.');
-}
 
     /**
      * Store a newly created resource in storage.
@@ -131,8 +139,7 @@ public function agregarHerramienta(Request $request, $solicitudId)
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-        {
+    public function store(Request $request){
             // Validar los datos del formulario
             $request->validate([
                 'nombre' => 'required|string|max:255',
@@ -168,7 +175,8 @@ public function agregarHerramienta(Request $request, $solicitudId)
             return redirect()->route('solicitudes.index')->with('success', 'Solicitud creada con éxito.');
         }
 
-    public function actualizarEstado(Request $request, $id)
+    
+        public function actualizarEstado(Request $request, $id)
     {
         $detalleSolicitud = DetalleSolicitud::findOrFail($id);
         $detalleSolicitud->estado = $request->input('estado');
@@ -180,7 +188,7 @@ public function agregarHerramienta(Request $request, $solicitudId)
     public function actualizar(Request $request, $id)
 {
     $solicitud = Solicitud::findOrFail($id);
-    $solicitud->estado = $request->input('estado', 'pendiente'); // Puedes cambiar 'pendiente' por el estado predeterminado que desees.
+    $solicitud->estado = $request->input('estado', 'aceptada'); // Puedes cambiar 'pendiente' por el estado predeterminado que desees.
     $solicitud->save();
 
     return response()->json(['message' => 'Solicitud actualizada correctamente']);
@@ -191,6 +199,58 @@ public function agregarHerramienta(Request $request, $solicitudId)
     {
         CarritoTools::where('user_identity', $instructorId)->delete();
     }
+
+    public function agregarHerramienta(Request $request, $solicitudId) {
+        // Encontrar la solicitud
+        $solicitud = Solicitud::findOrFail($solicitudId);
+        
+        // Obtener el código de herramienta del request
+        $codHerramienta = $request->input('cod_herramienta');
+    
+        // Verificar que el cod_herramienta existe en la tabla herramientas
+        $herramienta = Herramienta::where('cod_herramienta', $codHerramienta)->first();
+    
+        if (!$herramienta) {
+            return redirect()->back()->withErrors(['cod_herramienta' => 'El código de herramienta no existe en la base de datos.']);
+        }
+    
+        // Eliminar la verificación de existencia previa o la dejamos si se desea manejar reactivación
+        $detalleExistente = DetalleSolicitud::where('solicitud_id', $solicitud->id)
+            ->where('cod_herramienta', $codHerramienta)
+            ->first();
+        
+        if ($detalleExistente) {
+            return redirect()->route('solicitudes.index')->withErrors(['cod_herramienta' => 'La herramienta ya fue agregada a esta solicitud.']);
+        } 
+    
+        // Crear un nuevo detalle de solicitud con la herramienta seleccionada
+        $detalleSolicitud = new DetalleSolicitud();
+        $detalleSolicitud->solicitud_id = $solicitudId;
+        $detalleSolicitud->cod_herramienta = $codHerramienta;
+        $detalleSolicitud->cantidad = 1; // Puedes ajustar la cantidad según la lógica
+        $detalleSolicitud->estado = 'aceptada'; // Estado por defecto
+    
+        $detalleSolicitud->save();
+    
+        return redirect()->route('solicitudes.index')->with('success', 'Herramienta agregada exitosamente.');
+    
+    }
+    
+    public function eliminarHerramienta($solicitudId, $codHerramienta) {
+        // Buscar el detalle de la solicitud con la herramienta correspondiente
+        $detalle = DetalleSolicitud::where('solicitud_id', $solicitudId)
+            ->where('cod_herramienta', $codHerramienta)
+            ->first();
+    
+        if ($detalle) {
+            // Eliminar el detalle si existe
+            $detalle->delete();
+            return redirect()->back()->with('success', 'Herramienta eliminada correctamente.');
+        }
+    
+        return redirect()->back()->withErrors('No se pudo encontrar la herramienta para eliminar.');
+    }
+        
     
     public function verificarCodigo($herramientaId, $codigoBarras)
 {

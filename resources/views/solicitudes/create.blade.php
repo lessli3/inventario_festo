@@ -7,19 +7,19 @@
         <h4 class="mb-4 fw-bold">COMPLETA LA SOLICITUD</h4>
     </center>
     <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12 col-lg-6">
                 @if(count($solicituditemsArray) > 0)
                 <form action="{{ route('solicitudes.store') }}" method="POST">
                     @csrf
                     
                     <div class="row">
-                        <div class="form-group col-lg-6 mb-3">
+                        <div class="form-group col-lg-6 col-md-6 mb-3">
                             <label for="nombre">Nombre:</label>
                             <input type="text" id="nombre" name="nombre" value="{{ auth()->user()->name }}" class="form-control" readonly>
                         </div>
 
-                        <div class="form-group col-lg-6 mb-3">
+                        <div class="form-group col-lg-6 col-md-6 mb-3">
                             <label for="telefono">Teléfono:</label>
                             <input type="number" id="telefono" name="telefono" class="form-control" value="{{ auth()->user()->telefono }}" required>
                         </div>
@@ -30,19 +30,9 @@
                         <input type="email" id="email" name="email" value="{{ auth()->user()->email }}" class="form-control" readonly>
                     </div>
 
-                    <div class="form-group col-lg-12 mb-5">
-                        <label for="semana">Fecha de la solicitud:</label>
-                        <div id="calendar"></div>
-                    </div>
-
-                    <!-- Campos ocultos para fecha y hora -->
-                    <input type="hidden" id="fecha" name="fecha">
-                    <input type="hidden" id="hora" name="hora">
-            
-                    <h5 class="mt-5 pt-4">Información de la solicitud</h5>
+                    <h6 class="mt-4">Información de la solicitud</h6>
                     <hr>
-
-                   <div class="card p-3">
+                    <div class="card p-3" style="height: 180px">
                         @foreach($solicituditemsArray as $item)
                             <!-- Hidden inputs for storing item data -->
                             <input type="hidden" name="solicituditemsArray[]" value="{{ json_encode($item) }}">
@@ -65,27 +55,34 @@
                             </div>
                         @endforeach
                         <div class="row">
-                                
                                 <div class="d-flex col-lg-6 p-3">
                                 <a href="/solicitudItems" class="btn btn-outline-info">
                                     <i class="fas fa-edit me-1"></i> Editar
                                 </a>
                                 </div>
                             </div>
-                    </div>
-                    
-                    <hr>
-
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-plus fw-bold" >Guardar Solicitud</button>
+                        </div>
                     </div>
 
-                </form>
-                @else
-                    <div class="alert alert-warning">No hay herramientas en la solicitud.</div>
-                @endif
-            </div>
+                <div class="col-md-12 col-lg-6">
+                <div class="form-group col-lg-12 mb-4">
+                            <label for="semana" class="mb-2 fw">Fecha de la solicitud:</label>
+                            <div class="cardc">
+                            <div id="calendar"></div>
+                            <!-- Campos ocultos para fecha y hora -->
+                            <input type="hidden" id="fecha" name="fecha">
+                            <input type="hidden" id="hora" name="hora">
+                            </div>
+                        </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-plus fw-bold" >Guardar Solicitud</button>
+                </div>
+            </form>
         </div>
+        @else
+            <div class="alert alert-warning">No hay herramientas en la solicitud.</div>
+        @endif
     </div>
 </section>
 @else
@@ -101,32 +98,106 @@
     overflow-y: auto;  /* Agrega scroll vertical si excede el máximo */
     }
 
-    /* Ocultar la sección de "Todo el día" */
-    .fc-daygrid-day-top {
-        display: none;
-    }
-
     .fc-scrollgrid-sync-inner{
         a{
-        color: #2b991b;
+        color: green !important;
         text-decoration: none;
-        }
-        span{
-            display: none;
         }
     }
     .fc-timegrid-axis-frame{
-        span{
-            display: none;
-        }
+        background-color: #f0f0f0; 
+
+    }
+
+    .fc-daygrid-day{
+        background-color: #f0f0f0;
     }
     
-tr{
-    height: 30px;
-}
+    tr{
+        height: 30px;
+    }
+
+    tbody{
+        border-color: white !important;
+    }
+
+    /* Cambiar fondo del calendario completo */
+    .fc {
+        border-radius: 20px;
+    }
+
+    .fc-timegrid-axis{
+        background-color: #f0f0f0 !important; /* Gris claro para cada celda */
+    }
+    /* Cambiar fondo de la cuadrícula de días */
+    .fc-daygrid-day {
+        background-color: #f0f0f0 !important; /* Gris claro para cada celda */
+    }
+
+    .fc-col-header-cell{
+        background-color: #f0f0f0 !important; /* Gris claro para cada celda */
+        border-color: white !important;
+
+    }
+
+    .fc-scrollgrid-section{
+        border-color: white !important;
+    }
+
+    /* Cambiar fondo de las ranuras de tiempo */
+    .fc-timegrid-slot {
+        background-color: #f0f0f0; /* Gris claro para ranuras de tiempo */
+    }
+
+    /* Cambiar fondo de las filas en timeGrid */
+    .fc-timegrid .fc-timegrid-slot {
+        background-color: #f0f0f0; /* Gris claro para ranuras de tiempo */
+    }
+
+    /* Cambiar fondo de los días en la vista de tiempo */
+    .fc-timegrid .fc-daygrid-day {
+        background-color: #f0f0f0; /* Asegurarse de que las celdas en la vista de tiempo también tengan el mismo fondo */
+    }
+
+
+    /* Alternativa si la anterior no funciona */
+    .fc-view-harness .fc-daygrid-day-top {
+        display: none !important; /* Asegúrate de que se aplique a pesar de otros estilos */
+    }
+
+
+
+
+
+    /* Ajustar específicamente el contenedor de la vista */
+    .fc-view-harness {
+        border-right: none !important; /* Elimina el borde derecho de la vista */
+    }
+
+    .cardc{
+        position: relative;
+        overflow: hidden; /* Evita que la imagen de fondo se desborde */
+        border: none; /* Elimina el borde si no es necesario */
+        height: 350px; /* Asegura que la tarjeta tenga una altura adecuada */
+        /*box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.16);*/
+        border-color: transparent;
+        border-radius: 18px;
+        width: 100%;
+        padding: 5%;
+        flex-direction: column;
+        justify-content: space-between;; /* Si quieres un límite máximo */
+        overflow-y: auto;  /* Agrega scroll vertical si excede el máximo */
+    }
+
+    .btn-group{
+        
+    }
+
 </style>
+
 <script>
-    var solicitudesAceptadas = @json($solicitudesAceptadas);
+ var solicitudesAceptadas = @json($solicitudesAceptadas);  // Solicitudes aceptadas con detalles
+    var solicitudActual = @json($solicituditemsArray);  // Herramientas que estás solicitando
 
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
@@ -135,6 +206,7 @@ tr{
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'timeGridWeek',
+            themeSystem: 'bootstrap',
             locale: 'es',
             selectable: true,
             editable: true,
@@ -153,23 +225,47 @@ tr{
                 };
             },
             slotMinTime: '08:00:00',
+            slotDuration: '00:30:00', // Intervalo de media hora
             slotMaxTime: '17:00:00',
+            slotLabelInterval: '00:30:00', // Etiqueta de las horas en intervalos de media hora
             slotLabelFormat: {
                 hour: 'numeric',
                 minute: '2-digit',
                 meridiem: 'short',
                 hour12: true
             },
-            events: solicitudesAceptadas.map(function(solicitud) {
+            // Filtrar y mostrar eventos con detalles de la herramienta
+            events: solicitudesAceptadas.flatMap(function(solicitud) {
+                // Filtrar herramientas aceptadas que coincidan con las solicitadas
+                var herramientasFiltradas = solicitud.detalles.filter(function(detalle) {
+                    return solicitudActual.some(function(herramientaSolicitada) {
+                        return detalle.cod_herramienta === herramientaSolicitada.cod_herramienta;
+                    });
+                });
+
+                // Si no hay coincidencias, no agregar el evento
+                if (herramientasFiltradas.length === 0) return [];
+
+                var startDateTime = solicitud.fecha + 'T' + solicitud.hora; // Fecha y hora de inicio
+                var endDate = new Date(startDateTime);
+                endDate.setHours(endDate.getHours() + 2); // Añadir 12 horas para el fin del evento
+
+                // Formatear herramientas para el título del evento con cantidad solicitada
+                var herramientasEnSolicitud = herramientasFiltradas.map(function(detalle) {
+                    return `${detalle.cantidad} unidad(es)`;
+                }).join("\n");
+
+                // Devolver el evento
                 return {
-                    title: `${solicitud.nombre}`,
-                    start: solicitud.fecha + 'T' + solicitud.hora, // Asumiendo que solicitud.fecha y solicitud.hora están formateados correctamente
+                    title: `${solicitud.nombre} - ${herramientasEnSolicitud}`,  // Mostrar herramientas y cantidad solicitada
+                    start: startDateTime,
+                    end: endDate.toISOString(),
                     allDay: false,
                     color: 'green'
                 };
             }),
+            // Manejador de clics en fechas
             dateClick: function(info) {
-                // Obtener fecha y hora actuales
                 var currentHour = today.getHours();
                 var currentMinute = today.getMinutes();
 
@@ -177,7 +273,7 @@ tr{
                 var selectedHour = info.date.getHours();
                 var selectedMinute = info.date.getMinutes();
 
-                // Si el día seleccionado es hoy, y la hora seleccionada es anterior a la actual, mostrar alerta
+                // Validar si la fecha seleccionada está en el pasado
                 if (
                     selectedDate.toDateString() === today.toDateString() &&
                     (selectedHour < currentHour || (selectedHour === currentHour && selectedMinute < currentMinute))
@@ -199,6 +295,7 @@ tr{
                     document.getElementById('fecha').value = formattedDate;
                     document.getElementById('hora').value = formattedHour;
 
+                    // Añadir el nuevo evento al calendario
                     calendar.addEvent({
                         title: "Tu solicitud",
                         start: formattedDate + 'T' + formattedHour + ':00',
@@ -214,6 +311,7 @@ tr{
 
         calendar.render();
     });
+
 </script>
 
 

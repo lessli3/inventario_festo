@@ -57,9 +57,12 @@ Route::get('/calendario', [SolicitudController::class, 'calendario'])->name('sol
 Route::get('/solicitudes/create', [SolicitudController::class, 'create'])->name('solicitudes.create');
 Route::put('/solicitudes/{id}/estado', [SolicitudController::class, 'actualizarEstado'])->name('solicitud.actualizarEstado');
 Route::put('/solicitudes/{id}/actualizar', [SolicitudController::class, 'actualizar'])->name('solicitudes.actualizar');
-Route::post('/solicitudes/{solicitud}/agregar-herramienta', [SolicitudController::class, 'agregarHerramienta'])->name('solicitud.agregarHerramienta');
+//Route::post('/solicitudes/{solicitud}/agregar-herramienta', [SolicitudController::class, 'agregarHerramienta'])->name('solicitudes.agregarHerramienta');
+Route::get('/solicitudes/filtrar', [SolicitudController::class, 'filtrarHerramientas'])->name('solicitudes.filtrar');
+Route::delete('/solicitudes/{solicitudId}/herramienta/{codHerramienta}', [SolicitudController::class, 'eliminarHerramienta'])->name('eliminar.herramienta');
+Route::post('/solicitudes/{solicitud}/agregarHerramienta', [SolicitudController::class, 'agregarHerramienta'])->name('solicitudes.agregarHerramienta');
 
-
+//Route::post('/solicitudes/{solicitudId}/agregar-herramienta', [SolicitudController::class, 'agregarHerramienta'])->name('solicitudes.agregarHerramienta');
 Route::get('/verificar-codigo-herramienta/{herramientaId}/{codigoBarras}', [SolicitudController::class, 'verificarCodigo']);
 
 Route::get('/profile', [UserController::class, 'index'])->name('profile');

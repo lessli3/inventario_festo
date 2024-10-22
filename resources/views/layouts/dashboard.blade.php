@@ -15,6 +15,7 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
     <!-- Localización en español -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales/es.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap/main.min.js"></script>
 
 
     <link rel="stylesheet" href="{{ asset('css/styledashboard.css') }}">
@@ -24,49 +25,52 @@
 </head>
 <body>
 @livewireScripts
-<div class="row">
-    <header class="header">
+<div class="row mt-3">
+    <header class="header d-flex align-items-center">
         <span class="hamburger-menu material-symbols-outlined">menu</span>
-        <div class="admin-title col col-md-2">
-            @if(Auth::user()->can('crearHerramienta'))
-                <p>Cuentadante</p>
-            @elseif(Auth::user()->can('solicitarHerramienta'))
-                <p>Instructor</p>
-            @elseif(Auth::user()->can('editarSolicitud'))
-                <p>Monitor</p>
-            @else
-                <p>Sin permisos específicos</p>
-            @endif
-        </div>
-        <div class="search-container col col-md-4 ">
-            <input wire:model.debounce.300ms="search" type="text" placeholder="Buscar herramientas...">
-            <span class="search-icon"><i class="fas fa-search"></i></span>
-        </div>
-        <div class="user-info col col-md-3">
-            @auth
-                @if (Auth::user()->currentTeam)
-                    <span class="inline-flex rounded-md">
-                        <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
-                            {{ Auth::user()->name }}
-                            <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                            </svg>
-                        </button>
-                    </span>
-                @endif
-            @endauth 
-            
+        @auth
+        @if (Auth::user())
+        <div class="col-md-5 ms-auto d-flex align-items-center">
             @can('solicitarHerramienta')
-            <div class="Usuario ms-xs-4 ps-xs-5  ms-1 mt-3 mb-2">
-                <livewire:solicitud-contador />
-            </div>
+                <!-- Contador de solicitudes -->
+                <div class="Usuario me-2" style="margin-left: 7%">
+                    <livewire:solicitud-contador />
+                </div>
             @endcan
-            <!--<button class="btn">
-                <a href="">user</a>
-            </button>-->
-        </div>      
+            @can('editarSolicitud')
+                <!-- Contador de solicitudes -->
+                <div class="Usuario me-2" style="margin-left: 7%">
+                    <div style="background-color: rgb(25, 161, 13); width: 48px; border-radius: 50%; height: 45px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">
+                        <a href="/solicitudIndex" style="color: rgb(242, 243, 243);">
+                            <i class="fas fa-clipboard-check icono" style="font-size: 25px;"></i>
+                        </a>
+                    </div>
+                </div>
+            @endcan
+            
+            <!-- Contenedor del usuario -->
+            <div class="user d-flex align-items-center mx-3" style="background-color: #b5b8b477; border-radius: 15px; color: rgb(25, 161, 13); height: 55px; width: 200px;justify-content: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); padding: 1%;">
+                <div class="col-md-4 d-flex justify-content-center align-items-center">
+                     <!-- Círculo con la inicial del nombre -->
+                     <div class="user-b inline-flex justify-center items-center fw-bold pb-1 ms-1" style="background-color: rgb(25, 161, 13);border-radius: 50%;height: 40px;text-align: center;width: 40px;align-content: center; color:white; font-size: 22px">
+                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }} <!-- Mostrar la inicial en mayúscula -->
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <!-- Botón con el nombre completo -->
+                    <button type="button" class="inline-flex items-center py-3" style="background-color: transparent; border: none; color: green;">
+                        {{ Auth::user()->name }} <!-- Mostrar el nombre completo del usuario -->
+                    </button>
+                </div>
+            </div>
+
+            
+        </div>
+        @endif
+        @endauth    
     </header>
-    </div>  
+</div>
+
 
     <aside class="sidebar">
         <div class="sidebar-header">
@@ -80,6 +84,17 @@
                 <span>Menu</span>
                 <div class="menu-separator"></div>
             </h4>-->
+            <li class="admin-title fw-bold" style="color: #504f4f;">
+                @if(Auth::user()->can('crearHerramienta'))
+                    <p>Cuentadante</p>
+                @elseif(Auth::user()->can('solicitarHerramienta'))
+                    <p>Instructor</p>
+                @elseif(Auth::user()->can('editarSolicitud'))
+                    <p>Monitor</p>
+                @else
+                    <p>Sin permisos específicos</p>
+                @endif
+            </li>
             <li>
                 <a href="/dashboard"><span class="material-symbols-outlined">home</span>Home</a>
             </li>

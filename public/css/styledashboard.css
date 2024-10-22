@@ -6,7 +6,6 @@ body {
 }
 
 .header {
-    background-color:#b5b8b477;
     color: #000000;
     padding: 10px 10px;
     display: flex;
@@ -14,19 +13,10 @@ body {
     align-items: center;
     position: fixed;
    /* width: calc(100% - 250px);  Ajusta el ancho para considerar la barra lateral */
-    top: 0;
-    left: 17%; /* Ancho de la barra lateral */
     z-index: 1000;
-    box-shadow: 0 0px 1px rgba(0, 0, 0, 0.3);
+    background-color: white;
+    top: 1;
 
-}
-
-.header .admin-title {
-    font-size: 23px;
-    font-weight: bold;
-    margin-top: 1%;
-    margin-left: 1%;
-    color: #504f4f;
 }
 
 .header .search-container {
@@ -69,70 +59,70 @@ body {
     top: 0;
     left: 0;
     height: 100%;
-    width: 17%;
     display: flex;
+    width: 17.5%;
     overflow-x: hidden;
     flex-direction: column;
     background: #b5b8b477;
     padding: 20px;
     transition: all 0.4s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
 
 }
 
-.sidebar-header {
-    display: flex; /* Usar flexbox */
-    flex-direction: column; /* Alinear en columna */
-    align-items: center; /* Centrar horizontalmente */
-}
+    .sidebar-header {
+        display: flex; /* Usar flexbox */
+        flex-direction: column; /* Alinear en columna */
+        align-items: center; /* Centrar horizontalmente */
+    }
 
 
-.sidebar-header img {
- width: 120px;
- align-items: center; /* Centrar los elementos horizontalmente */
- border-radius: 50%;
-}
+    .sidebar-header img {
+    width: 120px;
+    align-items: center; /* Centrar los elementos horizontalmente */
+    border-radius: 50%;
+    }
 
-.sidebar-links {
-    list-style: none;
-    margin-top: 15px;
-    height: 80%;
-    overflow-y: auto;
-    scrollbar-width: none;
-}
+    .sidebar-links {
+        list-style: none;
+        margin-top: 15px;
+        height: 80%;
+        overflow-y: auto;
+        scrollbar-width: none;
+    }
 
-.sidebar-links h4 span {
-    opacity: 1;
+    .sidebar-links h4 span {
+        opacity: 1;
 
-}
+    }
 
-.sidebar-header h2{
-    font-size: 2rem;
-    font-weight: bold;
-    color: #17971e;
-    margin-left: 20px;
-}
+    .sidebar-header h2{
+        font-size: 2rem;
+        font-weight: bold;
+        color: #17971e;
+        margin-left: 20px;
+    }
 
 
-.sidebar-links h4 {
-    color: #504f4f;
-    font-weight: 500;
-    margin: 8px 0;
-    white-space: nowrap;
-    position: relative;
-   }
+    .sidebar-links h4 {
+        color: #504f4f;
+        font-weight: 500;
+        margin: 8px 0;
+        white-space: nowrap;
+        position: relative;
+    }
    
-.sidebar-links li a{
-color: #504f4f;
-font-weight: 600;
-display:flex;
-align-items: center;
-gap: 0 15px;
-padding: 12px 8px;
-white-space: nowrap;
-text-decoration: none;
-font-size: 16px;
-}
+    .sidebar-links li a{
+    color: #504f4f;
+    font-weight: 600;
+    display:flex;
+    align-items: center;
+    gap: 0 15px;
+    padding: 12px 8px;
+    white-space: nowrap;
+    text-decoration: none;
+    font-size: 16px;
+    }
    
    .sidebar-links li a:hover{
        background: #ffffff6e;
@@ -143,142 +133,106 @@ font-size: 16px;
 
 .main-content {
     flex: 1; /* Para ocupar el espacio restante */
-    margin-left: 20%; 
-    padding-top: 8%;
+    margin-left: 10%;
+    margin-right: 2%; 
     z-index: 2;
+    height: calc(100vh - 70px); /* Hace que el contenido ocupe el resto de la página menos la altura del header */
+    overflow-y: auto; /* Permite el scroll vertical solo dentro del main-content */
 }
 
 /* Estilos responsive */
-@media (max-width: 768px) {
-    .header {
-        width: calc(100% - 85px);
-    }
+/* Ajusta el tamaño de la tarjeta en pantallas pequeñas */
 
+
+
+
+/* Estilos generales (pantallas grandes) */
+.sidebar {
+    width: 17.5%; /* Ancho en pantallas grandes */
+}
+
+/* Pantallas pequeñas (móviles) */
+@media (max-width: 677px) {
     .sidebar {
-        width: 85px;
-        z-index: 2000;
+        width: 20%; /* Cambia el ancho en pantallas pequeñas */
+    }
+    .main-content {
+        margin-left: 30%; /* Ajusta el margen para el contenido */
+        margin-top: 20%;
     }
 
-    .sidebar.minimized {
-        width: 85px;
+    .admin-title{
+        font-size: 20px;
+        text-align: center;
+        display: none;
     }
 
-    .sidebar:hover {
-        width: 260px;
-    }
-
-    .sidebar-links h4 span {
-        opacity: 0;
-    }
-
-    .sidebar-links .menu-separator {
-        position: absolute;
-        left: 0;
-        top: 50%;
+    .header{
+        margin-left: 25%;
+        padding-right: 20%;
         width: 100%;
-        height: 1px;
-        transform: scaleX(1);
-        transform: translateY(-50%);
-        background: #333578;
-        transform-origin: right;
-        transition-duration: 0.2s;
+        height: 5%;
     }
 
-    .sidebar:hover .sidebar-links .menu-separator {
-        transition-delay: 0s;
-        transform: scaleX(0);
+    .hamburger-menu{
+        display: none;
     }
 
-    .header {
-        left: 85px;
-        width: calc(100% - 85px);
-    }
+    .user{
+        height: 45px !important;
+        width: 140px !important;
 
-    .header:hover + .sidebar,
-    .sidebar:hover {
-        width: 250px;
+        .userb{
+            height: 20px !important;
+        }
     }
     
-    /* Oculta el botón hamburguesa en pantallas de tablet y laptop */
-    .hamburger-menu {
-        display: none;
-        padding-top: 0;
-    }
-  
-.sidebar-header img {
-    width: 50px;
-    border-radius: 50%;
-    margin-left: 0px;
-   }
 }
 
-@media (max-width: 425px) {
-    .header .admin-title {
-        font-size: 18px; 
-    }
-
-    .header .search-container {
-        padding: 5px 10px;
-    }
-
-    .header .search-container input[type="text"] {
-        width: 80px; 
-        font-size: 12px; 
-    }
-
-    .header .user-info span {
-        font-size: 26px; 
-        margin-left: 8px; 
-    }
-
-    .sidebar-header img {
-        width: 28px; /* Reducir el tamaño del logo en la barra lateral */
-    }
-
-    .sidebar-header h2 {
-        font-size: 1rem; /* Reducir el tamaño del texto en la barra lateral */
-    }
-
-    .sidebar-links h4 {
-        font-size: 12px; /* Reducir el tamaño del texto de los títulos */
-    }
-
-    .sidebar-links li a {
-        
-        font-size: 10px; /* Reduce aún más el tamaño del texto */
-        padding: 6px 5px; /* Ajusta el padding para un mejor ajuste */
-        gap: 0 5px; /* Reduce el espacio entre el icono y el texto */
-    }
-
-    /* Ocultar la barra lateral en móviles */
+/* Pantallas medianas (tablets) */
+@media (min-width: 677px) and (max-width: 1000px) {
     .sidebar {
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
-        width: 180px;
+        width: 22%; /* Cambia el ancho en tablets */
+        padding-left: 10px;
     }
 
-    /* Mostrar la barra lateral cuando esté activa */
-    .sidebar.active {
-        transform: translateX(0);
+    .admin-title{
+        font-size: 20px;
+        text-align: center;
+    }
+    .main-content {
+        margin-top: 12%;
+        margin-left: 30%; /* Ajusta el margen para el contenido */
+    }
+    .header{
+        margin-left: 25%;
+        padding-right: 25%;
     }
 
-    .header {
-        width: 100%;
-        left: 0;
-    }
-
-    /* Estilo del botón hamburguesa solo visible en móviles */
-    .hamburger-menu {
-        display: block;
-        font-size: 32px;
-        cursor: pointer;
-        margin-right: 15px;
-    }
-}
-@media (min-width: 769px) {
-    .hamburger-menu {
+    .hamburger-menu{
         display: none;
     }
 }
 
+/* Pantallas grandes (escritorio) */
+@media (min-width: 1001px) {
+    .sidebar {
+        width: 17%; /* Mantiene el ancho en pantallas grandes */
+    }
+    .admin-title{
+        font-size: 25px;
+    }
+    .main-content {
+        margin-left: 21%; /* Ajusta el margen para el contenido */
+        margin-top: 8%;
+    }
+    .hamburger-menu{
+        display: none;
+    }
 
+    .header{
+        margin-left: 20%;
+        padding-right: 5%;
+
+    }
+}

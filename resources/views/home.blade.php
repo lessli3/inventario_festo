@@ -280,7 +280,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content rounded-4 shadow" style="background: url('img/login0.jpg');">
             <div class="modal-header border-bottom-0">
-                <h5 class="modal-title fw-bold" id="exampleModalLabel"> INICIAR SESIÓN - CONTROL FESTO</h5>
+                <h5 class="modal-title fw-bold" id="exampleModalLabel"> CONTROL FESTO</h5>
                 <button type="button" data-bs-dismiss="modal" class="btn mb-1" style="background-color: transparent;"><i class="fas fa-close" style="color: white; font-size: 28px;"></i></button>
             </div>
             <div class="modal-body">
@@ -337,13 +337,22 @@
                     <div class="mb-1">
                         <label for="verification_code" class="form-label mt-3 fw-semibold" style="color: rgb(89, 181, 72);"><i class="fas fa-unlock pe-1" style="font-size: 15px; color: rgb(89, 181, 72);" ></i>
                         Código</label>
-                        <input id="verification_code" name="verification_code" type="text" class="form-control" placeholder="Código de verificación" required />
+                        <div class="d-flex justify-content-center">
+                            <input type="text" class="form-control code-input mx-1" maxlength="1" value="*" required readonly />
+                            <input type="text" class="form-control code-input mx-1" maxlength="1" value="*" required readonly />
+                            <input type="text" class="form-control code-input mx-1" maxlength="1" value="*" required readonly />
+                            <input type="text" class="form-control code-input mx-1" maxlength="1" value="*" required readonly />
+                            <input type="text" class="form-control code-input mx-1" maxlength="1" value="*" required readonly />
+                            <input type="text" class="form-control code-input mx-1" maxlength="1" value="*" required readonly />
+                        </div>
+
+                    <!-- Input oculto para enviar el código completo -->
+                    <input type="hidden" name="verification_code" id="verification_code">
                     </div>
 
                     <div class="text-center mt-3">
                     <button id="code" class="btn px-4 fw-semibold" type="submit">Verificar Código</button>
                     </div>
-
                 </form>
             </div>
         </div>
@@ -374,19 +383,24 @@
                             placeholder="Ingresa tu correo eléctronico" required />
                         <span id="emailError" class="text-danger"></span>
                     </div>
+                    <div class="mb-1">
+                        <label for="telefono" class="form-label mt-3 fw-semibold" style="color: rgb(89, 181, 72);"><i class="fas fa-phone pe-1" style="font-size: 15px; color: rgb(89, 181, 72);" ></i>
+                        Teléfono</label>
+                        <input id="telefono" name="telefono" type="number" class="form-control" :value="old('telefono')" required autofocus autocomplete="telefono"
+                            placeholder="Ingresa tu teléfono" required />
+                        <span id="emailError" class="text-danger"></span>
+                    </div>
 
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mb-1">
                             <label for="registerIdentity" class="form-label mt-3 fw-semibold" style="color: rgb(89, 181, 72);"><i class="fas fa-id-card pe-1" style="font-size: 15px; color: rgb(89, 181, 72);" ></i>
                             N° de identificación</label>
-                            <input id="registerIdentity" name="identity" type="number" class="form-control"
-                                placeholder="Ingresa tu identificación" required />
+                            <input id="registerIdentity" name="user_identity" type="number" class="form-control"
+                        placeholder="Ingresa tu identificación" required />
                             <span id="identityError" class="text-danger"></span>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                        
+                        </div>                        
                     </div>
                     <!--<div>
                         <x-label for="name" value="{{ __('Name') }}" />
@@ -450,7 +464,84 @@
     }, 5000); // Ajusta el tiempo según tus necesidades
 
     var registerFormAction = "{{ route('register') }}";
+
+
+    document.querySelectorAll('.code-input').forEach((input, index, inputs) => {
+    input.addEventListener('focus', function() {
+        this.removeAttribute('readonly');
+        this.value = '';
+    });
+
+    input.addEventListener('blur', function() {
+        if (this.value === '') {
+            this.value = '*';
+            this.setAttribute('readonly', true);
+        }
+    });
+
+    input.addEventListener('input', function() {
+        this.setAttribute('data-real', this.value);
+        //this.value = '*';
+
+        // Moverse al siguiente campo
+        let nextInput = this.nextElementSibling;
+        if (nextInput && nextInput.classList.contains('code-input')) {
+            nextInput.focus();
+        }
+
+        // Concatenar los valores de los campos
+        let verificationCode = Array.from(inputs)
+            .map(input => input.getAttribute('data-real') || '')
+            .join('');
+        document.getElementById('verification_code').value = verificationCode;
+    });
+
+    input.addEventListener('keydown', function(e) {
+        if (e.key === 'Backspace') {
+            if (this.value === '' || this.value === '*') {
+                let prevInput = this.previousElementSibling;
+                if (prevInput && prevInput.classList.contains('code-input')) {
+                    prevInput.removeAttribute('readonly');
+                    prevInput.focus();
+                    prevInput.value = '';
+                }
+            } else {
+                this.value = '*';
+            }
+        }
+    });
+});
+
 </script>
 
+<style>
+    .code-input {
+    text-align: center;
+    font-size: 2rem; /* Tamaño grande para resaltar el asterisco */
+    font-family: monospace; /* Estilo de fuente para que el asterisco sea uniforme */
+    background-color: #f8f9fa; /* Color de fondo claro */
+    border: none;
+    border-bottom: 2px solid #5bb548; /* Línea inferior */
+    width: 50px; /* Tamaño del campo */
+    height: 60px; /* Altura del campo */
+    margin-right: 5px;
+}
+
+.code-input:focus {
+    outline: none;
+    border-color: #2e7d32; /* Cambia el color de la línea cuando está enfocado */
+}
+
+.code-input[readonly] {
+    color: #a8a8a8; /* Color gris del asterisco antes de ingresar el código */
+}
+
+.form-control::placeholder {
+    text-align: center;
+}
+
+</style>
 </body>
 </html>
+
+

@@ -3,38 +3,65 @@
     <div class="row mb-5">
         <h1 class="col-12 text-center fw-bold mt-4">Herramientas</h1>
         
-        @can('crearHerramienta')
-        <div class="row mt-5 mb-5 ps-5">
-            <div class="col-lg-5 d-flex justify-content-start">
-                <div class="me-3">
-                    <a href="/herramientas/create" class="btn btn-plus">
-                        <i class="fas fa-check me-1"></i> Gestionar Inventario
-                    </a>
-                </div>
-                <div>
-                    <a href="/herramientas/create" class="btn btn-plus">
-                        <i class="fas fa-plus "></i> Agregar Herramienta
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-lg-7 d-flex justify-content-end">
-                <div class="me-3">
-                    <select wire:model="categoriaSeleccionada" class="btn btn-outline-success form-select">
-                        <option value="" disabled>Filtrar</option>
-                        @foreach ($categorias as $categoria)
-                            <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div>
-                    <button wire:click="toggleHerramientasInactivas" class="btn btn-outline-success">
-                    {{ $mostrarInactivas ? 'Herramientas Activas' : 'Herramientas Inactivas' }}
-                    </button>
-                </div>
+@can('crearHerramienta')
+    <div class="row mt-5 mb-5 ps-5">
+        <!-- Botón desplegable solo para pantallas pequeñas y medianas -->
+        <div class="col-lg-5 col-md-6 col-sm-12 d-lg-none"> <!-- Visible solo en pantallas pequeñas y medianas -->
+            <div class="dropdown">
+                <button class="btn btn-plus dropdown-toggle w-100" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    Opciones
+                </button>
+                <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
+                    <li>
+                        <a class="dropdown-item" href="/herramientas/create">
+                            <i class="fas fa-check me-1"></i> Gestionar Inventario
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="/herramientas/create">
+                            <i class="fas fa-plus"></i> Agregar Herramienta
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
-        @endcan
+
+        <!-- Botones separados para pantallas grandes -->
+        <div class="col-lg-5 col-md-6 col-sm-12 d-none d-lg-flex justify-content-start"> <!-- Visible solo en pantallas grandes -->
+            <div class="me-3">
+                <a href="/herramientas/create" class="btn btn-plus">
+                    <i class="fas fa-check me-1"></i> Gestionar Inventario
+                </a>
+            </div>
+            <div>
+                <a href="/herramientas/create" class="btn btn-plus">
+                    <i class="fas fa-plus"></i> Agregar Herramienta
+                </a>
+            </div>
+        </div>
+
+        <!-- Segunda columna con las opciones adicionales -->
+        <div class="col-lg-7 col-md-6 col-sm-12 d-flex flex-wrap justify-content-end">
+            <div class="col-4 mb-2 me-2">
+                <select wire:model="categoriaSeleccionada" class="btn btn-outline-success form-select w-100">
+                    <option value="" disabled>Filtrar</option>
+                    @foreach ($categorias as $categoria)
+                        <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+                        
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-4 mb-2">
+                <button wire:click="toggleHerramientasInactivas" class="btn btn-outline-success w-100">
+                    {{ $mostrarInactivas ? 'Herramientas Activas' : 'Herramientas Inactivas' }}
+                </button>
+            </div>
+        </div>
+    </div>
+@endcan
+
+
+
 
         @can('solicitarHerramienta')
         <div class="col-3 offset-9 d-flex justify-content-end">
@@ -47,6 +74,16 @@
         </div>
         @endcan
 
+        @can('editarSolicitud')
+        <div class="col-3 offset-9 d-flex justify-content-end">
+            <select wire:model="categoriaSeleccionada" class="btn btn-outline-success form-select my-4 me-3">
+                <option value="">Todas las categorías</option>
+                @foreach ($categorias as $categoria)
+                    <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+                @endforeach
+            </select>
+        </div>
+        @endcan
 
         @if($herramientaCont->isEmpty())
             <p>No hay herramientas disponibles.</p>
@@ -87,6 +124,7 @@
                     </div>
                     <h4 class="card-title fw-bold">{{ $herramientaVista->nombre }}</h4>
                     <p class="card-text fw-semibold" style="font-size: 18px">{{ $herramientaVista->descripcion }}</p>
+                    <p class="card-text fw-bold" style="font-size: 15px">{{ $herramientaVista->stock }} en stock</p>
                 </div>
             </div>
         </div>
