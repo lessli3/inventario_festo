@@ -52,6 +52,7 @@ Route::get('/solicitudItems', function () {
 
 
 
+
 Route::post('/solicitudes', [SolicitudController::class, 'store'])->name('solicitudes.store');
 Route::get('/solicitudIndex', [SolicitudController::class, 'index'])->name('solicitudes.index')->middleware('auth');
 Route::put('/solicitudes/update', [SolicitudController::class, 'update'])->name('solicitudes.update');
