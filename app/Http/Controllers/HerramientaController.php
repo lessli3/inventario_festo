@@ -174,7 +174,6 @@ class HerramientaController extends Controller
 
     public function handlePost(Request $request, $id = null)
     {
-        dd('tes');
         // Si es una solicitud GET, mostramos todos los posts.
         if ($request->isMethod('get')) {
             $posts = Herramienta::all();
@@ -214,11 +213,22 @@ class HerramientaController extends Controller
 
     public function handlePost2()
     {
-        die('Llegó al controlador');
 
-            $posts = Herramienta::all();
+            $posts = Herramienta::orderBy('id')->get();
 
             return view('posts.index', compact('posts'));
 
+    }
+
+    public function adjustarStock(Herramienta $post, $action)
+    {
+        if ($action == 'increase') {
+            $post->stock++;
+        } elseif ($action == 'decrease' && $post->stock > 0) {
+            $post->stock--;
+        }
+        $post->save();
+
+        return redirect()->back();
     }
 }
