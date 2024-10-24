@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Categoria extends Model
 {
-    use HasFactory;
-    protected $fillable = ['nombre'];
+    use HasFactory; // Utiliza el trait HasFactory para permitir la creación de fábricas
 
+    protected $fillable = ['nombre']; // Campos que se pueden llenar masivamente
+
+    // Define la relación con el modelo Herramienta
     public function herramientas()
     {
-        return $this->hasMany(Herramienta::class);
+        return $this->hasMany(Herramienta::class); // Una categoría puede tener muchas herramientas
     }
 }

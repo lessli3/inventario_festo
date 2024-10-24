@@ -6,100 +6,65 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
-
-
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Constructor: Aplica un middleware para asegurarse de que el usuario esté autenticado
     public function __construct()
     {
-    $this->middleware('auth');
+        $this->middleware('auth');
     }
-
+    // Muestra la lista de usuarios
     public function index()
     {
+        // Obtiene el usuario autenticado
         $usuario = Auth::user();
+        // Retorna la vista 'users.index' con la información del usuario actual
         return view('users.index', [
             'usuario' => $usuario
         ]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Muestra el formulario para crear un nuevo recurso (aún sin implementación)
     public function create()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // Almacena un nuevo recurso en la base de datos (aún sin implementación)
     public function store(Request $request)
     {
         //
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // Muestra un recurso específico (aún sin implementación)
     public function show($id)
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // Muestra el formulario para editar un recurso específico
     public function edit($id)
     {
+        // Busca el usuario por su ID
         $usuarioEditar = User::findOrFail($id);
+        // Retorna la vista 'users.edit' con los datos del usuario a editar
         return view('users.edit', [
             'usuEditar' => $usuarioEditar
         ]);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // Actualiza un recurso específico en la base de datos
     public function update(Request $request, $id)
     {
+        // Busca el usuario por su ID
         $editarUsuario = User::findOrFail($id);
 
-        $editarUsuario -> name = $request-> get('nameEdit');
-        $editarUsuario -> email = $request-> get('correoEdit');
-        $editarUsuario -> telefono = $request-> get('telefonoEdit');
+        // Asigna los nuevos valores desde el formulario a los campos del usuario
+        $editarUsuario->name = $request->get('nameEdit');
+        $editarUsuario->email = $request->get('correoEdit');
+        $editarUsuario->telefono = $request->get('telefonoEdit');
 
-
-        $editarUsuario -> save();
+        // Guarda los cambios en la base de datos
+        $editarUsuario->save();
+        // Redirige a la lista de usuarios
         return redirect('/users');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // Elimina un recurso específico (aún sin implementación)
     public function destroy($id)
     {
         //

@@ -18,7 +18,6 @@ class User extends Authenticatable
     use HasFactory, HasRoles, SoftDeletes;
     use HasProfilePhoto;
     use Notifiable;
-    use HasRoles;
     use TwoFactorAuthenticatable;
 
     /**
@@ -29,7 +28,6 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'user_identity', 'telefono',
     ];
-
 
     /**
      * The attributes that should be hidden for serialization.
