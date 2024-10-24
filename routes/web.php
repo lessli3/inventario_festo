@@ -43,6 +43,7 @@ Route::post('/verify-code-ing', [AuthController::class, 'verifyCodeIng'])->name(
 
 
 Route::resource('/herramientas', HerramientaController::class);
+Route::get('/herramienta/lista', [HerramientaController::class, 'handlePost2'])->name('herramientas.lista');
 
 
 Route::get('/solicitudItems', function () {
@@ -70,7 +71,7 @@ Route::get('/profile', [UserController::class, 'index'])->name('profile');
 Route::resource('/users', UserController::class);
 
 
-Route::get('/posts', [HerramientaController::class, 'handlePost'])->name('posts.index');
+//Route::get('/posts', [HerramientaController::class, 'handlePost'])->name('posts.index');
 Route::post('/posts', [HerramientaController::class, 'handlePost'])->name('posts.store');
 Route::delete('/posts/{id}', [HerramientaController::class, 'handlePost'])->name('posts.destroy');
 

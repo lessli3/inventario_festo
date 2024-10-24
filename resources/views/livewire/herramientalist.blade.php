@@ -2,7 +2,7 @@
     @include('layouts.mensaje')
     <div class="row mb-5">
         <h1 class="col-12 text-center fw-bold mt-4">Herramientas</h1>
-        
+
 @can('crearHerramienta')
     <div class="row mt-5 mb-5 ps-5">
         <!-- Botón desplegable solo para pantallas pequeñas y medianas -->
@@ -13,9 +13,11 @@
                 </button>
                 <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
                     <li>
-                        <a class="dropdown-item" href="/herramientas/create">
-                            <i class="fas fa-check me-1"></i> Gestionar Inventario
-                        </a>
+                        <form action="{{ route('herramientas.lista') }}" method="GET">
+                            <button type="submit" class="btn btn-plus">
+                                <i class="fas fa-check me-1"></i> Gestionar Inventario
+                            </button>
+                        </form>
                     </li>
                     <li>
                         <a class="dropdown-item" href="/herramientas/create">
@@ -29,9 +31,11 @@
         <!-- Botones separados para pantallas grandes -->
         <div class="col-lg-5 col-md-6 col-sm-12 d-none d-lg-flex justify-content-start"> <!-- Visible solo en pantallas grandes -->
             <div class="me-3">
-                <a href="/herramientas/create" class="btn btn-plus">
-                    <i class="fas fa-check me-1"></i> Gestionar Inventario
-                </a>
+                <form action="{{ route('herramientas.lista') }}" method="GET">
+                    <button type="submit" class="btn btn-plus">
+                        <i class="fas fa-check me-1"></i> Gestionar Inventario
+                    </button>
+                </form>
             </div>
             <div>
                 <a href="/herramientas/create" class="btn btn-plus">
@@ -47,7 +51,7 @@
                     <option value="" disabled>Filtrar</option>
                     @foreach ($categorias as $categoria)
                         <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
-                        
+
                     @endforeach
                 </select>
             </div>
@@ -88,7 +92,7 @@
         @if($herramientaCont->isEmpty())
             <p>No hay herramientas disponibles.</p>
         @else
-            
+
         @foreach($herramientaCont as $herramientaVista)
     @if($herramientaVista->estado == ($mostrarInactivas ? 'inactivo' : 'activo'))
         <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
