@@ -174,41 +174,72 @@ class HerramientaController extends Controller
 
     public function handlePost(Request $request, $id = null)
     {
-        // Si es una solicitud GET, mostramos todos los posts.
         if ($request->isMethod('get')) {
-            $posts = Herramienta::all();
-            
-            return view('posts.index', compact('posts'));
+            $inventario = Herramienta::all();
+            return view('inventario.index', compact('inventario'));
         }
 
-        // Si es una solicitud POST, almacenamos un nuevo post.
+        // Si es una solicitud POST, creamos un nuevo post
         if ($request->isMethod('post')) {
+            // Validar los datos del post
             $validatedData = $request->validate([
                 'title' => 'required|string|max:255',
                 'body' => 'required|string',
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'cod_herramienta' => 'required|string|max:255|unique:herramientas,cod_herramienta',
             ]);
 
+            // Subir la imagen del post si existe
             if ($request->hasFile('image')) {
                 $imagePath = $request->file('image')->store('public/images');
                 $validatedData['image_url'] = basename($imagePath);
             }
 
+            // Marcar el post como activo y guardarlo en la base de datos
             $validatedData['active'] = true;
             Herramienta::create($validatedData);
 
-            return redirect()->route('posts.index')->with('success', 'Post creado exitosamente');
+            return redirect()->route('inventario.index')->with('success', 'Post creado exitosamente');
         }
 
-        // Si es una solicitud DELETE, eliminamos el post correspondiente.
+        // Si es una solicitud DELETE, eliminamos el post correspondiente
         if ($request->isMethod('delete') && $id) {
-            $post = Herramienta::findOrFail($id);
-            $post->delete();
+            $inventario = Herramienta::findOrFail($id);
+            $inventario->delete();
 
-            return redirect()->route('posts.index')->with('success', 'Post eliminado exitosamente');
+            return redirect()->route('inventario.index')->with('success', 'Post eliminado exitosamente');
         }
 
-        return redirect()->route('posts.index')->with('error', 'Acción no permitida');
+        // Si no es una acción válida, redirigir con un mensaje de error
+        return redirect()->route('inventario.index')->with('error', 'Acción no válida');
     }
+
+    public function handlePost2()
+    {
+            $inventario = Herramienta::orderBy('id')->get();
+            return view('inventario.index', compact('inventario'));
+
+    }
+
+    public function adjustarStock(Request $request, $id, $action)
+{
+    // Validar que el cod_herramienta esté presente
+    $validatedData = $request->validate([
+        'cod_herramienta' => 'required|string',
+    ]);
+
+    $herramienta = Herramienta::find($id);
+
+    if ($action == 'increase') {
+        $herramienta->stock += 1;
+    } elseif ($action == 'decrease') {
+        $herramienta->stock -= 1;
+    }
+
+    $herramienta->save();
+    
+    return redirect()->back();
+}
+
     
 }

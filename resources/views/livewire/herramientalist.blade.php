@@ -13,7 +13,7 @@
                 </button>
                 <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
                     <li>
-                        <a class="dropdown-item" href="/herramientas/create">
+                        <a class="dropdown-item" href="/inventario">
                             <i class="fas fa-check me-1"></i> Gestionar Inventario
                         </a>
                     </li>
@@ -29,7 +29,7 @@
         <!-- Botones separados para pantallas grandes -->
         <div class="col-lg-5 col-md-6 col-sm-12 d-none d-lg-flex justify-content-start"> <!-- Visible solo en pantallas grandes -->
             <div class="me-3">
-                <a href="/herramientas/create" class="btn btn-plus">
+                <a href="/inventario" class="btn btn-plus">
                     <i class="fas fa-check me-1"></i> Gestionar Inventario
                 </a>
             </div>
@@ -44,24 +44,21 @@
         <div class="col-lg-7 col-md-6 col-sm-12 d-flex flex-wrap justify-content-end">
             <div class="col-4 mb-2 me-2">
                 <select wire:model="categoriaSeleccionada" class="btn btn-outline-success form-select w-100">
-                    <option value="" disabled>Filtrar</option>
+                    <option value="">Todas las categorías</option>
                     @foreach ($categorias as $categoria)
                         <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
                         
                     @endforeach
                 </select>
             </div>
-            <div class="col-4 mb-2">
-                <button wire:click="toggleHerramientasInactivas" class="btn btn-outline-success w-100">
-                    {{ $mostrarInactivas ? 'Herramientas Activas' : 'Herramientas Inactivas' }}
-                </button>
+                    <div class="col-4 mb-2">
+                        <button wire:click="toggleHerramientasInactivas" class="btn btn-outline-success w-100">
+                            {{ $mostrarInactivas ? 'Herramientas Activas' : 'Herramientas Inactivas' }}
+                        </button>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-@endcan
-
-
-
+    @endcan
 
         @can('solicitarHerramienta')
         <div class="col-3 offset-9 d-flex justify-content-end">

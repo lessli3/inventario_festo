@@ -197,122 +197,128 @@
 
 <script>
  var solicitudesAceptadas = @json($solicitudesAceptadas);  // Solicitudes aceptadas con detalles
-    var solicitudActual = @json($solicituditemsArray);  // Herramientas que estás solicitando
+ var solicitudActual = @json($solicituditemsArray);  // Herramientas que estás solicitando
 
-    document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var eventAdded = false; // Variable para rastrear si se ha añadido un evento
-        var today = new Date(); // Fecha y hora actuales
+ document.addEventListener('DOMContentLoaded', function() {
+     var calendarEl = document.getElementById('calendar');
+     var eventAdded = false; // Variable para rastrear si ya se ha añadido un evento
+     var today = new Date(); // Fecha y hora actuales
 
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'timeGridWeek',
-            themeSystem: 'bootstrap',
-            locale: 'es',
-            selectable: true,
-            editable: true,
-            headerToolbar: {
-                left: 'prev,next today',
-                right: 'title',
-            },
-            hiddenDays: [0, 6], // Ocultar domingos y sábados
-            validRange: function(nowDate) {
-                var start = new Date(nowDate);
-                var end = new Date(nowDate);
-                end.setDate(end.getDate() + 8);
-                return {
-                    start: start,
-                    end: end
-                };
-            },
-            slotMinTime: '08:00:00',
-            slotDuration: '00:30:00', // Intervalo de media hora
-            slotMaxTime: '17:00:00',
-            slotLabelInterval: '00:30:00', // Etiqueta de las horas en intervalos de media hora
-            slotLabelFormat: {
-                hour: 'numeric',
-                minute: '2-digit',
-                meridiem: 'short',
-                hour12: true
-            },
-            // Filtrar y mostrar eventos con detalles de la herramienta
-            events: solicitudesAceptadas.flatMap(function(solicitud) {
-                // Filtrar herramientas aceptadas que coincidan con las solicitadas
-                var herramientasFiltradas = solicitud.detalles.filter(function(detalle) {
-                    return solicitudActual.some(function(herramientaSolicitada) {
-                        return detalle.cod_herramienta === herramientaSolicitada.cod_herramienta;
-                    });
-                });
+     var calendar = new FullCalendar.Calendar(calendarEl, {
+         initialView: 'timeGridWeek', // Vista inicial en formato de agenda semanal
+         themeSystem: 'bootstrap',
+         locale: 'es', // Configurar el idioma en español
+         selectable: true, // Permitir seleccionar fechas
+         editable: true, // Permitir editar eventos
+         headerToolbar: {
+             left: 'prev,next today', // Mostrar botones de navegación y hoy
+             right: 'title', // Mostrar el título del calendario
+         },
+         hiddenDays: [0, 6], // Ocultar domingos y sábados
+         validRange: function(nowDate) {
+             var start = new Date(nowDate); // Rango válido comienza hoy
+             var end = new Date(nowDate);
+             end.setDate(end.getDate() + 8); // Mostrar solo la próxima semana
+             return {
+                 start: start,
+                 end: end
+             };
+         },
+         slotMinTime: '08:00:00', // Hora mínima (8:00 AM)
+         slotDuration: '00:30:00', // Intervalo de tiempo de media hora
+         slotMaxTime: '17:00:00', // Hora máxima (5:00 PM)
+         slotLabelInterval: '00:30:00', // Mostrar las etiquetas de las horas en intervalos de media hora
+         slotLabelFormat: {
+             hour: 'numeric',
+             minute: '2-digit',
+             meridiem: 'short', // Mostrar AM/PM
+             hour12: true // Usar formato de 12 horas
+         },
+         // Filtrar y mostrar eventos que correspondan a las herramientas solicitadas
+         events: solicitudesAceptadas.flatMap(function(solicitud) {
+             // Filtrar las herramientas aceptadas que coincidan con las solicitadas
+             var herramientasFiltradas = solicitud.detalles.filter(function(detalle) {
+                 return solicitudActual.some(function(herramientaSolicitada) {
+                     return detalle.cod_herramienta === herramientaSolicitada.cod_herramienta;
+                 });
+             });
 
-                // Si no hay coincidencias, no agregar el evento
-                if (herramientasFiltradas.length === 0) return [];
+             // Si no hay coincidencias, no agregar el evento
+             if (herramientasFiltradas.length === 0) return [];
 
-                var startDateTime = solicitud.fecha + 'T' + solicitud.hora; // Fecha y hora de inicio
-                var endDate = new Date(startDateTime);
-                endDate.setHours(endDate.getHours() + 2); // Añadir 12 horas para el fin del evento
+             var startDateTime = solicitud.fecha + 'T' + solicitud.hora; // Fecha y hora de inicio
+             var endDate = new Date(startDateTime);
+             endDate.setHours(endDate.getHours() + 2); // Duración del evento (2 horas)
 
-                // Formatear herramientas para el título del evento con cantidad solicitada
-                var herramientasEnSolicitud = herramientasFiltradas.map(function(detalle) {
-                    return `${detalle.cantidad} unidad(es)`;
-                }).join("\n");
+             // Formatear las herramientas solicitadas con la cantidad
+             var herramientasEnSolicitud = herramientasFiltradas.map(function(detalle) {
+                 return `${detalle.cantidad} unidad(es)`;
+             }).join("\n");
 
-                // Devolver el evento
-                return {
-                    title: `${solicitud.nombre} - ${herramientasEnSolicitud}`,  // Mostrar herramientas y cantidad solicitada
-                    start: startDateTime,
-                    end: endDate.toISOString(),
-                    allDay: false,
-                    color: 'green'
-                };
-            }),
-            // Manejador de clics en fechas
-            dateClick: function(info) {
-                var currentHour = today.getHours();
-                var currentMinute = today.getMinutes();
+             // Devolver el evento formateado
+             return {
+                 title: `${solicitud.nombre} - ${herramientasEnSolicitud}`,  // Mostrar el nombre de la solicitud y cantidad de herramientas
+                 start: startDateTime,
+                 end: endDate.toISOString(),
+                 allDay: false,
+                 color: 'green' // Color del evento
+             };
+         }),
+         // Manejar el clic en las fechas para seleccionar una nueva solicitud
+         dateClick: function(info) {
+             var currentHour = today.getHours();
+             var currentMinute = today.getMinutes();
 
-                var selectedDate = info.date;
-                var selectedHour = info.date.getHours();
-                var selectedMinute = info.date.getMinutes();
+             var selectedDate = info.date;
+             var selectedHour = info.date.getHours();
+             var selectedMinute = info.date.getMinutes();
 
-                // Validar si la fecha seleccionada está en el pasado
-                if (
-                    selectedDate.toDateString() === today.toDateString() &&
-                    (selectedHour < currentHour || (selectedHour === currentHour && selectedMinute < currentMinute))
-                ) {
-                    alert("No puedes seleccionar una hora en el pasado.");
-                    return;
-                }
+             // Validar si la fecha seleccionada está en el pasado
+             if (
+                 selectedDate.toDateString() === today.toDateString() &&
+                 (selectedHour < currentHour || (selectedHour === currentHour && selectedMinute < currentMinute))
+             ) {
+                 alert("No puedes seleccionar una hora en el pasado.");
+                 return;
+             }
 
-                if (eventAdded) {
-                    alert("Ya se ha creado una solicitud.");
-                    return;
-                }
+             // Validar si ya se ha añadido un evento
+             if (eventAdded) {
+                 alert("Ya se ha creado una solicitud.");
+                 return;
+             }
 
-                var formattedDate = selectedDate.toISOString().split('T')[0];
-                var formattedHour = selectedHour + ":" + ("0" + selectedMinute).slice(-2);
+             // Formatear la fecha y hora seleccionada
+             var formattedDate = selectedDate.toISOString().split('T')[0];
+             var formattedHour = ("0" + selectedHour).slice(-2) + ":" + ("0" + selectedMinute).slice(-2);
 
-                var confirmMessage = "Confirmar fecha y hora: " + formattedDate + " " + formattedHour;
-                if (confirm(confirmMessage)) {
-                    document.getElementById('fecha').value = formattedDate;
-                    document.getElementById('hora').value = formattedHour;
+             // Confirmar la selección de la fecha y hora
+             var confirmMessage = "Confirmar fecha y hora: " + formattedDate + " " + formattedHour;
+             if (confirm(confirmMessage)) {
+                 // Guardar la fecha y hora en los campos ocultos del formulario
+                 document.getElementById('fecha').value = formattedDate;
+                 document.getElementById('hora').value = formattedHour;
 
-                    // Añadir el nuevo evento al calendario
-                    calendar.addEvent({
-                        title: "Tu solicitud",
-                        start: formattedDate + 'T' + formattedHour + ':00',
-                        allDay: false,
-                        color: 'blue'
-                    });
+                 // Añadir el evento al calendario
+                 calendar.addEvent({
+                     title: "Tu solicitud",
+                     start: formattedDate + 'T' + formattedHour + ':00',
+                     allDay: false,
+                     color: 'blue' // Color del evento creado por el usuario
+                 });
 
-                    eventAdded = true;
-                    console.log("Evento agregado: ", formattedDate + 'T' + formattedHour + ':00');
-                }
-            }
-        });
+                 eventAdded = true; // Marcar que ya se ha añadido un evento
+                 console.log("Evento agregado: ", formattedDate + 'T' + formattedHour + ':00');
+             }
+         }
+     });
 
-        calendar.render();
-    });
+     calendar.render(); // Renderizar el calendario solo una vez
+ });
 
 </script>
+
+
 
 
 

@@ -48,6 +48,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'lastname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'user_identity' => ['required', 'integer'],
             'telefono' => ['required', 'integer'],
@@ -57,6 +58,7 @@ class RegisterController extends Controller
             'telefono.unique' => 'El teléfono ya está registrado.',
             'user_identity.unique' => 'El documento de identificación ya está registrado.',
             'name.required' => 'El nombre es obligatorio.',
+            'lastname.required' => 'El apellido es obligatorio.',
             'telefono.required' => 'El teléfono es obligatorio.',
             'email.required' => 'El correo electrónico es obligatorio.',
             'email.email' => 'El correo electrónico debe ser una dirección válida.',
@@ -69,6 +71,7 @@ class RegisterController extends Controller
         // Crear el usuario
         $user = User::create([
             'name' => $data['name'],
+            'lastname' => $data['lastname'],
             'email' => $data['email'],
             'user_identity' => $data['user_identity'],
             'telefono' => $data['telefono'],

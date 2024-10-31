@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('imagen');
             $table->string('imagencode');
             $table->string('estado');
-            
+            $table->unsignedBigInteger('solicitudes_count')->default(0);            
             $table->timestamps();
 
         });

@@ -3,7 +3,7 @@
 @section('content')
 @can('editarSolicitud')
     <!-- Sección para mostrar el calendario -->
-    <h4 class="fw-semibold mb-4" style="color: green;">Calendario de Solicitudes Pendientes</h4>
+    <h4 class="fw-bold mb-4" style="color: green;">CALENDARIO SOLICITUDES PENDIENTES</h4>
     <div class="container mb-5" style="width: 700px">
         <div id="calendar"></div>
     </div>    

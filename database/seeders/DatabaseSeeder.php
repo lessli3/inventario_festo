@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
         // Crear usuarios y asignarles roles
         $user1 = User::firstOrCreate([
             'name' => 'Angie',
+            'lastname' => 'Galindo',
             'email' => 'angie@gmail.com',
             'user_identity' => '123456789',
             'telefono' => '312548648',
@@ -35,6 +36,7 @@ class DatabaseSeeder extends Seeder
 
         $user2 = User::firstOrCreate([
             'name' => 'Salome',
+            'lastname' => 'Lievano',
             'email' => 'salome26u.u@gmail.com',
             'user_identity' => '1070386098',
             'telefono' => '3043035695',
@@ -44,6 +46,7 @@ class DatabaseSeeder extends Seeder
 
         $user3 = User::firstOrCreate([
             'name' => 'Lesly',
+            'lastname' => 'Silva',
             'email' => 'lesly@gmail.com',
             'user_identity' => '1070386099',
             'telefono' => '3102511208',

@@ -26,7 +26,7 @@
 <body>
 @livewireScripts
 <div class="row mt-3">
-    <header class="header d-flex align-items-center">
+    <header class="header d-flex align-items-center" style="z-index: 1">
         <span class="hamburger-menu material-symbols-outlined">menu</span>
         @auth
         @if (Auth::user())
@@ -43,6 +43,16 @@
                     <div style="background-color: rgb(25, 161, 13); width: 48px; border-radius: 50%; height: 45px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">
                         <a href="/solicitudIndex" style="color: rgb(242, 243, 243);">
                             <i class="fas fa-clipboard-check icono" style="font-size: 25px;"></i>
+                        </a>
+                    </div>
+                </div>
+            @endcan
+            @can('crearHerramienta')
+                <!-- Contador de solicitudes -->
+                <div class="Usuario me-2" style="margin-left: 7%">
+                    <div style="background-color: rgb(25, 161, 13); width: 48px; border-radius: 50%; height: 45px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">
+                        <a href="/herramientas" style="color: rgb(242, 243, 243);">
+                            <i class="fas fa-tools icono" style="font-size: 25px;"></i>
                         </a>
                     </div>
                 </div>
@@ -101,7 +111,7 @@
             <li>
                 <a href="/herramientas"><span class="material-symbols-outlined">build</span>Herramientas</a>
             </li>
-            @canany(['solicitarHerramienta', 'crearHerramienta'])
+            @canany(['solicitarHerramienta', 'editarSolicitud'])
                 <li>
                     <a href="/solicitudIndex">
                         <span class="material-symbols-outlined">folder</span>Solicitudes
@@ -110,20 +120,16 @@
             @endcanany
 
             @can('editarSolicitud')
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-          <span class="material-symbols-outlined">folder</span>Solicitudes
-          </a>
-          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink" style="height: 80px; width: 200px">
-            <li><a class="dropdown-item" href="/calendario" style="height: 30px">Calendario</a></li>
-            <li><a class="dropdown-item" href="/solicitudIndex" style="height: 30px">Todas las solicitudes</a></li>
-          </ul>
-        </li>
+            <li>
+                <a href="/calendario">
+                    <span class="material-symbols-outlined">event</span>Calendario
+                </a>
+            </li>
             @endcan
 
             @can('crearHerramienta')
             <li>
-                <a href="#"><span class="material-symbols-outlined">groups</span>Monitores</a>
+                <a href="/monitores"><span class="material-symbols-outlined">groups</span>Monitores</a>
             </li>
             @endcan
             <hr>

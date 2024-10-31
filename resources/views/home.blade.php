@@ -370,37 +370,52 @@
             <div class="modal-body">
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
-                    <div class="mb-1">
-                        <label for="name" class="form-label fw-semibold" style="color: rgb(89, 181, 72);"><i class="fas fa-user-pen pe-1" style="font-size: 15px; color: rgb(89, 181, 72);" ></i>
-                        Nombre</label>
-                        <input id="name" name="name" type="text" class="form-control" :value="old('name')" required autofocus autocomplete="name"
-                            placeholder="Ingresa tu nombre" required />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-1">
+                                <label for="name" class="form-label fw-semibold" style="color: rgb(89, 181, 72);"><i class="fas fa-user-pen pe-1" style="font-size: 15px; color: rgb(89, 181, 72);" ></i>
+                                Nombre</label>
+                                <input id="name" name="name" type="text" class="form-control" :value="old('name')" required autofocus autocomplete="name"
+                                    placeholder="Ingresa tu nombre" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-1">
+                                <label for="lastname" class="form-label fw-semibold" style="color: rgb(89, 181, 72);">
+                                Apellido</label>
+                                <input id="lastname" name="lastname" type="text" class="form-control" :value="old('lastname')" required autofocus autocomplete="lastname"
+                                    placeholder="Ingresa tu apellido" required />
+                            </div>
+                        </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-1">
+                                    <label for="registerIdentity" class="form-label mt-3 fw-semibold" style="color: rgb(89, 181, 72);"><i class="fas fa-id-card pe-1" style="font-size: 15px; color: rgb(89, 181, 72);" ></i>
+                                    N° de identificación</label>
+                                    <input id="registerIdentity" name="user_identity" type="number" class="form-control"
+                                placeholder="Ingresa tu cédula" required />
+                                    <span id="identityError" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-1">
+                                <label for="telefono" class="form-label mt-3 fw-semibold" style="color: rgb(89, 181, 72);"><i class="fas fa-phone pe-1" style="font-size: 15px; color: rgb(89, 181, 72);" ></i>
+                                Teléfono</label>
+                                <input id="telefono" name="telefono" type="number" class="form-control" :value="old('telefono')" required autofocus autocomplete="telefono"
+                                    placeholder="Ingresa tu teléfono" required />
+                                <span id="emailError" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
                     <div class="mb-1">
                         <label for="email" class="form-label mt-3 fw-semibold" style="color: rgb(89, 181, 72);"><i class="fas fa-at pe-1" style="font-size: 15px; color: rgb(89, 181, 72);" ></i>
                         Email</label>
                         <input id="email" name="email" type="email" class="form-control" :value="old('email')" required autofocus autocomplete="email"
                             placeholder="Ingresa tu correo eléctronico" required />
                         <span id="emailError" class="text-danger"></span>
-                    </div>
-                    <div class="mb-1">
-                        <label for="telefono" class="form-label mt-3 fw-semibold" style="color: rgb(89, 181, 72);"><i class="fas fa-phone pe-1" style="font-size: 15px; color: rgb(89, 181, 72);" ></i>
-                        Teléfono</label>
-                        <input id="telefono" name="telefono" type="number" class="form-control" :value="old('telefono')" required autofocus autocomplete="telefono"
-                            placeholder="Ingresa tu teléfono" required />
-                        <span id="emailError" class="text-danger"></span>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="mb-1">
-                            <label for="registerIdentity" class="form-label mt-3 fw-semibold" style="color: rgb(89, 181, 72);"><i class="fas fa-id-card pe-1" style="font-size: 15px; color: rgb(89, 181, 72);" ></i>
-                            N° de identificación</label>
-                            <input id="registerIdentity" name="user_identity" type="number" class="form-control"
-                        placeholder="Ingresa tu identificación" required />
-                            <span id="identityError" class="text-danger"></span>
-                            </div>
-                        </div>                        
                     </div>
                     <!--<div>
                         <x-label for="name" value="{{ __('Name') }}" />

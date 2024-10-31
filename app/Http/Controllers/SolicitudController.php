@@ -7,6 +7,7 @@ use App\Models\Herramienta;
 use App\Models\Solicitud;
 use App\Models\DetalleSolicitud;
 use App\Models\CarritoTools;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
@@ -68,6 +69,43 @@ class SolicitudController extends Controller
         // Pasar las solicitudes pendientes a la vista
         return view('calendario', compact('solicitudesPendientes'));
     }
+
+public function dashboard(){
+// Podio
+$herramientasMasPedidas = DB::table('detalle_solicitudes')
+    ->join('herramientas', 'detalle_solicitudes.cod_herramienta', '=', 'herramientas.cod_herramienta')
+    ->select('herramientas.*', DB::raw('COUNT(DISTINCT solicitud_id) as total_solicitudes'))
+    ->groupBy('herramientas.id')
+    ->orderBy('total_solicitudes', 'desc')
+    ->take(3) // Puedes ajustar el número de herramientas que quieras mostrar
+    ->get();
+
+
+//Para el carrusel
+$herramientasAl = Herramienta::inRandomOrder()->take(8)->get();
+//todas las herramientas disponibles
+$herramientas = DB::table('herramientas')->get();     
+//ID del usuario autenticado
+$userId = Auth::user()->user_identity;
+// Consultar las herramientas más pedidas por el usuario autenticado
+$herramientasMasPedidasUser = DB::table('detalle_solicitudes')
+    ->join('solicitudes', 'detalle_solicitudes.solicitud_id', '=', 'solicitudes.id')
+    ->select('detalle_solicitudes.cod_herramienta', DB::raw('COUNT(DISTINCT solicitudes.id) as total'))
+    ->where('solicitudes.user_identity', $userId) // Filtrar por el usuario autenticado
+    ->groupBy('detalle_solicitudes.cod_herramienta')
+    ->take(3) // Limitar el número de herramientas más pedidas
+    ->get();
+
+//Consultar numero de todas las solicitudes
+$solicitudesContador = DB::table('solicitudes')
+    ->select('estado', DB::raw('COUNT(*) as total'))
+    ->groupBy('estado')
+    ->get();
+//Herramientas con el stock bajo
+$herramientaBajoStock = Herramienta::orderBy('stock', 'asc')->take(5)->get();
+
+    return view('dashboard', compact('herramientasMasPedidas', 'herramientas', 'herramientasAl', 'herramientasMasPedidasUser', 'solicitudesContador', 'herramientaBajoStock'));
+}
 
     /**
      * Show the form for creating a new resource.
@@ -140,6 +178,7 @@ class SolicitudController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
+
             // Validar los datos del formulario
             $request->validate([
                 'nombre' => 'required|string|max:255',
@@ -173,10 +212,10 @@ class SolicitudController extends Controller
             $this->eliminarItemDelCarrito(auth()->user()->user_identity);
     
             return redirect()->route('solicitudes.index')->with('success', 'Solicitud creada con éxito.');
-        }
+    }
 
     
-        public function actualizarEstado(Request $request, $id)
+    public function actualizarEstado(Request $request, $id)
     {
         $detalleSolicitud = DetalleSolicitud::findOrFail($id);
         $detalleSolicitud->estado = $request->input('estado');
@@ -186,15 +225,28 @@ class SolicitudController extends Controller
     }
 
     public function actualizar(Request $request, $id)
-{
-    $solicitud = Solicitud::findOrFail($id);
-    $solicitud->estado = $request->input('estado', 'aceptada'); // Puedes cambiar 'pendiente' por el estado predeterminado que desees.
-    $solicitud->save();
-
-    return response()->json(['message' => 'Solicitud actualizada correctamente']);
-}
-
-
+    {
+        $solicitud = Solicitud::findOrFail($id);
+        $solicitud->estado = $request->input('estado', 'aceptada');
+        $solicitud->save();
+    
+        // Obtener los códigos de herramienta únicos en los detalles de la solicitud
+        $codHerramientasUnicas = $solicitud->detalles->pluck('cod_herramienta')->unique();
+    
+        // Para cada herramienta única, incrementar el contador de solicitudes
+        foreach ($codHerramientasUnicas as $cod_herramienta) {
+            $herramienta = Herramienta::where('cod_herramienta', $cod_herramienta)->first();
+    
+            if ($herramienta) {
+                // Incrementar el contador de solicitudes una vez por herramienta única
+                $herramienta->solicitudes_count += 1;
+                $herramienta->save();
+            }
+        }
+    
+        return response()->json(['message' => 'Solicitud actualizada correctamente']);
+    }
+    
     private function eliminarItemDelCarrito($instructorId)
     {
         CarritoTools::where('user_identity', $instructorId)->delete();
