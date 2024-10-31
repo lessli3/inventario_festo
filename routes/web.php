@@ -33,8 +33,6 @@ Route::post('/check-document', [AuthController::class, 'sendVerificationCode'])-
 Route::post('/verify-code', [AuthController::class, 'verifyCode'])->name('verify.code');
 // Ruta para enviar el código de verificación
 Route::post('/verify-code-ing', [AuthController::class, 'verifyCodeIng'])->name('verify.codeIng');
-
-
 //Todas las rutas que requieren autenticación
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [SolicitudController::class, 'dashboard'])->name('dashboard');
@@ -78,7 +76,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/monitores', [UserController::class, 'Roles'])->name('monitores');
 
 });
-
 
 /*Route::get('/solicitudes', function () {
     return view('solicitudes');

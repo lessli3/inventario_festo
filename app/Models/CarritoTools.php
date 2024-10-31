@@ -7,23 +7,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class CarritoTools extends Model
 {
-    use HasFactory;
+    use HasFactory; // Utiliza el trait HasFactory para permitir la creación de fábricas
 
     protected $table = 'carrito_tools'; // Nombre de la tabla correcto
 
     protected $fillable = [
-        'user_identity',
-        'cod_herramienta',
-        'cantidad',
+        'user_identity', // Identidad del usuario que solicita la herramienta
+        'cod_herramienta', // Código de la herramienta
+        'cantidad', // Cantidad de la herramienta solicitada
     ];
 
+    // Define la relación con el modelo User
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_identity');
-    }
-    public function herramienta()
-    {
-        return $this->belongsTo(Herramienta::class, 'cod_herramienta', 'cod_herramienta');
+        return $this->belongsTo(User::class, 'user_identity'); // Un carrito pertenece a un usuario
     }
 
+    // Define la relación con el modelo Herramienta
+    public function herramienta()
+    {
+        return $this->belongsTo(Herramienta::class, 'cod_herramienta', 'cod_herramienta'); // Un carrito pertenece a una herramienta
+    }
 }

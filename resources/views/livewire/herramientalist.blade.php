@@ -2,7 +2,7 @@
     @include('layouts.mensaje')
     <div class="row mb-5">
         <h1 class="col-12 text-center fw-bold mt-4">Herramientas</h1>
-        
+
 @can('crearHerramienta')
     <div class="row mt-5 mb-5 ps-5">
         <!-- Botón desplegable solo para pantallas pequeñas y medianas -->
@@ -32,6 +32,7 @@
                 <a href="/inventario" class="btn btn-plus">
                     <i class="fas fa-check me-1"></i> Gestionar Inventario
                 </a>
+
             </div>
             <div>
                 <a href="/herramientas/create" class="btn btn-plus">
@@ -47,7 +48,7 @@
                     <option value="">Todas las categorías</option>
                     @foreach ($categorias as $categoria)
                         <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
-                        
+
                     @endforeach
                 </select>
             </div>
@@ -85,7 +86,7 @@
         @if($herramientaCont->isEmpty())
             <p>No hay herramientas disponibles.</p>
         @else
-            
+
         @foreach($herramientaCont as $herramientaVista)
     @if($herramientaVista->estado == ($mostrarInactivas ? 'inactivo' : 'activo'))
         <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
