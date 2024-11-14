@@ -3,7 +3,8 @@
 # Inventario Festo
 
 
-##Índice
+## Indice
+
 * [Índice](#índice)
 
 * [Descripción del proyecto](#Descripción-del-proyecto)
