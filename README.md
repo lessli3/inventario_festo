@@ -3,6 +3,8 @@
 # Inventario Festo
 
 
+
+
 ## Indice
 
 * [Índice](#índice)
@@ -22,6 +24,8 @@
 * [Licencia](#licencia)
 
 
+
+
 ## Descripcion del proyecto
 
 Este proyecto tiene como objetivo organizar y gestionar un inventario de herramientas, asegurando su disponibilidad y uso adecuado. Incluye un sistema de registro detallado que permite clasificar y rastrear cada herramienta mediante un código único. Los usuarios pueden solicitar herramientas, cuya disponibilidad será gestionada por una persona encargada, verificando el estado de cada una antes de su entrega. Con este sistema, se busca optimizar la administración de herramientas, facilitar el acceso y mejorar la eficiencia en su uso.
@@ -30,6 +34,7 @@ Este proyecto tiene como objetivo organizar y gestionar un inventario de herrami
 ![image](https://github.com/user-attachments/assets/c3148fdc-9c01-4c38-8e2c-a9f34018e930)
 ![image](https://github.com/user-attachments/assets/5f9b9f09-0269-4a63-949c-dab53e95c942)
 ![image](https://github.com/user-attachments/assets/56c8570e-66ca-434c-837d-37e9943b0b28)
+
 
 
 
@@ -132,13 +137,13 @@ En el rol de monitor, la función principal es revisar las solicitudes pendiente
 ![image](https://github.com/user-attachments/assets/4a0de188-22f1-4af0-ae01-1976c1308e82)
 ![image](https://github.com/user-attachments/assets/bf61195d-577b-4774-9d47-443fbc7a09e7)
 
-### Tecnologias utilizadas
+## Tecnologias utilizadas
 - Laravel
 - Livewire
 - PostgreSQL
 
-### Desarrolladores del proyecto
-### Licencias
+## Desarrolladores del proyecto
+## Licencias
 
 
 
