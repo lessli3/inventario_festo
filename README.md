@@ -22,7 +22,7 @@
 * [Licencia](#licencia)
 
 
-### Descripcion del proyecto
+## Descripcion del proyecto
 
 Este proyecto tiene como objetivo organizar y gestionar un inventario de herramientas, asegurando su disponibilidad y uso adecuado. Incluye un sistema de registro detallado que permite clasificar y rastrear cada herramienta mediante un código único. Los usuarios pueden solicitar herramientas, cuya disponibilidad será gestionada por una persona encargada, verificando el estado de cada una antes de su entrega. Con este sistema, se busca optimizar la administración de herramientas, facilitar el acceso y mejorar la eficiencia en su uso.
 
@@ -33,7 +33,7 @@ Este proyecto tiene como objetivo organizar y gestionar un inventario de herrami
 
 
 
-### Caracteristicas
+## Caracteristicas
 
 - **Registro y Clasificación Detallada:** 
 Cada herramienta está catalogada con un código único, tipo, características y estado, permitiendo un seguimiento exhaustivo.
