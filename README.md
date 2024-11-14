@@ -142,6 +142,13 @@ En el rol de monitor, la función principal es revisar las solicitudes pendiente
 - Livewire
 - PostgreSQL
 
+  ![image](https://github.com/user-attachments/assets/f4b22fd8-4741-4583-92c8-682f216fbd84)
+  ![image](https://github.com/user-attachments/assets/4dc121ed-69d4-4c0c-a038-599ee447e718)
+  ![image](https://github.com/user-attachments/assets/b1b0d7db-84d8-4e8e-b5e2-3d64aa7515ad)
+
+
+
+
 ## Desarrolladores del proyecto
 - Lesly Silva
 - Angie Galindo
