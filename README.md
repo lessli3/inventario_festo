@@ -57,7 +57,9 @@ En este apartado, se encuentra la funcionalidad de inicio de sesión, la cual pe
 ![image](https://github.com/user-attachments/assets/5398494f-9a82-4bbb-8ffc-e82fe3baa246)
 ![image](https://github.com/user-attachments/assets/23e8de38-30a7-4af9-ac3e-916f7d34ec24)
 
-### Rol de Cuentadante
+### Roles
+
+#### Rol de Cuentadante
 
 
 
@@ -81,7 +83,7 @@ Estas secciones ayudan a que el cuentadante pueda administrar de manera eficient
 
 
 
-### Rol de Instructor
+#### Rol de Instructor
 
 En el rol de instructor, la función principal es solicitar las herramientas que se requieran. Este rol cuenta con acceso a diferentes secciones:
 
@@ -97,7 +99,7 @@ En la parte superior derecha de la página, hay un ícono de color verde. Al hac
   ![image](https://github.com/user-attachments/assets/00bea034-79bc-461c-a4f4-f2f76e903b8b)
 
 
-### Rol de Monitor
+#### Rol de Monitor
 
 En el rol de monitor, la función principal es revisar las solicitudes pendientes y entregar las herramientas que se han solicitado.Este rol cuenta con acceso a diferentes secciones:
 - **Inicio:** se visualiza un apartado con un cuadro que contiene información sobre las solicitudes. Este informe mostrará las solicitudes pendientes, aceptadas, entregadas y recibidas.
