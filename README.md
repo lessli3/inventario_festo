@@ -16,11 +16,11 @@ Este proyecto tiene como objetivo organizar y gestionar un inventario de herrami
 
 * [Descripción del proyecto](#Descripción-del-proyecto)
 
-* [Características del proyecto](#Características-del proyecto)
+* [Características del proyecto](#Características-del-proyecto)
 
 * [Creacion](#Creacion)
 
-* [Funcionalidad del proyecto](#Funcionalidad del proyecto)
+* [Funcionalidad del proyecto](#Funcionalidad-del-proyecto)
 
 * [Tecnologías utilizadas](#tecnologías-utilizadas)
 
