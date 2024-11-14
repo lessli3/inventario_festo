@@ -35,8 +35,15 @@ Este proyecto de inventario de herramientas está desarrollado en Laravel, utili
 
 ![image](https://github.com/user-attachments/assets/2030530b-8bff-4fcb-9e97-06831cc3c832)
 ![image](https://github.com/user-attachments/assets/cd6a956c-1911-43e7-ae76-512d8bdbbc9b)
-![image](https://github.com/user-attachments/assets/c3f070a7-d8c9-4298-a37e-f7205e23257a)
 
+
+## Funcionalidad del proyecto
+
+### Home
+En la sección principal de la página, encontraremos un apartado dedicado a Festo. En este espacio, se presenta una descripción detallada de qué es Festo, qué tipo de recursos y herramientas se pueden encontrar en él, y cuál es su propósito y funcionalidad dentro del sistema. Esta sección está diseñada para proporcionar una visión completa y clara, permitiendo a los usuarios comprender mejor la importancia de Festo y cómo pueden aprovechar sus características y beneficios. El enfoque principal de esta parte de la página es destacar las funcionalidades clave y su relevancia para los usuarios que interactúan con el sistema.
+
+![image](https://github.com/user-attachments/assets/6e0f1c97-2fe7-4a17-9d8f-5e9ccf3600bb)
+![image](https://github.com/user-attachments/assets/15635b31-d503-41ec-bfcd-2fcbae519732)
 
 
 
