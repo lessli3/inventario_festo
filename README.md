@@ -138,16 +138,15 @@ En el rol de monitor, la función principal es revisar las solicitudes pendiente
 ![image](https://github.com/user-attachments/assets/bf61195d-577b-4774-9d47-443fbc7a09e7)
 
 ## Tecnologias utilizadas
-- Laravel
-- Livewire
-- PostgreSQL
 
 ![image](https://github.com/user-attachments/assets/79fcedab-ee46-4064-be86-89772be781d3)
 ![image](https://github.com/user-attachments/assets/2b370302-e852-4c4d-9ec5-5cdf292fff21)
 ![image](https://github.com/user-attachments/assets/fe74dd79-09a0-41bf-929e-331510de7260)
 
 
-
+- Laravel
+- Livewire
+- PostgreSQL
 
 
 ## Desarrolladores del proyecto
