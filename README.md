@@ -70,3 +70,16 @@ En el rol de cuentadante , la función principal es gestionar la creación y adm
 - **Cerrar sesión:** Esta opción permite finalizar la sesión actual, lo que da la posibilidad de ingresar con un rol diferente si es necesario.
   
 Estas secciones ayudan a que el cuentadante pueda administrar de manera eficiente las herramientas y el inventario, así como gestionar los usuarios y las solicitudes de manera sencilla y segura.
+
+![image](https://github.com/user-attachments/assets/9d0d0ac2-0e07-4fe9-8841-855552ad885d)
+![image](https://github.com/user-attachments/assets/af138f31-41e3-44c0-bd87-2a9a333433f6)
+![image](https://github.com/user-attachments/assets/00092f59-6012-482c-8dde-b75dbea2486d)
+![image](https://github.com/user-attachments/assets/82f51806-1496-43dd-8b9c-8aafc373f3b9)
+![image](https://github.com/user-attachments/assets/43e12baf-2a1e-4a1a-92fb-b7663f956dee)
+![image](https://github.com/user-attachments/assets/793048ed-3ef1-46e8-810d-c4d765ddd847)
+
+
+
+
+
+
