@@ -12,6 +12,24 @@ Este proyecto tiene como objetivo organizar y gestionar un inventario de herrami
 ![image](https://github.com/user-attachments/assets/56c8570e-66ca-434c-837d-37e9943b0b28)
 
 
+##Índice
+
+*[Descripción del proyecto](#descripción-del-proyecto)
+
+*[Características del proyecto](#Características-del proyecto)
+
+*[Creacion](#creacion)
+
+*[Funcionalidad del proyecto](#funcionalidad del proyecto)
+
+*[Tecnologías utilizadas](#tecnologías-utilizadas)
+
+*[Desarrolladores del Proyecto](#desarrolladores)
+
+* [Licencia](#licencia)
+
+*[Conclusión](#conclusión)
+
 
 
 ### Caracteristicas
@@ -113,6 +131,13 @@ En el rol de monitor, la función principal es revisar las solicitudes pendiente
 ![image](https://github.com/user-attachments/assets/4a0de188-22f1-4af0-ae01-1976c1308e82)
 ![image](https://github.com/user-attachments/assets/bf61195d-577b-4774-9d47-443fbc7a09e7)
 
+### Tecnologias utilizadas
+- Laravel
+- Livewire
+- PostgreSQL
+
+### Desarrolladores del proyecto
+### Licencias
 
 
 
