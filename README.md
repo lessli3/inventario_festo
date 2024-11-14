@@ -2,7 +2,7 @@
 
 # Inventario Festo
 
-### Descripcion
+### Descripcion del proyecto
 
 Este proyecto tiene como objetivo organizar y gestionar un inventario de herramientas, asegurando su disponibilidad y uso adecuado. Incluye un sistema de registro detallado que permite clasificar y rastrear cada herramienta mediante un código único. Los usuarios pueden solicitar herramientas, cuya disponibilidad será gestionada por una persona encargada, verificando el estado de cada una antes de su entrega. Con este sistema, se busca optimizar la administración de herramientas, facilitar el acceso y mejorar la eficiencia en su uso.
 
@@ -14,21 +14,21 @@ Este proyecto tiene como objetivo organizar y gestionar un inventario de herrami
 
 ##Índice
 
-*[Descripción del proyecto](#descripción-del-proyecto)
+* [Descripción del proyecto](#Descripción-del-proyecto)
 
-*[Características del proyecto](#Características-del proyecto)
+* [Características del proyecto](#Características-del proyecto)
 
-*[Creacion](#creacion)
+* [Creacion](#Creacion)
 
-*[Funcionalidad del proyecto](#funcionalidad del proyecto)
+* [Funcionalidad del proyecto](#Funcionalidad del proyecto)
 
-*[Tecnologías utilizadas](#tecnologías-utilizadas)
+* [Tecnologías utilizadas](#tecnologías-utilizadas)
 
-*[Desarrolladores del Proyecto](#desarrolladores)
+* [Desarrolladores del Proyecto](#desarrolladores)
 
 * [Licencia](#licencia)
 
-*[Conclusión](#conclusión)
+
 
 
 
