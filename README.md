@@ -86,8 +86,7 @@ Estas secciones ayudan a que el cuentadante pueda administrar de manera eficient
 En el rol de instructor, la función principal es solicitar las herramientas que se requieran. Este rol cuenta con acceso a diferentes secciones:
 
 - **Inicio:** se muestra un apartado con las herramientas disponibles, donde también aparece una sección para las herramientas favoritas que el instructor puede seleccionar
-- **Herramientas:** Se muestran todas las herramientas disponibles, cada una con un ícono en la parte superior izquierda. Al hacer clic en este ícono, la herramienta se agrega al apartado de solicitudes .
-
+- **Herramientas:** Se muestran todas las herramientas disponibles, cada una con un ícono en la parte superior izquierda. Al hacer clic en este ícono, la herramienta se agrega al apartado de solicitudes.
 En la parte superior derecha de la página, hay un ícono de color verde. Al hacer clic en él, se despliega una vista con las herramientas seleccionadas para la solicitud. En esta sección, el instructor puede ajustar la cantidad de cada herramienta y confirmar la solicitud completa.
 - **Perfil:** Ofrece la posibilidad de ver los datos del usuario que ha iniciado sesión, mostrando información relevante sobre la cuenta.
 - **Cerrar sesión:**  Esta opción permite finalizar la sesión actual, lo que da la posibilidad de ingresar con un rol diferente si es necesario.
