@@ -52,9 +52,13 @@ En la sección principal de la página, encontraremos un apartado dedicado a Fes
 ### inicio sesion
 
 En este apartado, se encuentra la funcionalidad de inicio de sesión, la cual permite que los usuarios que pertenecen a uno de los cuatro roles definidos accedan al sistema. Los usuarios pueden iniciar sesión usando su número de documento de identidad. Una vez ingresado este dato, se envía un código de verificación al correo electrónico del usuario para confirmar su identidad. Este proceso se gestiona con Mailtrap, que se encarga de enviar el código de forma segura y de probar el envío de correos. Esto garantiza que solo las personas autorizadas podrán ingresar al sistema de manera sencilla y protegida.
-![image](https://github.com/user-attachments/assets/9c1359b0-bf09-4c7d-a85a-cbb04c25d856)
-![image](https://github.com/user-attachments/assets/009a4047-c73b-4e29-8a10-20f1240258d2)
-![image](https://github.com/user-attachments/assets/689a2dbc-185f-4588-b4f4-dfa410049af0)
+
+![image](https://github.com/user-attachments/assets/622ef83f-3be5-4d12-a3fe-903d47e1569a)
+![image](https://github.com/user-attachments/assets/5398494f-9a82-4bbb-8ffc-e82fe3baa246)
+![image](https://github.com/user-attachments/assets/23e8de38-30a7-4af9-ac3e-916f7d34ec24)
+
+
+
 
 
 
