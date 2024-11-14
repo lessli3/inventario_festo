@@ -51,7 +51,7 @@ En la sección principal de la página, encontraremos un apartado dedicado a Fes
 
 ### Inicio sesion
 
-En este apartado, se encuentra la funcionalidad de inicio de sesión, la cual permite que los usuarios que pertenecen a uno de los cuatro roles definidos accedan al sistema. Los usuarios pueden iniciar sesión usando su número de documento de identidad. Una vez ingresado este dato, se envía un código de verificación al correo electrónico del usuario para confirmar su identidad. Este proceso se gestiona con Mailtrap, que se encarga de enviar el código de forma segura y de probar el envío de correos. Esto garantiza que solo las personas autorizadas podrán ingresar al sistema de manera sencilla y protegida.
+En este apartado, se encuentra la funcionalidad de inicio de sesión, la cual permite que los usuarios que pertenecen a uno de los tres roles definidos accedan al sistema. Los usuarios pueden iniciar sesión usando su número de documento de identidad. Una vez ingresado este dato, se envía un código de verificación al correo electrónico del usuario para confirmar su identidad. Este proceso se gestiona con Mailtrap, que se encarga de enviar el código de forma segura y de probar el envío de correos. Esto garantiza que solo las personas autorizadas podrán ingresar al sistema de manera sencilla y protegida.
 
 ![image](https://github.com/user-attachments/assets/622ef83f-3be5-4d12-a3fe-903d47e1569a)
 ![image](https://github.com/user-attachments/assets/5398494f-9a82-4bbb-8ffc-e82fe3baa246)
@@ -77,6 +77,26 @@ Estas secciones ayudan a que el cuentadante pueda administrar de manera eficient
 ![image](https://github.com/user-attachments/assets/82f51806-1496-43dd-8b9c-8aafc373f3b9)
 ![image](https://github.com/user-attachments/assets/b88f7f7d-831f-499d-8270-5655009a3583)
 ![image](https://github.com/user-attachments/assets/793048ed-3ef1-46e8-810d-c4d765ddd847)
+![image](https://github.com/user-attachments/assets/3be264de-927e-4b34-92b0-7c1f3b07cbad)
+
+
+
+### Rol de Instructor
+
+En el rol de instructor, la función principal es solicitar las herramientas que se requieran. Este rol cuenta con acceso a diferentes secciones:
+
+- **Inicio:** se muestra un apartado con las herramientas disponibles, donde también aparece una sección para las herramientas favoritas que el instructor puede seleccionar
+- **Herramientas:** Se muestran todas las herramientas disponibles, cada una con un ícono en la parte superior izquierda. Al hacer clic en este ícono, la herramienta se agrega al apartado de solicitudes .
+
+En la parte superior derecha de la página, hay un ícono de color verde. Al hacer clic en él, se despliega una vista con las herramientas seleccionadas para la solicitud. En esta sección, el instructor puede ajustar la cantidad de cada herramienta y confirmar la solicitud completa.
+- **Perfil:** Ofrece la posibilidad de ver los datos del usuario que ha iniciado sesión, mostrando información relevante sobre la cuenta.
+- **Cerrar sesión:**  Esta opción permite finalizar la sesión actual, lo que da la posibilidad de ingresar con un rol diferente si es necesario.
+
+  ![image](https://github.com/user-attachments/assets/cd44a14d-e466-4972-a1d4-ebac7fe2e908)
+  ![image](https://github.com/user-attachments/assets/4289137d-2cc6-4880-a29b-628736ed8667)
+  ![image](https://github.com/user-attachments/assets/f18c492f-759a-45f8-9899-4a1ce865fa6b)
+  ![image](https://github.com/user-attachments/assets/00bea034-79bc-461c-a4f4-f2f76e903b8b)
+
 
 
 
