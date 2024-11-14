@@ -75,7 +75,7 @@ Estas secciones ayudan a que el cuentadante pueda administrar de manera eficient
 ![image](https://github.com/user-attachments/assets/af138f31-41e3-44c0-bd87-2a9a333433f6)
 ![image](https://github.com/user-attachments/assets/00092f59-6012-482c-8dde-b75dbea2486d)
 ![image](https://github.com/user-attachments/assets/82f51806-1496-43dd-8b9c-8aafc373f3b9)
-![image](https://github.com/user-attachments/assets/43e12baf-2a1e-4a1a-92fb-b7663f956dee)
+![image](https://github.com/user-attachments/assets/3ce1dcc2-7a3c-418a-a506-7473fd9d2d2a)
 ![image](https://github.com/user-attachments/assets/793048ed-3ef1-46e8-810d-c4d765ddd847)
 
 
