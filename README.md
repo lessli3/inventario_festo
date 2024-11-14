@@ -31,7 +31,7 @@ Diseño fácil de usar que mejora la experiencia de los usuarios y facilita la n
 
 ## Creacion
 
-Este proyecto de inventario de herramientas está desarrollado en Laravel, utilizando Livewire para crear una interfaz interactiva y dinámica. Laravel proporciona una base robusta para la gestión de datos y la seguridad, mientras que Livewire facilita la actualización en tiempo real de la interfaz sin necesidad de recargar la página. La combinación de estas tecnologías permite una experiencia de usuario fluida, optimizando tanto la administración del inventario como la eficiencia en el acceso y reserva de herramientas.
+Este proyecto de inventario de herramientas está desarrollado en Laravel, utilizando Livewire para crear una interfaz interactiva y dinámica. Laravel proporciona una base solida para la gestión de datos y la seguridad, mientras que Livewire facilita la actualización en tiempo real de la interfaz sin necesidad de recargar la página. La combinación de estas tecnologías permite una experiencia de usuario fluida, optimizando tanto la administración del inventario como la eficiencia en el acceso y reserva de herramientas.
 
 ![image](https://github.com/user-attachments/assets/2030530b-8bff-4fcb-9e97-06831cc3c832)
 ![image](https://github.com/user-attachments/assets/cd6a956c-1911-43e7-ae76-512d8bdbbc9b)
@@ -95,6 +95,21 @@ En la parte superior derecha de la página, hay un ícono de color verde. Al hac
   ![image](https://github.com/user-attachments/assets/4289137d-2cc6-4880-a29b-628736ed8667)
   ![image](https://github.com/user-attachments/assets/f18c492f-759a-45f8-9899-4a1ce865fa6b)
   ![image](https://github.com/user-attachments/assets/00bea034-79bc-461c-a4f4-f2f76e903b8b)
+
+
+### Rol de Monitor
+
+En el rol de monitor, la función principal es revisar las solicitudes pendientes y entregar las herramientas que se han solicitado.Este rol cuenta con acceso a diferentes secciones:
+- **Inicio:** se visualiza un apartado con un cuadro que contiene información sobre las solicitudes. Este informe mostrará las solicitudes pendientes, aceptadas, entregadas y recibidas.
+- **Herramientas:** Se mostrarán las herramientas solicitadas junto con la cantidad correspondiente.
+- **Calendario:** Se mostrarán las solicitudes pendientes en un calendario que se puede visualizar de diferentes maneras: por mes, semana o día. Esto permite una mejor organización y seguimiento de las solicitudes en distintos periodos de tiempo.
+- **Perfil:** Ofrece la posibilidad de ver los datos del usuario que ha iniciado sesión, mostrando información relevante sobre la cuenta.
+- **Cerrar sesión:** Esta opción permite finalizar la sesión actual, lo que da la posibilidad de ingresar con un rol diferente si es necesario.
+
+![image](https://github.com/user-attachments/assets/d560214f-6bb5-4d6c-a774-7c628488de48)
+![image](https://github.com/user-attachments/assets/c807f0ba-ac0d-477e-a249-67d6550a5da2)
+![image](https://github.com/user-attachments/assets/4a0de188-22f1-4af0-ae01-1976c1308e82)
+![image](https://github.com/user-attachments/assets/bf61195d-577b-4774-9d47-443fbc7a09e7)
 
 
 
