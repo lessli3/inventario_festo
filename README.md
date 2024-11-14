@@ -49,7 +49,7 @@ En la sección principal de la página, encontraremos un apartado dedicado a Fes
 ![image](https://github.com/user-attachments/assets/bc4028f4-615e-4039-bcde-e8c93b14c47b)
 
 
-### inicio sesion
+### Inicio sesion
 
 En este apartado, se encuentra la funcionalidad de inicio de sesión, la cual permite que los usuarios que pertenecen a uno de los cuatro roles definidos accedan al sistema. Los usuarios pueden iniciar sesión usando su número de documento de identidad. Una vez ingresado este dato, se envía un código de verificación al correo electrónico del usuario para confirmar su identidad. Este proceso se gestiona con Mailtrap, que se encarga de enviar el código de forma segura y de probar el envío de correos. Esto garantiza que solo las personas autorizadas podrán ingresar al sistema de manera sencilla y protegida.
 
@@ -57,8 +57,15 @@ En este apartado, se encuentra la funcionalidad de inicio de sesión, la cual pe
 ![image](https://github.com/user-attachments/assets/5398494f-9a82-4bbb-8ffc-e82fe3baa246)
 ![image](https://github.com/user-attachments/assets/23e8de38-30a7-4af9-ac3e-916f7d34ec24)
 
+### Rol de Cuentadante
 
 
 
+En el rol de cuentadante , la función principal es gestionar la creación y administración de las herramientas disponibles en Festo. Este rol cuenta con acceso a diferentes secciones:
 
-
+Inicio : Muestra un resumen de las herramientas creadas y un diagrama de barras que permite visualizar la cantidad de unidades disponibles para cada herramienta.
+Herramientas : Permite la creación de nuevas herramientas y la gestión del inventario. En esta parte, las herramientas se pueden ver organizadas por diferentes categorías o ubicaciones.
+Monitores : Aquí se asigna un monitor encargado de entregar las herramientas que se solicitan, asegurando un control adecuado en el proceso de préstamo.
+Perfil : Ofrece la posibilidad de ver los datos del usuario que ha iniciado sesión, mostrando información relevante sobre la cuenta.
+Cerrar sesión : Esta opción permite finalizar la sesión actual, lo que da la posibilidad de ingresar con un rol diferente si es necesario.
+Estas secciones ayudan a que el cuentadante pueda administrar de manera eficiente las herramientas y el inventario, así como gestionar los usuarios y las solicitudes de manera sencilla y segura.
