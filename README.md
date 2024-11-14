@@ -21,7 +21,7 @@
 
 * [Desarrolladores del Proyecto](#desarrolladores)
 
-* [Licencia](#licencia)
+
 
 
 
@@ -143,8 +143,8 @@ En el rol de monitor, la función principal es revisar las solicitudes pendiente
 - PostgreSQL
 
 ## Desarrolladores del proyecto
-## Licencias
-
+- Lesly Silva
+- Angie Galindo
 
 
 
