@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('categoria');
             $table->string('imagen');
             $table->string('imagencode');
+            $table->integer('organizador');
+            $table->integer('cajon');
             $table->string('estado');
             $table->unsignedBigInteger('solicitudes_count')->default(0);            
             $table->timestamps();

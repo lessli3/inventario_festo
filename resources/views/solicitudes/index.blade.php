@@ -47,7 +47,7 @@
       <div class="cardl">
         <!-- Este enlace activa el colapso dentro de la tarjeta -->
         <a class="card1" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCard-{{ $solicitud->id }}" aria-expanded="false" aria-controls="collapseCard-{{ $solicitud->id }}">
-        <h5 class="fw-bold" style="color: green;">Solicitud #{{ $solicitud->id }}  |  {{ $solicitud->fecha }}</h5>
+        <h5 class="fw-bold" style="color: green;"> {{ $solicitud->fecha }}</h5>
                     <p><strong style="color: green;">Hora de la solicitud:</strong> {{ $solicitud->hora }}<br>
                         <strong class="mt-1" style="color: green;">Instructor:</strong> {{ $solicitud->nombre }}<br>
                         <strong style="color: green;">Estado:</strong> {{ $solicitud->estado }}
@@ -80,7 +80,7 @@
                   <div class="row">
                     @foreach($solicitud->detalles as $detalle)
                         <div class="col-md-6 mb-3"> <!-- Cambié a col-md-6 para 2 columnas en pantallas medianas -->
-                            <div class="card p-1 pt-2" style="background-image: url('{{ asset('imagenes/herramientas/' . $detalle->herramienta->imagen) }}'); background-size: cover; height: 140px">
+                            <div class="card p-1 pt-2" style="background-image: url('{{ filter_var($detalle->herramienta->imagen, FILTER_VALIDATE_URL) ? $detalle->herramienta->imagen : asset('imagenes/herramientas/' . $detalle->herramienta->imagen) }}'); background-size: cover; height: 180px">
                                 <div class="card-content col-md-12">
                                     <div class="row mb-1">
                                         <div class="col-md-9">
@@ -100,26 +100,47 @@
                                     </div>
                                     <p>
                                         <strong style="color: white;">Código:</strong> <span  style="color: white;">{{ $detalle->herramienta->cod_herramienta }}</span><br>
-                                        <strong style="color: white;">Cantidad:</strong> <span  style="color: white;">{{ $detalle->cantidad }}</span><br>
-                                        <strong style="color: white;">Estado:</strong> <span class="fw-bold" style="color: green;">{{ $detalle->estado }}</span>
-                                    </p>
-                                    @can('editarSolicitud')
-                                        <!---<form action="{{ route('solicitud.actualizarEstado', $detalle->id) }}" method="POST">
-                                            @csrf
-                                            @method('put')
-                                            <label for="estado" class="mb-0">Actualizar Estado</label>
-                                            <div class="form-group d-flex align-items-center">
-                                                <select name="estado" class="form-control me-2 estado-select" data-herramienta-id="{{ $detalle->id }}">
-                                                    <option value="aceptada" {{ $detalle->estado == 'aceptada' ? 'selected' : '' }}>Aceptada</option>
-                                                    <option value="entregada" {{ $detalle->estado == 'entregada' ? 'selected' : '' }}>Entregada</option>
-                                                    <option value="recibida" {{ $detalle->estado == 'recibida' ? 'selected' : '' }}>Recibida</option>
-                                                </select>
-                                                <button type="button" class="btn btn-primary text-white abrirModalBtn" data-herramienta-id="{{ $detalle->id }}" data-bs-toggle="modal" data-bs-target="#codigoBarrasModal">
-                                                    <i class="fas fa-sync-alt"></i> 
-                                                </button>
+                                        <strong style="color: white;">Estado:</strong> <span class="fw-bold" style="color: green;">{{ $detalle->estado }}</span><br>
+                                        <div class="row" style="top: 130;display: flex;position: absolute;">
+                                            <div class="col-md-9">
+                                                <strong style="color: white;">Cantidad:</strong>
                                             </div>
-                                        </form>--->
-                                    @endcan
+                                            <div class="col-md-2">
+                                                <span style="color: white;">
+                                                    @can('editarSolicitud')
+                                                    <!-- Formulario para editar la cantidad -->
+                                                    <form action="{{ route('actualizar.cantidad', ['solicitudId' => $solicitud->id, 'detalleId' => $detalle->id]) }}" method="POST" class="d-flex align-items-center" style="display: inline-flex;" >
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <input type="number" name="cantidad" value="{{ $detalle->cantidad }}" class="form-control" style="width: 40px; color: black;height: 30px;">
+                                                        <button type="submit" class="btn btn-outline-info btn-sm ms-1">
+                                                            <i class="fas fa-check" style="font-size: 20px;"></i>
+                                                        </button>
+                                                    </form>
+                                                    @else
+                                                        <span style="color: white;">{{ $detalle->cantidad }}</span>
+                                                    @endcan
+                                                </span>
+                                            </div>
+                                        </div>
+                                        </p>
+                                        @can('editarSolicitud')
+                                            <!---<form action="{{ route('solicitud.actualizarEstado', $detalle->id) }}" method="POST">
+                                                @csrf
+                                                @method('put')
+                                                <label for="estado" class="mb-0">Actualizar Estado</label>
+                                                <div class="form-group d-flex align-items-center">
+                                                    <select name="estado" class="form-control me-2 estado-select" data-herramienta-id="{{ $detalle->id }}">
+                                                        <option value="aceptada" {{ $detalle->estado == 'aceptada' ? 'selected' : '' }}>Aceptada</option>
+                                                        <option value="entregada" {{ $detalle->estado == 'entregada' ? 'selected' : '' }}>Entregada</option>
+                                                        <option value="recibida" {{ $detalle->estado == 'recibida' ? 'selected' : '' }}>Recibida</option>
+                                                    </select>
+                                                    <button type="button" class="btn btn-primary text-white abrirModalBtn" data-herramienta-id="{{ $detalle->id }}" data-bs-toggle="modal" data-bs-target="#codigoBarrasModal">
+                                                        <i class="fas fa-sync-alt"></i> 
+                                                    </button>
+                                                </div>
+                                            </form>--->
+                                        @endcan
                                 </div>
                             </div>
                         </div>
@@ -130,9 +151,13 @@
                       <strong style="color: green;">Cédula:</strong> {{ $solicitud->user_identity }}<br>
                       <strong style="color: green;">Email:</strong> {{ $solicitud->email }}<br>
                       <strong style="color: green;">Teléfono:</strong> {{ $solicitud->telefono }}<br>
-                        <button type="submit" class="btn btn-outline-success mt-2">
-                            <i class="fas fa-circle-check"> </i>  Confirmar solicitud
-                        </button>
+                    @can('editarSolicitud')
+                      <a href="{{ route('solicitudes.confirmar', $solicitud->id) }}" class="btn btn-outline-success mt-2">
+                            <i class="fas fa-circle-check"></i> Confirmar solicitud
+                      </a>
+                    @endcan
+
+
                 </div>
               </div>
               </div>
@@ -298,8 +323,19 @@
 
 </style>
 
-<!---<div class="modal-backdrop fade show" style="background-color: transparent"></div>--->
+<style>
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
 
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+</style>
+
+<!---<div class="modal-backdrop fade show" style="background-color: transparent"></div>--->
 
 <!-- Estilos para las tarjetas -->
 <style>
@@ -423,7 +459,6 @@
   }
 
 </style>
-
 <script>
     // Cuando se carga la página
     /*window.addEventListener('load', function() {
@@ -453,23 +488,20 @@
         });
     });*/
         // Escuchar el evento de apertura del modal de código de barras
-document.getElementById('codigoBarrasModal').addEventListener('show.bs.modal', function (event) {
-    const button = event.relatedTarget; // El botón que disparó el evento
-    const herramientaId = button.getAttribute('data-herramienta-id'); // Obtener el ID de la herramienta
+    document.getElementById('codigoBarrasModal').addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget; // El botón que disparó el evento
+        const herramientaId = button.getAttribute('data-herramienta-id'); // Obtener el ID de la herramienta
 
-    // Aquí puedes realizar acciones adicionales, como almacenar el ID de la herramienta si lo necesitas
-    console.log("ID de herramienta:", herramientaId);
-});
-
-document.querySelectorAll('.agregarHerramientaBtn').forEach(function(button) {
-    button.addEventListener('click', function() {
-        const solicitudId = this.getAttribute('data-solicitud-id');
-        document.getElementById('solicitudIdInput').value = solicitudId;
+        // Aquí puedes realizar acciones adicionales, como almacenar el ID de la herramienta si lo necesitas
+        console.log("ID de herramienta:", herramientaId);
     });
-});
 
-
-
+    document.querySelectorAll('.agregarHerramientaBtn').forEach(function(button) {
+        button.addEventListener('click', function() {
+            const solicitudId = this.getAttribute('data-solicitud-id');
+            document.getElementById('solicitudIdInput').value = solicitudId;
+        });
+    });
 
 </script>
 

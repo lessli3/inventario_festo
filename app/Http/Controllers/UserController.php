@@ -123,6 +123,39 @@ public function convertirInstructor(Request $request)
     }
 }
 
+public function mostrarFormularioCrearMonitor()
+{
+    return view('users.createmonitor');  // Retorna la vista con el formulario.
+}
+
+
+public function crearMonitor(Request $request)
+    {
+        // Validar los datos del formulario
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'telefono' => 'required|string|max:15',
+            'user_identity' => 'required|string|max:20',
+        ]);
+
+        // Crear el nuevo usuario (monitor)
+        $monitor = User::create([
+            'name' => $request->name,
+            'lastname' => $request->name,
+            'email' => $request->email,
+            'telefono' => $request->telefono,
+            'user_identity' => $request->user_identity,
+        ]);
+
+        // Asignar el rol de "Monitor"
+        $monitor->assignRole('Monitor');
+
+        // Redirigir con un mensaje de éxito
+        return redirect()->back()->with('success', 'El monitor ha sido creado exitosamente.');
+    }
+
 
 
 }

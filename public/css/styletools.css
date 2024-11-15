@@ -28,7 +28,7 @@
     background-size: cover; /* Asegura que la imagen cubra toda la tarjeta */
     background-position: center; /* Centra la imagen */
     background-repeat: no-repeat; /* Evita que la imagen se repita */
-    height: 210px; /* Asegura que la tarjeta tenga una altura adecuada */
+    height: 280px; /* Asegura que la tarjeta tenga una altura adecuada */
     box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.16);
     border-color: transparent;
     border-radius: 18px;

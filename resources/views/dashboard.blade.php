@@ -11,27 +11,37 @@
         @foreach ($herramientasAl as $herramienta)
             <div class="vitrina-item">
                 <div class="card1">
-                    <img src="{{ asset('imagenes/herramientas/' . $herramienta->imagen) }}" class="card1-img-top" alt="{{ $herramienta->nombre }}">
+                <img src="{{ 
+                        filter_var($herramienta->imagen, FILTER_VALIDATE_URL) 
+                        ? $herramienta->imagen 
+                        : asset('imagenes/herramientas/' . $herramienta->imagen) 
+                    }}" class="card1-img-top" alt="{{ $herramienta->nombre }}">
+                </div>
+                <h5 class="fw-bold text-center" style="color:gray;">{{ $herramienta->nombre }}</h5>
+            </div>
+        @endforeach
+        @foreach ($herramientasAl as $herramienta)
+            <div class="vitrina-item">
+                <div class="card1">
+                    <img src="{{ 
+                        filter_var($herramienta->imagen, FILTER_VALIDATE_URL) 
+                        ? $herramienta->imagen 
+                        : asset('imagenes/herramientas/' . $herramienta->imagen) 
+                    }}">
                 </div>
                 <h5 class="fw-bold text-center" style="color:gray;">{{ $herramienta->nombre }}</h5>
             </div>
         @endforeach
 
-        <!-- Clona las herramientas para que el carrusel sea infinito -->
+            <!-- Clona las herramientaso -->
         @foreach ($herramientasAl as $herramienta)
             <div class="vitrina-item">
                 <div class="card1">
-                    <img src="{{ asset('imagenes/herramientas/' . $herramienta->imagen) }}" class="card1-img-top" alt="{{ $herramienta->nombre }}">
-                </div>
-                <h5 class="fw-bold text-center" style="color:gray;">{{ $herramienta->nombre }}</h5>
-            </div>
-        @endforeach
-
-            <!-- Clona las herramientas para que el carrusel sea infinito -->
-        @foreach ($herramientasAl as $herramienta)
-            <div class="vitrina-item">
-                <div class="card1">
-                    <img src="{{ asset('imagenes/herramientas/' . $herramienta->imagen) }}" class="card1-img-top" alt="{{ $herramienta->nombre }}">
+                    <img src="{{ 
+                        filter_var($herramienta->imagen, FILTER_VALIDATE_URL) 
+                        ? $herramienta->imagen 
+                        : asset('imagenes/herramientas/' . $herramienta->imagen) 
+                    }}">
                 </div>
                 <h5 class="fw-bold text-center" style="color:gray;">{{ $herramienta->nombre }}</h5>
             </div>
@@ -49,7 +59,7 @@
         @can('solicitarHerramienta')
             <h4 class="fw-bold p-4" style="color: green;"><i class="fas fa-star"></i>  TUS FAVORITOS</h4>
                 @if ($herramientasMasPedidasUser->isEmpty())
-                    <p>No has realizado solicitudes de herramientas aún.</p>
+                    <p style="margin: 20px;">No has realizado solicitudes de herramientas aún.</p>
                 @else
                     <div class="row p-2">
                         @foreach ($herramientasMasPedidasUser as $herramientaM)
@@ -61,7 +71,11 @@
                             <div class="col-md-4"> <!-- Cada card ocupa 4 columnas en pantallas medianas -->
                                 <div class="cardm">
                                     <!-- Imagen de la herramienta -->
-                                    <img src="{{ asset('imagenes/herramientas/' . $herramienta->imagen) }}" class="card1-img-top" alt="{{ $herramienta->nombre }}">
+                                    <img src="{{ 
+                                            filter_var($herramienta->imagen, FILTER_VALIDATE_URL) 
+                                            ? $herramienta->imagen 
+                                            : asset('imagenes/herramientas/' . $herramienta->imagen) 
+                                        }}">
                                     <div class="card__content">
                                         @if ($herramienta)
                                             <p class="card__title">{{ $herramienta->nombre }}</p>
@@ -122,7 +136,6 @@
         @can('crearHerramienta')
             <h5 class="fw-bold p-4" style="color: green;"><i class="fas fa-arrow-turn-down"></i>  HERRAMIENTAS CON BAJO STOCK</h5>
             @php
-                // Definir el máximo arbitrario como el stock más alto entre las herramientas seleccionadas
                 $maxStock = $herramientaBajoStock->max('stock') ?: 1;
             @endphp
 
@@ -132,10 +145,10 @@
                     <div class="progress-bar-vertical mt-1 mb-3" style="position: relative; display: flex; align-items: center;">
                         <!-- Nombre de la herramienta a la izquierda de la barra -->
                         <div class="progress-name" style="writing-mode: vertical-rl; text-align: center; margin-right: 10px;">
-                            <strong style=" color: #4caf50">{{ $herramienta->nombre }}  ({{ $herramienta->cod_herramienta}})</strong>
+                            <strong style=" color: #4caf50">{{ $herramienta->nombre }} <br>  ({{ $herramienta->cod_herramienta}})</strong>
                         </div>
 
-                        <div class="progress-bar-container" style="border-radius:20px; width: 70px; height: 200px; background-color: #f1f1f1; position: relative;">
+                        <div class="progress-bar-container" style="border-radius:20px; width: 90px; height: 200px; background-color: #f1f1f1; position: relative;">
                             <div class="progress-fill-vertical" style="width: 100%; height: {{ $herramienta->stock > 0 ? ($herramienta->stock / $maxStock) * 100 : 0 }}%; 
                             height: {{ $herramienta->stock > 0 ? ($herramienta->stock / $maxStock) * 100 : 0 }}%;
                             background-color: {{ $herramienta->stock > 5 ? '#4caf50' : ($herramienta->stock >= 2 ? 'orange' : 'red') }};
@@ -159,13 +172,21 @@
             <div class="cardc p-3">
                 <h5 class="text-center fw-bold"><i class="fas fa-fire" style="color: orange"></i>  POPULARES</h5>
                 <div class="podio">
+                @if ($herramientasMasPedidas->isEmpty())
+                    <p style="margin: 20px;">No hay herramientas en el podio aún.</p>
+                    @else
                     @foreach ($herramientasMasPedidas ->take(3) as $index => $herramienta) 
                         <div class="podio-item">
                             <span class="podio-number" style="color:green;">{{ $index + 1 }}</span> <!-- Número de posición -->
-                            <img src="{{ asset('imagenes/herramientas/' . $herramienta->imagen) }}" alt="{{ $herramienta->nombre }}" class="podio-img">
+                            <img src="{{ 
+                        filter_var($herramienta->imagen, FILTER_VALIDATE_URL) 
+                        ? $herramienta->imagen 
+                        : asset('imagenes/herramientas/' . $herramienta->imagen) 
+                    }}" class="podio-img">
                             <h6>{{ $herramienta->nombre }}</h6>
                         </div>
                     @endforeach
+                @endif
                 </div>
             </div>
         </div>
@@ -213,7 +234,7 @@
 
 
 .cardc {
-    width: 300px;
+    width: 310px;
     height: 350px; /* Mantener esta altura */
     backdrop-filter: blur(7px);
     background-color: rgba(255, 255, 255, 0.5);
@@ -251,7 +272,7 @@
     position: relative;
     overflow: hidden;
     position: relative;
-    width: 90%;
+    width: 400px;
     box-shadow: 0px 1px 13px rgba(0,0,0,0.1);
     cursor: pointer;
     align-items: center;
@@ -277,11 +298,11 @@
 .vitrina-track {
     display: flex;
     width: max-content;
-    animation: scroll 40s linear infinite;
+    animation: scroll 60s linear infinite;
 }
 
 .vitrina-item {
-    flex: 0 0 7%; /* Ajusta el ancho de cada tarjeta */
+    flex: 0 0 3%; /* Ajusta el ancho de cada tarjeta */
     margin-right: 15px;
 }
 

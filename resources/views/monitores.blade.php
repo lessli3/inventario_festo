@@ -2,7 +2,7 @@
 @section('titulo', 'Solicitudes')
 @section('content')
     <div class="container">
-        <h4 class="fw-bold">ASIGNAR MONITORES</h4>
+        <h4 class="fw-bold">USUARIOS</h4>
 
 @if (session('success'))
   <div class="alert alert-success" id="successAlert">
@@ -21,7 +21,7 @@
         <!-- Botones para alternar entre Instructores y Monitores -->
         <div class="row mb-4">
             <div class="col-md-12 text-end">
-                <a href="{{ route('monitores', ['role' => 'Instructor']) }}" class="btn btn-outline-success me-3 {{ $role == 'Instructor' ? 'active' : '' }}">
+                <a href="{{ route('monitores', ['role' => 'Instructor']) }}" class="btn btn-outline-success me-1 {{ $role == 'Instructor' ? 'active' : '' }}">
                   <i class="fas fa-eye"></i>
                    Instructores
                 </a>
@@ -29,12 +29,17 @@
                   <i class="fas fa-eye"></i>
                   Monitores
                 </a>
+
+                <a href="/crearMonitor" class="btn btn-outline-success ms-5">
+                  <i class="fas fa-plus"></i>
+                   Nuevo Monitor
+                </a>
             </div>
         </div>
 
-        <div class="row mt-4">
+        <div class="row mt-4 ">
             @foreach($instructores as $instructor)
-                <div class="col-md-3">
+                <div class="col-md-3 mb-3">
                     <form action="{{ $role == 'Monitor' ? route('convertirInstructor') : route('createMonitor') }}" method="POST" style="display: inline;">
                         <div class="card-client {{ $role == 'Monitor' ? 'monitor' : 'instructor' }}" 
                              style="background-color: {{ $role == 'Monitor' ? '#2b9baa' : 'rgb(29, 148, 40)' }}; 
@@ -54,7 +59,7 @@
                                     <div class="col-md-12 mb-1">
                                         <a href="#">
                                             <i class="fas fa-address-card" style="color:white; font-size: 30px"></i>
-                                            <span class="tooltip-social" style="display: flex; flex-direction: column; text-align: left; max-width: 200px; white-space: normal;">
+                                            <span class="tooltip-social" style="display: flex; flex-direction: column; text-align: left; width: 210px; white-space: normal;">
                                                 <div>CC: {{ $instructor->user_identity }}</div>
                                                 <div style="display: flex; align-items: center;">
                                                     <i class="fas fa-at" style="font-size: 15px;"></i> 
@@ -65,13 +70,13 @@
                                         </a>
                                     </div>
 
-                                    <div class="col-md-12">
+                                    <!--<div class="col-md-12">
                                         @if(($role != 'Instructor') || ($role != 'Monitor'))
                                             <button type="submit" class="btn btn-outline-light">
                                                 {{ $role == 'Monitor' ? 'Designar Instructor' : 'Designar Monitor' }}
                                             </button>
                                         @endif
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                         </div>
@@ -185,7 +190,7 @@
     transition: all 0.2s ease;
     z-index: 1;
     top: -30;
-    height: 95px;
+    height: 100px;
   }
 
   .tooltip-social {

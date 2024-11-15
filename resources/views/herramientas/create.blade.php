@@ -28,6 +28,28 @@
                             <input type="number" placeholder="Cantidad disponible de la herramienta" class="form-control" name="stock" required>
                         </div>
                         <div class="col-lg-6 mb-4">
+                            <label class="form-label fw-bold">Organizador</label>
+                            <select class="form-control" name="organizador" required>
+                                <option value="" disabled selected>Selecciona</option>
+                                <option value="1">Organizador 1</option>
+                                <option value="2">Organizador 2</option>
+                            </select>
+                        </div>
+
+                        <div class="col-lg-6 mb-4">
+                            <label class="form-label fw-bold">Cajón</label>
+                            <select class="form-control" name="cajon" required>
+                                <option value="" disabled selected>Selecciona</option>
+                                <option value="1">Cajón 1</option>
+                                <option value="2">Cajón 2</option>
+                                <option value="3">Cajón 3</option>
+                                <option value="4">Cajón 4</option>
+                                <option value="5">Cajón 5</option>
+                                <option value="6">Cajón 6</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-lg-6 mb-4">
                             <label class="form-label fw-bold">Categoría</label>
                             <select class="form-control" name="categoria" required>
                                 <option value="" disabled selected>Selecciona una categoría</option>
@@ -41,7 +63,7 @@
                             <select class="form-control" name="estado" required>
                                 <option value="" disabled selected>Selecciona un estado</option>
                                     <option value="activo">Activo</option>
-                                    <option value="Inctivo">Inactivo</option>
+                                    <option value="inactivo">Inactivo</option>
                             </select>
                         </div>
                         <div class="col-lg-6 mb-4 d-flex justify-content-center">

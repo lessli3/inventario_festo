@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Angie',
             'lastname' => 'Galindo',
             'email' => 'angie@gmail.com',
-            'user_identity' => '123456789',
+            'user_identity' => '1023456789',
             'telefono' => '312548648',
             'user_estado' => 'activo' 
         ]);

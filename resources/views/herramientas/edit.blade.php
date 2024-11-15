@@ -30,6 +30,29 @@
                     <label for="stockHerramienta" class="form-label fw-bold">Stock</label>
                     <input type="number" class="form-control" value="{{$herramientaEditar->stock}}" name="stockEdit" id="stock">
                 </div>
+
+                <div class="col-lg-6 mb-4">
+                    <label for="organizadorHerramienta"  class="form-label fw-bold">Organizador</label>
+                    <select class="form-control" name="organizadorEdit" required>
+                        <option value="" disabled selected>Selecciona</option>
+                        <option value="1">Organizador 1</option>
+                        <option value="2">Organizador 2</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-6 mb-4">
+                    <label for="cajonHerramienta" class="form-label fw-bold">Cajón</label>
+                    <select class="form-control" name="cajonEdit" required>
+                        <option value="" disabled selected>Selecciona</option>
+                        <option value="1">Cajón 1</option>
+                        <option value="2">Cajón 2</option>
+                        <option value="3">Cajón 3</option>
+                        <option value="4">Cajón 4</option>
+                        <option value="5">Cajón 5</option>
+                        <option value="6">Cajón 6</option>
+                    </select>
+                </div>
+                
                 <div class="col-lg-6 mb-4">
                     <label for="categoriaHerramienta" class="form-label fw-bold">Categoría</label>
                     <select class="form-control" name="categoriaEdit" required>

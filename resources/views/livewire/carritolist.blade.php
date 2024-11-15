@@ -12,7 +12,11 @@
         @foreach($solicitudItems as $item)
           <div class="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start" style="min-height: 150px; max-height: 160px" wire:key="item{{ $item->id }}">
             @if($item->herramienta)
-              <img src="imagenes/herramientas/{{$item->herramienta->imagen}}" alt="product-image" class="w-40 h-25 object-cover rounded-lg sm:w-40 d-block mx-auto mb-4 xs:mx-auto" />
+              <img src="{{ 
+                        filter_var($item->herramienta->imagen, FILTER_VALIDATE_URL) 
+                        ? $item->herramienta->imagen 
+                        : asset('imagenes/herramientas/' . $item->herramienta->imagen) 
+                    }}" alt="product-image" class="object-cover rounded-lg d-block mx-auto mb-4 xs:mx-auto" style="width: 160px; height: 120px;" />
               <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between sm:items-center">
                 <div>
                   <h2 class="text-lg font-bold text-gray-900 text-center">{{$item->herramienta->nombre}}</h2>

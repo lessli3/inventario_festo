@@ -81,8 +81,11 @@ class HerramientaController extends Controller
         $newHerramienta->nombre = $request->get('nombre');
         $newHerramienta->descripcion = $request->get('descripcion');
         $newHerramienta->stock = $request->get('stock');
+        $newHerramienta->organizador = $request->get('organizador');
+        $newHerramienta->cajon = $request->get('cajon');
         $newHerramienta->estado = $request->get('estado');
         $newHerramienta->categoria = $request->get('categoria');
+        
 
         // Guardar la nueva herramienta en la base de datos
         $newHerramienta->save();
@@ -128,6 +131,8 @@ class HerramientaController extends Controller
         $editarherramienta->estado = $request->get('estadoEdit');
         $editarherramienta->descripcion = $request->get('descripEdit');
         $editarherramienta->stock = $request->get('stockEdit');
+        $editarherramienta->organizador = $request->get('organizadorEdit');
+        $editarherramienta->cajon = $request->get('cajonEdit');
         $editarherramienta->categoria = $request->get('categoriaEdit');
 
         // Verificar si se ha subido una nueva imagen y reemplazarla

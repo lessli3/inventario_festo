@@ -10,13 +10,15 @@ class CreateSolicitudesTable extends Migration
     {
         Schema::create('solicitudes', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_identity')->unsigned(); // Se debe marcar como unsigned
+            $table->bigInteger('user_identity')->unsigned(); 
             $table->foreign('user_identity')->references('user_identity')->on('users')->onDelete('cascade');
             $table->string('nombre');
             $table->string('telefono');
             $table->string('email');
             $table->date('fecha');
             $table->time('hora');
+            $table->datetime('hora_salida')->nullable();
+            $table->datetime('hora_entrega')->nullable();            
             $table->enum('estado', ['pendiente', 'aceptada'])->default('pendiente');
             $table->timestamps();
         });

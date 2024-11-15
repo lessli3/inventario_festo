@@ -111,13 +111,6 @@
             <li>
                 <a href="/herramientas"><span class="material-symbols-outlined">build</span>Herramientas</a>
             </li>
-            @canany(['solicitarHerramienta', 'editarSolicitud'])
-                <li>
-                    <a href="/solicitudIndex">
-                        <span class="material-symbols-outlined">folder</span>Solicitudes
-                    </a>
-                </li>
-            @endcanany
 
             @can('editarSolicitud')
             <li>
@@ -126,10 +119,17 @@
                 </a>
             </li>
             @endcan
+            @canany(['solicitarHerramienta', 'editarSolicitud'])
+                <li>
+                    <a href="/solicitudIndex">
+                        <span class="material-symbols-outlined">folder</span>Solicitudes
+                    </a>
+                </li>
+            @endcanany
 
             @can('crearHerramienta')
             <li>
-                <a href="/monitores"><span class="material-symbols-outlined">groups</span>Monitores</a>
+                <a href="/monitores"><span class="material-symbols-outlined">groups</span>Usuarios</a>
             </li>
             @endcan
             <hr>

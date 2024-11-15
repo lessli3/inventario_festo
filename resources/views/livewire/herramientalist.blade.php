@@ -1,3 +1,7 @@
+@php
+use Illuminate\Support\Str;
+@endphp
+
 <div class="container">
     @include('layouts.mensaje')
     <div class="row mb-5">
@@ -91,7 +95,8 @@
     @if($herramientaVista->estado == ($mostrarInactivas ? 'inactivo' : 'activo'))
         <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
             <!-- Añade la clase 'inactive-tool' si la herramienta está inactiva -->
-            <div class="card herramienta-card {{ $herramientaVista->estado == 'inactivo' ? 'inactive-tool' : '' }}" style="background-image: url('{{ asset('imagenes/herramientas/' . $herramientaVista->imagen) }}');">
+            <div class="card herramienta-card {{ $herramientaVista->estado == 'inactivo' ? 'inactive-tool' : '' }}" 
+            style="background-image: url('{{ Str::startsWith($herramientaVista->imagen, ['http://', 'https://']) ? $herramientaVista->imagen : asset('imagenes/herramientas/' . $herramientaVista->imagen) }}');">
                 <div class="card-body">
                     <div class="row" style="margin-bottom: 25%;">
                         <div class="d-flex justify-content-between align-items-start mb-2">
@@ -103,7 +108,7 @@
                                 <p class="badge bg-danger m-0"><strong>No hay stock disponible.</strong></p>
                             @endif
 
-                            <div class="d-flex gap-2">
+                            <div class="d-flex gap-2" style="position: absolute; top: 25px; left: 20px;">
                                 @can('editarHerramienta')
                                 <a href="/herramientas/{{$herramientaVista->id}}/edit" class="btn btn-success">
                                     <i class="fas fa-edit"></i>
