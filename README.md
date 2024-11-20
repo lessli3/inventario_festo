@@ -103,7 +103,71 @@ Según el rol asignado (cuentadante, instructor, monitor), accede a las funciona
 - PostgreSQL
 - Mailtrap
 
-## Contribuciones
+## Estructura del proyecto
+
+INVENTARIO_FESTO
+│
+├── app
+│   ├── Actions
+│   ├── Console
+│   ├── Exceptions
+│   ├── Http
+│   ├── Mail
+│   ├── Models
+│   ├── Providers
+│   ├── View
+│
+├── bootstrap
+├── config
+├── database
+│   ├── factories
+│   ├── migrations
+│   ├── seeders
+│   └── .gitignore
+│
+├── lang
+├── node_modules
+├── public
+├── resources
+│   ├── css
+│   ├── js
+│   ├── markdown
+│   └── views
+│       ├── api
+│       ├── auth
+│       ├── components
+│       ├── emails
+│       ├── herramientas
+│       ├── inventario
+│       ├── layouts
+│       ├── livewire
+│       ├── posts
+│       ├── profile
+│       ├── solicitudes
+│       ├── users
+│       ├── calendario.blade.php
+│       ├── dashboard.blade.php
+│       ├── home.blade.php
+│       ├── index.blade.php
+│       ├── monitores.blade.php
+│       ├── navigation-menu.blade.txt
+│       ├── solicitdItems.blade.php
+│       ├── terms.blade.php
+│       └── welcome.blade.txt
+│
+├── routes
+├── storage
+├── tests
+├── vendor
+│
+├── .editorconfig
+├── .env
+├── .env.example
+├── .gitattributes
+├── .gitignore
+├── artisan
+└── composer.json
+
 
 
 ## Desarrolladores del proyecto
