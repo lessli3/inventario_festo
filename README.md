@@ -59,21 +59,27 @@ Diseño fácil de usar que mejora la experiencia de los usuarios y facilita la n
 Sigue estos pasos para configurar el proyecto localmente:
 
 1 **Clonar el repositorio**
+
 ![image](https://github.com/user-attachments/assets/741ecaf9-d68d-40a0-9c33-17b2ec3f60dd)
 
 2 **Instalar las dependencias**
+
 ![image](https://github.com/user-attachments/assets/609418a4-0eb7-430b-9990-5f1088e8a02c)
 
 3 **Configurar el archivo .env**
+
 ![image](https://github.com/user-attachments/assets/40702987-8be9-4132-bbfa-97232025fba0)
 
 4 **Configurar la base de datos** 
+
 ![image](https://github.com/user-attachments/assets/6ef86455-ccb5-4d87-862a-f5ebac7efc65)
 
 5 **Ejecutar las migraciones**
+
 ![image](https://github.com/user-attachments/assets/7e69a608-58f1-4fb2-9077-24f0c8f62cb8)
 
 6 **Iniciar el servidor de desarrollo**
+
 ![image](https://github.com/user-attachments/assets/51ec231e-7039-47f3-9927-d60ffd08f67a)
 
 
