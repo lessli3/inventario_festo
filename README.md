@@ -107,6 +107,7 @@ Según el rol asignado (cuentadante, instructor, monitor), accede a las funciona
 
 ![image](https://github.com/user-attachments/assets/9e06dc1b-71de-409c-b3e5-028ae0a1a8a2)
 
+![image](https://github.com/user-attachments/assets/fa3a9ee7-1f19-4a9b-a341-8e0e6bf33bcc)
 
 
 
