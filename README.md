@@ -105,9 +105,11 @@ Según el rol asignado (cuentadante, instructor, monitor), accede a las funciona
 
 ## Estructura del proyecto
 
-![image](https://github.com/user-attachments/assets/9e06dc1b-71de-409c-b3e5-028ae0a1a8a2)
+![image](https://github.com/user-attachments/assets/5dd687f5-c17e-4ab6-a0fb-0707f6cb3e82)
 
-![image](https://github.com/user-attachments/assets/fa3a9ee7-1f19-4a9b-a341-8e0e6bf33bcc)
+
+![image](https://github.com/user-attachments/assets/c809ac6f-6d98-49b2-8937-8adfd7a4abe5)
+
 
 
 
