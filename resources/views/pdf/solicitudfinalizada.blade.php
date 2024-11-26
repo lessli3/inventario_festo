@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>SOLICITUD ENTREGADA</title>
+    <title>SOLICITUD FINALIZADA PDF</title>
     <style>
         body { font-family: Arial, sans-serif; }
         h2 { color: green; font-weight: bold; }
@@ -52,7 +52,7 @@
 <body>
     <div class="row mt-4 clearfix">
         <div class="col-md-11">
-            <h2 class="fw-bold ms-1 pt-3">SOLICITUD ENTREGADA {{ $solicitud->fecha }}</h2>
+            <h2 class="fw-bold ms-1 pt-3">SOLICITUD FINALIZADA {{ $solicitud->fecha }}</h2>
         </div>
         <div class="col-md-1">
             <img src="img/logov.png" alt="Logo" style="width: 60px; height: 60px;">
@@ -65,15 +65,14 @@
 
     <div class="row clearfix" style="margin-top: 70px">
         <div class="col-md-8">
-            <h4 class="fw-bold" style="color:green">SOLICITANTE</h4>
+            <h4 class="fw-bold" style="color: rgb(114, 184, 135)">SOLICITANTE</h4>
             <p>Instructor: {{ $solicitud->nombre }}</p>
             <p>Teléfono: {{ $solicitud->telefono }}</p>
             <p>Correo: {{ $solicitud->email }}</p>
         </div>
         <div class="col-md-4 mb-4">
-            <h4 class="fw-bold" style="color:green">INFORMACIÓN DE LA SOLICITUD</h4>
+            <h4 class="fw-bold" style="color: rgb(114, 184, 135)">INFORMACIÓN DE LA SOLICITUD FINALIZADA</h4>
             <p>Hora de la solicitud: {{ $solicitud->hora}}</p>
-            <p>Fecha y hora entrega: {{ \Carbon\Carbon::parse($solicitud->hora_recibida)->format('d/m/Y H:i') }}</p>
             <p>Fecha y hora devolución: {{ \Carbon\Carbon::parse($solicitud->hora_entrega)->format('d/m/Y H:i') }}</p>
         </div>
     </div>

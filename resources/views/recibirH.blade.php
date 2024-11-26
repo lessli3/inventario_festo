@@ -1,28 +1,27 @@
 @extends('layouts.dashboard')
-@section('titulo', 'Confirmación')
+@section('titulo', 'Recibir Herramientas')
 @section('content')
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmación</title>
+    <title>Recibir Herramientas</title>
     @vite(['resources/js/app.js'])
     <script src="http://localhost:3000/socket.io/socket.io.js"></script>
 </head>
 <body>
-    @foreach ($solicitudes as $solicitud)
-    <h4 class="fw-bold mb-3">HERRAMIENTAS ESPERADAS PARA LA SOLICITUD {{ $solicitud->fecha }} </h4>
+@foreach ($solicitudes as $solicitud)
+    <h4 class="fw-bold mb-3">HERRAMIENTAS PARA RECIBIR EN LA SOLICITUD {{ $solicitud->fecha }} </h4>
     <p><strong>Instructor:</strong> {{ $solicitud->nombre }} <br>
     <strong>ID de la solicitud:</strong> {{ $solicitud->id }} </p>
 
     <table class="tablen align-middle mb-0 bg-white">
         <thead class="bg-light">
             <tr style="height: 50px">
-                <th>NOMBRE</th>
+                <th class="ps-4">NOMBRE</th>
                 <th>CANTIDAD</th>
                 <th>ESTADO</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody id="tools-list">
@@ -50,11 +49,6 @@
                     <td>
                         <span class="status badge badge-success rounded-pill d-inline" style="background-color: cadetblue;">PENDIENTE</span>
                     </td>
-                    <td>
-                        <button type="button" class="btn btn-link btn-sm btn-rounded">
-                            <a href="/solicitudIndex" style="text-decoration:none !important"><i class="fas fa-pencil"> </i>Editar</a>
-                        </button>
-                    </td>
                 </tr>
             @endforeach
         </tbody>
@@ -62,30 +56,26 @@
 
     @endforeach
     <center>
-    <form action="{{ route('solicitud.pdf', $solicitud->id) }}" method="get">
-        <button type="submit" id="entregadaBtn" class="btn" style="background-color: green; color:white;" {{ $solicitud->tools_scanned ? '' : 'disabled' }}>
-            <i class="fas fa-tools"></i> Herramienta Entregada
-        </button>
-    </form>
-    <br>
-    <button id="finalizadoBtn" class="btn" style="background-color: green; color:white;">
+        <form action="{{ route('solicitudes.finalizar', $solicitud->id) }}" method="get">
+            @csrf
+            <button type="submit" id="finalizarBtn" class="btn btn-outline-success mt-4 " data-loading-text="Procesando..." disabled>
+                <i class="fas fa-check"></i> Finalizar 
+            </button>
+        </form>
+
+        <button id="finalizadoBtn" class="btn mt-3" style="background-color: green; color:white;">
         <a href="/solicitudIndex" class="" role="button" style="color: white; opacity: 1; text-decoration: none;">
         <i class="fas fa-arrow-left"></i> Regresar</a>
     </button>
-
     </center>
-
-
-
-
-    
+</body>
 </body>
 <script>
-    const socket = io("http://localhost:3000");
+  const socket = io("http://localhost:3000");
 
 // Escuchar el evento "barcodeScanned" para actualizar la lista
 socket.on('barcodeScanned', (scannedTools) => {
-    console.log("Evento barcodeScanned recibido:", scannedTools);
+    console.log("Evento barcodeScanned recibido:", scannedTools);  // Verifica lo que llega
 
     scannedTools.forEach(scannedTool => {
         // Buscar la herramienta en el DOM usando el barcode
@@ -103,7 +93,6 @@ socket.on('barcodeScanned', (scannedTools) => {
             }
         });
     });
-
     checkAllScanned();
 });
 
@@ -111,30 +100,30 @@ function checkAllScanned() {
     const totalTools = document.querySelectorAll('.tool-item').length;
     const scannedTools = document.querySelectorAll('.tool-item.scanned').length;
 
-    const entregadaBtn = document.getElementById('entregadaBtn');
+    const finalizarBtn = document.getElementById('finalizarBtn');
     if (totalTools === scannedTools) {
-        entregadaBtn.disabled = false;
+        finalizarBtn.disabled = false;
         console.log("El botón ahora está habilitado");
     }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const entregadaBtn = document.getElementById('entregadaBtn');
+    const finalizarBtn = document.getElementById('finalizarBtn');
 
-    if (entregadaBtn) {
-        entregadaBtn.addEventListener('click', (e) => {
+    if (finalizarBtn) {
+        finalizarBtn.addEventListener('click', (e) => {
             // Prevenir múltiples envíos
             e.preventDefault();
 
-            entregadaBtn.innerText = "Procesando...";
-            entregadaBtn.style.backgroundColor = "gray";
-            entregadaBtn.style.cursor = "not-allowed";
+            finalizarBtn.innerText = "Procesando...";
+            finalizarBtn.style.backgroundColor = "gray";
+            finalizarBtn.style.cursor = "not-allowed";
 
             // Deshabilitar el botón inmediatamente para evitar clics múltiples
-            entregadaBtn.disabled = true;
+            finalizarBtn.disabled = true;
 
             setTimeout(() => {
-                entregadaBtn.style.display = 'none'; 
+                finalizarBtn.style.display = 'none'; 
 
                  // Cambiar el botón "Regresar" por "Finalizado"
                  if (finalizadoBtn) {
@@ -147,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
             // Si es necesario, envía el formulario manualmente
-            entregadaBtn.closest('form').submit();
+            finalizarBtn.closest('form').submit();
         });
     }
 });
@@ -155,6 +144,17 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </html>
 <style>
+
+#finalizarBtn[disabled] {
+    background-color: gray;
+    color: white;
+    cursor: not-allowed;
+}
+
+#finalizarBtn {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
     .tablen tr:not(:last-child) td:last-child {
     border-bottom-color: transparent !important;
     }
@@ -168,5 +168,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 </style>
-
 @endsection

@@ -125,7 +125,16 @@
                         <span class="material-symbols-outlined">folder</span>Solicitudes
                     </a>
                 </li>
+                
             @endcanany
+
+            @can('editarSolicitud')
+            <li>
+                <a href="/archivo">
+                    <span class="material-symbols-outlined">attach_file</span> Archivo
+                </a>
+            </li>
+            @endcan
 
             @can('crearHerramienta')
             <li>

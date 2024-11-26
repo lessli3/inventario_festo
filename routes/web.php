@@ -37,7 +37,6 @@ Route::post('/check-document', [AuthController::class, 'sendVerificationCode'])-
 Route::post('/verify-code', [AuthController::class, 'verifyCode'])->name('verify.code');
 // Ruta para enviar el código de verificación
 Route::post('/verify-code-ing', [AuthController::class, 'verifyCodeIng'])->name('verify.codeIng');
-Route::get('/solicitud/{id}/pdf', [SolicitudController::class, 'generarPDF'])->name('solicitud.pdf');
 
 //Todas las rutas que requieren autenticación
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
@@ -45,9 +44,13 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     
     Route::resource('/herramientas', HerramientaController::class);
     
+    Route::get('/solicitud/{id}/pdf', [SolicitudController::class, 'generarPDF'])->name('solicitud.pdf');
     Route::get('/scanner', function () {return view('scanner');});
     Route::get('/confirmacion', function () {return view('confirmacion'); });
     Route::get('/solicitudes/{id}/confirmar', [SolicitudController::class, 'confirmacion'])->name('solicitudes.confirmar');
+    Route::get('/solicitudes/{id}/finalizar', [SolicitudController::class, 'finalizarRecepcion'])->name('solicitudes.finalizar');
+    Route::get('/solicitudes/{id}/recibir', [SolicitudController::class, 'recibirH'])->name('solicitudes.recibir');
+
     Route::post('/api/scan-barcode', [ScannerController::class, 'scanBarcode']);
     
     
@@ -69,6 +72,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::delete('/solicitudes/{solicitudId}/herramienta/{codHerramienta}', [SolicitudController::class, 'eliminarHerramienta'])->name('eliminar.herramienta');
     Route::post('/solicitudes/{solicitud}/agregarHerramienta', [SolicitudController::class, 'agregarHerramienta'])->name('solicitudes.agregarHerramienta');
     Route::put('/solicitudes/{solicitudId}/detalle/{detalleId}/cantidad', [SolicitudController::class, 'actualizarCantidad'])->name('actualizar.cantidad');
+    Route::get('/archivo', [SolicitudController::class, 'finalizadas'])->name('archivo');
 
     //Route::post('/solicitudes/{solicitudId}/agregar-herramienta', [SolicitudController::class, 'agregarHerramienta'])->name('solicitudes.agregarHerramienta');
     Route::get('/verificar-codigo-herramienta/{herramientaId}/{codigoBarras}', [SolicitudController::class, 'verificarCodigo']);

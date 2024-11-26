@@ -3,6 +3,34 @@
 @section('title', 'INICIO - FESTO')
 
 @section('content')
+
+<!-- Mensaje de éxito o error -->
+@if (session('success'))
+  <div class="alert alert-success" id="successAlert">
+      {{ session('success') }}
+  </div>
+  @endif
+
+  @if ($errors->any())
+  <div class="alert alert-danger" id="errorAlert">
+      @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+      @endforeach
+  </div>
+  @endif 
+
+  @if (session('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>{{ session('error') }}</strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <!-- Limpiar el mensaje de la sesión después de mostrarlo -->
+    @php
+        session()->forget('error');
+    @endphp
+@endif
+
 <div class="container mt-4">
     <h4 class="fw-bold" style="color: green;">HERRAMIENTAS EN FESTO</h4>
 
@@ -124,10 +152,10 @@
             </div>
 
             <!-- Barra para "Solicitudes recibidas" -->
-            @php $recibidas = $solicitudesContador->firstWhere('estado', 'recibida')->total ?? 0; @endphp
+            @php $finalizadas = $solicitudesContador->firstWhere('estado', 'finalizada')->total ?? 0; @endphp
             <div class="progress-bar my-3" style="height: 40px">
-            <div class="progress-fill pt-2" style="width: {{ $recibidas > 0 ? ($recibidas / $maxValue) * 100 : 0 }}%; background-color: {{ $recibidas > 0 ? '#4caf50' : 'transparent' }}; border-radius: 20px">
-                    <strong class="me-1">{{ $recibidas }}  recibidas  </strong>           
+            <div class="progress-fill pt-2" style="width: {{ $finalizadas > 0 ? ($finalizadas / $maxValue) * 100 : 0 }}%; background-color: {{ $finalizadas > 0 ? '#4caf50' : 'transparent' }}; border-radius: 20px">
+                    <strong class="me-1">{{ $finalizadas }}  finalizadas  </strong>           
             </div>
             </div>
         @endcan

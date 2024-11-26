@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str; 
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SolicitudEntregada; 
+use App\Mail\SolicitudFinalizada; 
 
 
 
@@ -31,9 +34,9 @@ class SolicitudController extends Controller
     
         // Filtrar por rol de monitor, excluyendo las solicitudes pendientes
         if ($user->hasRole('Monitor')) {
-            $solicitudesAceptadas->where('estado', '!=', 'pendiente');
-
+            $solicitudesAceptadas->whereNotIn('estado', ['pendiente', 'finalizada']);
         }
+        
     
         // Filtrar por número de user_identity si el usuario tiene rol de Instructor
         if ($user->hasRole('Instructor')) {
@@ -50,8 +53,9 @@ class SolicitudController extends Controller
         $solicitudesAceptadas = $solicitudesAceptadas->get();
     
         // Comprobar si la colección está vacía después de aplicar los filtros
+        // Si no hay solicitudes aceptadas, redirigir con un mensaje de notificación
         if ($solicitudesAceptadas->isEmpty()) {
-            return redirect()->back()->withErrors(['mensaje' => 'No se encontraron solicitudes que coincidan.']);
+            return redirect()->route('dashboard')->with('error', 'No hay solicitudes para mostrar.');
         }
     
         // Cargar herramientas disponibles
@@ -69,7 +73,6 @@ class SolicitudController extends Controller
         return view('solicitudes.index', compact('solicitudesAceptadas', 'herramientasDisponibles'));
     }
     
-    
 
     public function calendario()
     {
@@ -81,42 +84,43 @@ class SolicitudController extends Controller
         return view('calendario', compact('solicitudesPendientes'));
     }
 
-public function dashboard(){
-// Podio
-    $herramientasMasPedidas = DB::table('detalle_solicitudes')
-        ->join('herramientas', 'detalle_solicitudes.cod_herramienta', '=', 'herramientas.cod_herramienta')
-        ->select('herramientas.*', DB::raw('COUNT(DISTINCT solicitud_id) as total_solicitudes'))
-        ->groupBy('herramientas.id')
-        ->orderBy('total_solicitudes', 'desc')
-        ->take(3) // Puedes ajustar el número de herramientas que quieras mostrar
-        ->get();
+
+    public function dashboard(){
+    // Podio
+        $herramientasMasPedidas = DB::table('detalle_solicitudes')
+            ->join('herramientas', 'detalle_solicitudes.cod_herramienta', '=', 'herramientas.cod_herramienta')
+            ->select('herramientas.*', DB::raw('COUNT(DISTINCT solicitud_id) as total_solicitudes'))
+            ->groupBy('herramientas.id')
+            ->orderBy('total_solicitudes', 'desc')
+            ->take(3) // Puedes ajustar el número de herramientas que quieras mostrar
+            ->get();
 
 
-    //Para el carrusel
-    $herramientasAl = Herramienta::inRandomOrder()->take(8)->get();
-    //todas las herramientas disponibles
-    $herramientas = DB::table('herramientas')->get();     
-    //ID del usuario autenticado
-    $userId = Auth::user()->user_identity;
-    // Consultar las herramientas más pedidas por el usuario autenticado
-    $herramientasMasPedidasUser = DB::table('detalle_solicitudes')
-        ->join('solicitudes', 'detalle_solicitudes.solicitud_id', '=', 'solicitudes.id')
-        ->select('detalle_solicitudes.cod_herramienta', DB::raw('COUNT(DISTINCT solicitudes.id) as total'))
-        ->where('solicitudes.user_identity', $userId) // Filtrar por el usuario autenticado
-        ->groupBy('detalle_solicitudes.cod_herramienta')
-        ->take(3) // Limitar el número de herramientas más pedidas
-        ->get();
+        //Para el carrusel
+        $herramientasAl = Herramienta::inRandomOrder()->take(8)->get();
+        //todas las herramientas disponibles
+        $herramientas = DB::table('herramientas')->get();     
+        //ID del usuario autenticado
+        $userId = Auth::user()->user_identity;
+        // Consultar las herramientas más pedidas por el usuario autenticado
+        $herramientasMasPedidasUser = DB::table('detalle_solicitudes')
+            ->join('solicitudes', 'detalle_solicitudes.solicitud_id', '=', 'solicitudes.id')
+            ->select('detalle_solicitudes.cod_herramienta', DB::raw('COUNT(DISTINCT solicitudes.id) as total'))
+            ->where('solicitudes.user_identity', $userId) // Filtrar por el usuario autenticado
+            ->groupBy('detalle_solicitudes.cod_herramienta')
+            ->take(3) // Limitar el número de herramientas más pedidas
+            ->get();
 
-    //Consultar numero de todas las solicitudes
-    $solicitudesContador = DB::table('solicitudes')
-        ->select('estado', DB::raw('COUNT(*) as total'))
-        ->groupBy('estado')
-        ->get();
-    //Herramientas con el stock bajo
-    $herramientaBajoStock = Herramienta::orderBy('stock', 'asc')->take(5)->get();
+        //Consultar numero de todas las solicitudes
+        $solicitudesContador = DB::table('solicitudes')
+            ->select('estado', DB::raw('COUNT(*) as total'))
+            ->groupBy('estado')
+            ->get();
+        //Herramientas con el stock bajo
+        $herramientaBajoStock = Herramienta::orderBy('stock', 'asc')->take(5)->get();
 
-    return view('dashboard', compact('herramientasMasPedidas', 'herramientas', 'herramientasAl', 'herramientasMasPedidasUser', 'solicitudesContador', 'herramientaBajoStock'));
-}
+        return view('dashboard', compact('herramientasMasPedidas', 'herramientas', 'herramientasAl', 'herramientasMasPedidasUser', 'solicitudesContador', 'herramientaBajoStock'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -328,7 +332,31 @@ public function dashboard(){
         // Pasar las herramientas a la vista
         return view('confirmacion', compact('herramientas', 'solicitudes'));
     }
-    
+
+    public function recibirH($solicitudId)
+    {
+        $solicitudes = Solicitud::where('id', $solicitudId)->get();
+        $herramientas = DetalleSolicitud::with('herramienta')->where('solicitud_id', $solicitudId)->get();
+
+        return view('recibirH', compact('herramientas', 'solicitudes'));
+    }
+
+    // vista archivo
+    public function finalizadas(Request $request) {
+        $user = auth()->user();
+        
+        $solicitudesFinalizadas = Solicitud::with('detalles.herramienta')
+                                            ->where('estado', 'finalizada');
+        $solicitudesFinalizadas = $solicitudesFinalizadas->get();
+        
+        // Comprobar si la colección está vacía
+        if ($solicitudesFinalizadas->isEmpty()) {
+            return view('archivo', ['mensaje' => 'No se encontraron solicitudes finalizadas.']);
+        }
+        
+        return view('archivo', compact('solicitudesFinalizadas'));
+    }
+ 
 
     public function actualizarCantidad(Request $request, $solicitudId, $detalleId)
     {
@@ -345,40 +373,83 @@ public function dashboard(){
         return redirect()->back()->with('success', 'Cantidad actualizada exitosamente.');
     }
 
-   
+    
     public function generarPDF($id)
     {
-        // Encuentra la solicitud por ID y cargar los detalles de las herramientas
         $solicitud = Solicitud::findOrFail($id);
-    
-        // Obtener las herramientas asociadas a la solicitud
+
+        // Herramientas asociadas a la solicitud
         $herramientas = $solicitud->detalles()->with('herramienta')->get();
         $hora_salida = Carbon::now('America/Bogota');
-        
-        // Calcular hora de entrega como 24 horas después de hora_salida
         $hora_entrega = $hora_salida->copy()->addHours(24);
-    
-        // Actualizar los campos 'hora_salida' y 'hora_entrega' en la base de datos
+
         $solicitud->hora_salida = $hora_salida->format('Y-m-d H:i:s');
         $solicitud->hora_entrega = $hora_entrega->format('Y-m-d H:i:s');
         $solicitud->estado = 'entregada';
         $solicitud->save();
-    
+
         foreach ($herramientas as $detalleSolicitud) {
-            $detalleSolicitud->estado = 'entregada';  
+            $detalleSolicitud->estado = 'entregada';
+            $herramienta = Herramienta::where('cod_herramienta', $detalleSolicitud->cod_herramienta)->first();
+        
+            if ($herramienta && !$herramienta->descontarStock($detalleSolicitud->cantidad)) {
+                return redirect()->back()->withErrors([
+                    'mensaje' => 'No hay suficiente stock para la herramienta: ' . $herramienta->nombre
+                ]);
+            }
             $detalleSolicitud->save();
         }
-    
-        // Genera el PDF
+        
+
         $pdf = PDF::loadView('pdf.solicitud', compact('solicitud', 'herramientas'));
-    
-        // Devuelve el PDF como descarga
+
+        try {
+            Mail::to($solicitud->email)->send(new SolicitudEntregada($solicitud, $pdf));
+        } catch (\Exception $e) {
+            return redirect()->route('solicitudes.index')
+                ->withErrors(['error' => 'Error al enviar el correo: ' . $e->getMessage()]);
+        }
+
         return $pdf->download('solicitud_' . $solicitud->id . '.pdf');
     }
-    
 
+    public function finalizarRecepcion($id)
+    {
+        $solicitud = Solicitud::findOrFail($id);
 
-    
+        $solicitud->estado = 'finalizada';
+        $hora_entrega = Carbon::now('America/Bogota');
+        $solicitud->hora_entrega = $hora_entrega->format('Y-m-d H:i:s');
+        $solicitud->save();
+
+        // Obtener las herramientas asociadas a la solicitud
+        $herramientas = $solicitud->detalles()->with('herramienta')->get();
+
+        foreach ($herramientas as $detalleSolicitud) {
+            $detalleSolicitud->estado = 'recibida';
+            $herramienta = Herramienta::where('cod_herramienta', $detalleSolicitud->cod_herramienta)->first();
+        
+            if ($herramienta && !$herramienta->agregarStock($detalleSolicitud->cantidad)) {
+                return redirect()->back()->withErrors([
+                    'mensaje' => 'No hay suficiente stock para la herramienta: ' . $herramienta->nombre
+                ]);
+            }
+            $detalleSolicitud->save();
+        }
+
+        // Generar el PDF con los detalles de la solicitud y las herramientas
+        $pdf = PDF::loadView('pdf.solicitudfinalizada', compact('solicitud', 'herramientas'));
+        
+        try{
+            Mail::to($solicitud->email)->send(new SolicitudFinalizada($solicitud, $pdf));
+        } catch (\Exception $e) {
+            return redirect()->route('solicitudes.index')
+                ->withErrors(['error' => 'Error al enviar el correo: ' . $e->getMessage()]);
+        }
+
+        return $pdf->download('solicitudfinalizada_' . $solicitud->id . '.pdf');
+    }
+
     
     /**
      * Display the specified resource.
