@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     finalizadoBtn.querySelector('a').innerText = "Finalizado"; // Cambiar texto del enlace
                 }
 
-            }, 7000); 
+            }, 10000); 
 
 
             // Si es necesario, envía el formulario manualmente

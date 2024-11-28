@@ -16,6 +16,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SolicitudEntregada; 
 use App\Mail\SolicitudFinalizada; 
+DB::beginTransaction();
 
 
 
@@ -76,9 +77,8 @@ class SolicitudController extends Controller
 
     public function calendario()
     {
-        // Obtener solo las solicitudes con estado pendiente
+        // Obtener solo las solicitudes con proceso pendiente
         $solicitudesPendientes = Solicitud::where('estado', 'pendiente')->get();
-
 
         // Pasar las solicitudes pendientes a la vista
         return view('calendario', compact('solicitudesPendientes'));
@@ -221,7 +221,8 @@ class SolicitudController extends Controller
                     'solicitud_id' => $solicitud->id,
                     'cod_herramienta' => $codHerramienta,
                     'cantidad' => $request->cantidad[$index],
-                    'estado' => 'pendiente', // Estado por defecto
+                    'estado'=> 'activa',
+                    'proceso' => 'pendiente', // proceso por defecto
                 ]);
             }
             $this->eliminarItemDelCarrito(auth()->user()->user_identity);
@@ -233,7 +234,7 @@ class SolicitudController extends Controller
     public function actualizarEstado(Request $request, $id)
     {
         $detalleSolicitud = DetalleSolicitud::findOrFail($id);
-        $detalleSolicitud->estado = $request->input('estado');
+        $detalleSolicitud->proceso = $request->input('proceso');
         $detalleSolicitud->save();
 
         return redirect()->route('solicitudes.index');
@@ -244,6 +245,15 @@ class SolicitudController extends Controller
         $solicitud = Solicitud::findOrFail($id);
         $solicitud->estado = $request->input('estado', 'aceptada');
         $solicitud->save();
+         // Obtener los detalles de la solicitud (herramientas asociadas)
+        $detalles = $solicitud->detalles;
+
+        // Actualizar el estado de cada herramienta asociada a la solicitud
+        foreach ($detalles as $detalle) {
+            // Aquí asumo que 'estado' es el campo de cada herramienta que quieres actualizar
+            $detalle->proceso = 'aceptada';
+            $detalle->save();
+        }
     
         // Obtener los códigos de herramienta únicos en los detalles de la solicitud
         $codHerramientasUnicas = $solicitud->detalles->pluck('cod_herramienta')->unique();
@@ -259,8 +269,9 @@ class SolicitudController extends Controller
             }
         }
     
-        return response()->json(['message' => 'Solicitud actualizada correctamente']);
-    }
+        return response()->json(['success' => 'Solicitud aceptada correctamente']);
+        }
+
     
     private function eliminarItemDelCarrito($instructorId)
     {
@@ -389,7 +400,7 @@ class SolicitudController extends Controller
         $solicitud->save();
 
         foreach ($herramientas as $detalleSolicitud) {
-            $detalleSolicitud->estado = 'entregada';
+            $detalleSolicitud->proceso = 'entregada';
             $herramienta = Herramienta::where('cod_herramienta', $detalleSolicitud->cod_herramienta)->first();
         
             if ($herramienta && !$herramienta->descontarStock($detalleSolicitud->cantidad)) {
@@ -425,16 +436,21 @@ class SolicitudController extends Controller
         // Obtener las herramientas asociadas a la solicitud
         $herramientas = $solicitud->detalles()->with('herramienta')->get();
 
-        foreach ($herramientas as $detalleSolicitud) {
-            $detalleSolicitud->estado = 'recibida';
-            $herramienta = Herramienta::where('cod_herramienta', $detalleSolicitud->cod_herramienta)->first();
-        
-            if ($herramienta && !$herramienta->agregarStock($detalleSolicitud->cantidad)) {
-                return redirect()->back()->withErrors([
-                    'mensaje' => 'No hay suficiente stock para la herramienta: ' . $herramienta->nombre
-                ]);
+        try {
+            foreach ($herramientas as $detalleSolicitud) {
+                $detalleSolicitud->proceso = 'recibida';
+                $herramienta = Herramienta::where('cod_herramienta', $detalleSolicitud->cod_herramienta)->first();
+            
+                if ($herramienta && !$herramienta->agregarStock($detalleSolicitud->cantidad)) {
+                    throw new \Exception('No hay suficiente stock para la herramienta: ' . $herramienta->nombre);
+                }
+                $detalleSolicitud->save();
             }
-            $detalleSolicitud->save();
+        
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->withErrors(['mensaje' => $e->getMessage()]);
         }
 
         // Generar el PDF con los detalles de la solicitud y las herramientas
@@ -449,6 +465,7 @@ class SolicitudController extends Controller
 
         return $pdf->download('solicitudfinalizada_' . $solicitud->id . '.pdf');
     }
+
 
     
     /**

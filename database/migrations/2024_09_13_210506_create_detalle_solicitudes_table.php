@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('cod_herramienta');
             $table->foreign('cod_herramienta')->references('cod_herramienta')->on('herramientas')->onDelete('cascade');
             $table->integer('cantidad');
-            $table->enum('estado', ['pendiente', 'aceptada', 'entregada', 'recibida'])->default('pendiente');
+            $table->string('estado');
+            $table->enum('proceso', ['pendiente', 'aceptada', 'entregada', 'recibida'])->default('pendiente');
             $table->timestamps();
         });
     }

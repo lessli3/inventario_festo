@@ -19,7 +19,7 @@ class CreateSolicitudesTable extends Migration
             $table->time('hora');
             $table->datetime('hora_salida')->nullable();
             $table->datetime('hora_entrega')->nullable();            
-            $table->enum('estado', ['pendiente', 'aceptada'])->default('pendiente');
+            $table->enum('estado', ['pendiente', 'aceptada', 'entregada', 'finalizada'])->default('pendiente');
             $table->timestamps();
         });
     }

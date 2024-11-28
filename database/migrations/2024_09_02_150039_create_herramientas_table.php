@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('organizador');
             $table->integer('cajon');
             $table->string('estado');
+            $table->string('proceso')->default('en stock');
             $table->unsignedBigInteger('solicitudes_count')->default(0);            
             $table->timestamps();
 

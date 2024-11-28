@@ -101,15 +101,21 @@
                                     </div>
                                     <p>
                                         <strong style="color: white;">Código:</strong> <span  style="color: white;">{{ $detalle->herramienta->cod_herramienta }}</span><br>
-                                        <strong style="color: white;">Estado:</strong> <span class="fw-bold" style="color: green;">{{ $detalle->estado }}</span><br>
+                                        <strong style="color: white;">Estado:</strong> <span class="fw-bold" style="color: green;">{{ $detalle->proceso }}</span><br>
                                         <div class="row" style="top: 130;display: flex;position: absolute;">
-                                            <div class="col-md-9">
-                                                <strong style="color: white;">Cantidad:</strong>
+                                            <div class="col-md-10">
+                                                @can('solicitarHerramienta')
+                                                <strong style="color: white;">Cantidad: {{ $detalle->cantidad}}</strong>
+                                                @endcan
+                                                @if($solicitud->estado === 'entregada')
+                                                    <strong style="color: white;">Cantidad: {{ $detalle->cantidad}}</strong>
+                                                @endif
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-10">
                                                 <span style="color: white;">      
                                                 @if($solicitud->estado !== 'entregada')
                                                     @can('editarSolicitud')
+                                                    <strong style="color: white;">Cantidad:</strong>
                                                         <!-- Formulario para editar la cantidad -->
                                                         <form action="{{ route('actualizar.cantidad', ['solicitudId' => $solicitud->id, 'detalleId' => $detalle->id]) }}" method="POST" class="d-flex align-items-center" style="display: inline-flex;" >
                                                             @csrf
@@ -120,8 +126,6 @@
                                                             </button>
                                                         </form>
                                                     @endcan
-                                                @else
-                                                    <span style="color: white;">{{ $detalle->cantidad }}</span>
                                                 @endif
 
                                                 </span>

@@ -91,7 +91,7 @@
                 <tr>
                     <td>{{ $detalleSolicitud->herramienta->nombre }}</td>
                     <td>{{ $detalleSolicitud->cantidad }}</td>
-                    <td>{{ $detalleSolicitud->estado }}</td> 
+                    <td>{{ $detalleSolicitud->proceso }}</td> 
                 </tr>
             @endforeach
         </tbody>

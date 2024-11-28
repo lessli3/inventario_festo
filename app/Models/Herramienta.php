@@ -21,12 +21,17 @@ class Herramienta extends Model
 
     public function agregarStock($cantidad)
     {
-        if ($this->stock >= $cantidad) {
-            $this->stock += $cantidad;
-            $this->save(); 
-            return true;
-        }
-        return false; 
+        // Aumentar el stock de la herramienta
+        $this->stock += $cantidad;  
+        $this->save(); 
+        return true;  
     }
+    
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class, 'categoria', 'id');
+    }
+
 
 }

@@ -67,7 +67,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/solicitudes/create', [SolicitudController::class, 'create'])->name('solicitudes.create');
     Route::put('/solicitudes/{id}/estado', [SolicitudController::class, 'actualizarEstado'])->name('solicitud.actualizarEstado');
     Route::put('/solicitudes/{id}/actualizar', [SolicitudController::class, 'actualizar'])->name('solicitudes.actualizar');
-    //Route::post('/solicitudes/{solicitud}/agregar-herramienta', [SolicitudController::class, 'agregarHerramienta'])->name('solicitudes.agregarHerramienta');
+        //Route::post('/solicitudes/{solicitud}/agregar-herramienta', [SolicitudController::class, 'agregarHerramienta'])->name('solicitudes.agregarHerramienta');
     Route::get('/solicitudes/filtrar', [SolicitudController::class, 'filtrarHerramientas'])->name('solicitudes.filtrar');
     Route::delete('/solicitudes/{solicitudId}/herramienta/{codHerramienta}', [SolicitudController::class, 'eliminarHerramienta'])->name('eliminar.herramienta');
     Route::post('/solicitudes/{solicitud}/agregarHerramienta', [SolicitudController::class, 'agregarHerramienta'])->name('solicitudes.agregarHerramienta');
@@ -80,7 +80,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/profile', [UserController::class, 'index'])->name('profile');
     Route::resource('/users', UserController::class);
     
-    Route::get('/inventario', [HerramientaController::class, 'handlePost'])->name('inventario.index');
+    Route::get('/inventario', [HerramientaController::class, 'inventario'])->name('inventario.index');
     Route::post('/inventario', [HerramientaController::class, 'handlePost'])->name('inventario.store');
     Route::delete('/inventario/{id}', [HerramientaController::class, 'handlePost'])->name('inventario.destroy');
     Route::post('/inventario/{post}/stock/{action}', [HerramientaController::class, 'adjustarStock'])->name('inventario.adjustarStock');

@@ -18,6 +18,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap/main.min.js"></script>
 
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('css/styledashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/styletools.css') }}">
     @livewireStyles
