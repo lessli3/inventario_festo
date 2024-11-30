@@ -11,10 +11,8 @@ const io = new Server(httpServer, {
 
 io.on("connection", (socket) => {
     console.log("Nuevo cliente conectado");
-
-    // Listen for `scanBarcode` event and broadcast to all clients
     socket.on("scanBarcode", (data) => {
-        io.emit("barcodeScanned", data); // Emit to all clients
+        io.emit("barcodeScanned", data); 
     });
     
 

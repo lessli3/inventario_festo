@@ -37,7 +37,6 @@ Route::post('/check-document', [AuthController::class, 'sendVerificationCode'])-
 Route::post('/verify-code', [AuthController::class, 'verifyCode'])->name('verify.code');
 // Ruta para enviar el código de verificación
 Route::post('/verify-code-ing', [AuthController::class, 'verifyCodeIng'])->name('verify.codeIng');
-Route::get('/solicitud/{id}/pdf', [SolicitudController::class, 'generarPDF'])->name('solicitud.pdf');
 
 //Todas las rutas que requieren autenticación
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
@@ -45,9 +44,13 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     
     Route::resource('/herramientas', HerramientaController::class);
     
+    Route::get('/solicitud/{id}/pdf', [SolicitudController::class, 'generarPDF'])->name('solicitud.pdf');
     Route::get('/scanner', function () {return view('scanner');});
     Route::get('/confirmacion', function () {return view('confirmacion'); });
     Route::get('/solicitudes/{id}/confirmar', [SolicitudController::class, 'confirmacion'])->name('solicitudes.confirmar');
+    Route::get('/solicitudes/{id}/finalizar', [SolicitudController::class, 'finalizarRecepcion'])->name('solicitudes.finalizar');
+    Route::get('/solicitudes/{id}/recibir', [SolicitudController::class, 'recibirH'])->name('solicitudes.recibir');
+
     Route::post('/api/scan-barcode', [ScannerController::class, 'scanBarcode']);
     
     
@@ -64,11 +67,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/solicitudes/create', [SolicitudController::class, 'create'])->name('solicitudes.create');
     Route::put('/solicitudes/{id}/estado', [SolicitudController::class, 'actualizarEstado'])->name('solicitud.actualizarEstado');
     Route::put('/solicitudes/{id}/actualizar', [SolicitudController::class, 'actualizar'])->name('solicitudes.actualizar');
-    //Route::post('/solicitudes/{solicitud}/agregar-herramienta', [SolicitudController::class, 'agregarHerramienta'])->name('solicitudes.agregarHerramienta');
+        //Route::post('/solicitudes/{solicitud}/agregar-herramienta', [SolicitudController::class, 'agregarHerramienta'])->name('solicitudes.agregarHerramienta');
     Route::get('/solicitudes/filtrar', [SolicitudController::class, 'filtrarHerramientas'])->name('solicitudes.filtrar');
     Route::delete('/solicitudes/{solicitudId}/herramienta/{codHerramienta}', [SolicitudController::class, 'eliminarHerramienta'])->name('eliminar.herramienta');
     Route::post('/solicitudes/{solicitud}/agregarHerramienta', [SolicitudController::class, 'agregarHerramienta'])->name('solicitudes.agregarHerramienta');
     Route::put('/solicitudes/{solicitudId}/detalle/{detalleId}/cantidad', [SolicitudController::class, 'actualizarCantidad'])->name('actualizar.cantidad');
+    Route::get('/archivo', [SolicitudController::class, 'finalizadas'])->name('archivo');
 
     //Route::post('/solicitudes/{solicitudId}/agregar-herramienta', [SolicitudController::class, 'agregarHerramienta'])->name('solicitudes.agregarHerramienta');
     Route::get('/verificar-codigo-herramienta/{herramientaId}/{codigoBarras}', [SolicitudController::class, 'verificarCodigo']);
@@ -76,7 +80,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/profile', [UserController::class, 'index'])->name('profile');
     Route::resource('/users', UserController::class);
     
-    Route::get('/inventario', [HerramientaController::class, 'handlePost'])->name('inventario.index');
+    Route::get('/inventario', [HerramientaController::class, 'inventario'])->name('inventario.index');
     Route::post('/inventario', [HerramientaController::class, 'handlePost'])->name('inventario.store');
     Route::delete('/inventario/{id}', [HerramientaController::class, 'handlePost'])->name('inventario.destroy');
     Route::post('/inventario/{post}/stock/{action}', [HerramientaController::class, 'adjustarStock'])->name('inventario.adjustarStock');

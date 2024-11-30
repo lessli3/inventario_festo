@@ -1,145 +1,223 @@
 @extends('layouts.dashboard')
-
-@section('title', 'Lista de Herramientas y Stock')
-
+@section('title', 'INVENTARIO DE HERRAMIENTAS')
 @section('content')
 <h4 class="fw-bold">INVENTARIO DE HERRAMIENTAS</h4>
 
-<!-- Contenido de la página -->
-<div class="container mt-4">
-    <div class="table-responsive">
-        <table class="table table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>Código</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Stock</th>
-                    <th>Categoria</th>
-                    <th>Imagen</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($inventario as $post)
-                <tr>
-                    <td>{{ $post->cod_herramienta }}</td>
-                    <td>{{ $post->nombre }}</td>
-                    <td>{{ Str::limit($post->descripcion, 50) }}</td>
-                    <td>{{ $post->stock }}</td>
-                    <td>{{ $post->categoria }}</td>
-                    <td>
-                        <!-- Imagen pequeña con enlace al modal -->
-                        <img src="{{ asset('imagenes/herramientas/' . $post->imagen) }}" alt="Imagen del post" class="img-thumbnail" width="60" height="100" onclick="openModal('{{ asset('imagenes/herramientas/' . $post->imagen) }}')" style="cursor: pointer;">
-                    </td>
-                    <td>{{ $post->estado }}</td>
-                    <td>
-                        <!-- Formulario para disminuir stock -->
-                        <form action="{{ route('inventario.adjustarStock', ['post' => $post->id, 'action' => 'decrease']) }}" method="POST" class="d-inline">
-                            @csrf
-                            <input type="hidden" name="cod_herramienta" value="{{ $post->cod_herramienta }}">
-                            <button type="submit" class="btn btn-warning btn-sm">
-                                <i class="fas fa-minus-circle"></i>
-                            </button>
-                        </form>
-
-
-                        <!-- Formulario para aumentar stock -->
-                        <form action="{{ route('inventario.adjustarStock', ['post' => $post->id, 'action' => 'increase']) }}" method="POST" class="d-inline" title="Sumar Stock">
-                            @csrf
-                            <input type="hidden" name="cod_herramienta" value="{{ $post->cod_herramienta }}">
-                            <button type="submit" class="btn btn-outline-success btn-sm">
-                                <i class="fas fa-plus-circle"></i>
-                            </button>
-                        </form>
-
-                        <!-- Formulario para eliminar -->
-                        <form action="{{ route('inventario.destroy', $post->id) }}" method="POST" class="d-inline" title="Eliminar">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+<div class="row">
+    <div class="col-md-2 offset-10">
+    <button type="button" class="btn btn-plus fw-bold" id="limpiarFiltros">
+        <a href="/inventario" style="text-decoration: none; color:white;">Limpiar filtros</a></button>
     </div>
 </div>
+<!-- Contenido de la tabla -->
+<div class="table-responsive m-3">
+    <table class="table table-striped table-hover mt-3">
+    <thead>
+    <tr style="border-style: hidden;">
+        <th style="padding-bottom: 30px;">CÓDIGO</th>
+        <th style="padding-bottom: 30px;">NOMBRE</th>
+        <!---<th style="padding-bottom: 30px;">DESCRIPCIÓN</th>--->
+        <th style="padding-bottom: 30px;">ESTADO</th>
+        <!-- Formulario de filtros -->
+        <form method="GET" action="{{ route('inventario.index') }}" id="filtroForm">
+            <th style="padding-bottom: 22px;">
+                <div class="dropdown">
+                    <button class="btn btn-light fw-bold dropdown-toggle" type="button" id="categoriaDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="border:none;">
+                        CATEGORÍA
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="categoriaDropdown">
+                        @foreach ($categorias as $categoria)
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('categoria{{ $categoria->id }}').checked = true; document.getElementById('filtroForm').submit();">
+                                    {{ $categoria->nombre }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                    @foreach ($categorias as $categoria)
+                        <input type="radio" id="categoria{{ $categoria->id }}" name="categoria" value="{{ $categoria->id }}" class="d-none" {{ request('categoria') == $categoria->id ? 'checked' : '' }}>
+                    @endforeach
+                </div>
+            </th>
 
-<!-- Modal personalizado -->
-<div id="customModal" class="custom-modal">
-    <span class="close-modal" onclick="closeModal()">&times;</span>
-    <img class="modal-content-img" id="modalImg">
+            <th>
+                <div class="dropdown" style="padding-bottom:12px">
+                    <button class="btn btn-light dropdown-toggle fw-bold" type="button" id="organizadorDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        ESTANTE
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="organizadorDropdown">
+                        <li>
+                            <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('organizador1').checked = true; document.getElementById('filtroForm').submit();">
+                                Organizador 1
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('organizador2').checked = true; document.getElementById('filtroForm').submit();">
+                                Organizador 2
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <input type="radio" id="organizador1" name="organizador" value="1" class="d-none" {{ request('organizador') == '1' ? 'checked' : '' }}>
+                <input type="radio" id="organizador2" name="organizador" value="2" class="d-none" {{ request('organizador') == '2' ? 'checked' : '' }}>
+            </th>
+
+            <th>
+                <div class="dropdown" style="padding-bottom:12px">
+                    <button class="btn btn-light dropdown-toggle fw-bold" type="button" id="cajonDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        CAJÓN
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="cajonDropdown">
+                        @for ($i = 1; $i <= 6; $i++)
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('cajon{{ $i }}').checked = true; document.getElementById('filtroForm').submit();">
+                                    Cajón {{ $i }}
+                                </a>
+                            </li>
+                        @endfor
+                    </ul>
+                </div>
+                @for ($i = 1; $i <= 6; $i++)
+                    <input type="radio" id="cajon{{ $i }}" name="cajon" value="{{ $i }}" class="d-none" {{ request('cajon') == $i ? 'checked' : '' }}>
+                @endfor
+            </th>
+
+            <th style="padding-bottom: 22px;">
+                <div class="dropdown">
+                    <button class="btn btn-light fw-bold dropdown-toggle" type="button" id="ordenarDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="border:none;">
+                        STOCK
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="ordenarDropdown">
+                        <li>
+                            <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('ordenarAsc').checked = true; document.getElementById('filtroForm').submit();">
+                                ASCENDENTE
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('ordenarDesc').checked = true; document.getElementById('filtroForm').submit();">
+                                DESCENDENTE
+                            </a>
+                        </li>
+                    </ul>
+                    <input type="radio" id="ordenarAsc" name="ordenar" value="asc" class="d-none" {{ request('ordenar') == 'asc' ? 'checked' : '' }}>
+                    <input type="radio" id="ordenarDesc" name="ordenar" value="desc" class="d-none" {{ request('ordenar') == 'desc' ? 'checked' : '' }}>
+                </div>    
+            </th>
+        </form>
+        <th style="padding-bottom: 30px;">ACEPTADAS</th>
+        <th style="padding-bottom: 30px;">ENTREGADAS</th>
+    </tr>
+</thead>
+
+        <tbody>
+            @foreach ($inventario as $herramienta)
+            <tr>
+                <td>{{ $herramienta->cod_herramienta }}</td>
+                <td>{{ $herramienta->nombre }}</td>
+                <!--<td>{{ Str::limit($herramienta->descripcion, 50) }}</td>-->
+                <td class="text-center">{{ $herramienta->estado }}</td>
+                <td class="text-center">
+                    @php
+                        $nombresCategorias = [
+                            1 => 'Manual',
+                            2 => 'Eléctrica',
+                        ];
+                    @endphp
+                    {{ $nombresCategorias[$herramienta->categoria] ?? $herramienta->categoria->nombre ?? 'Sin categoría' }}
+                </td>
+                <td class="text-center">{{ $herramienta->organizador}}</td>
+                <td class="text-center">{{ $herramienta->cajon }}</td>
+                <td class="text-center">{{ $herramienta->stock }}</td>
+                <td class="text-center">{{ $herramienta->cantidadAceptadas }}</td>
+                <td class="text-center">{{ $herramienta->cantidadEntregadas }}</td>
+                <td>
+                    <!-- Botones de acciones (similar al original) -->
+                </td>
+            </tr>
+            @endforeach
+
+            <div class="alert alert-info" role="alert" @if ($inventario->count() > 0 || (!$categoria && !$organizador && !$cajon && !$ordenar)) style="display: none;" @endif>
+                @if ($inventario->count() == 0)
+                    <strong>No hay resultados para:</strong>
+                    @if ($categoria)
+                        <span>CATEGORÍA SELECCIONADA - </span>
+                    @endif
+                    @if ($organizador)
+                        <span>{{ $organizador == 1 ? 'Organizador 1' : 'Organizador 2' }} - </span>
+                    @endif
+                    @if ($cajon)
+                        <span>Cajón {{ $cajon }} - </span>
+                    @endif
+                    @if ($ordenar)
+                        <span>STOCK: {{ $ordenar == 'asc' ? 'Ascendente' : 'Descendente' }}</span>
+                    @endif
+                @endif
+            </div>
+
+
+        </tbody>
+    </table>
 </div>
 
-<!-- Estilos para el modal -->
-<style>
-.custom-modal {
-    display: none;
-    position: fixed;
-    z-index: 10
+<!-- Paginación manual -->
+<div class="pagination d-flex justify-content-center mb-4">
+    <ul class="pagination">
+        @if ($paginaActual > 1)
+            <li class="page-item">
+                <a class="page-link" href="{{ request()->fullUrlWithQuery(['page' => 1]) }}">Primera</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="{{ request()->fullUrlWithQuery(['page' => $paginaActual - 1]) }}">Anterior</a>
+            </li>
+        @endif
 
-    00;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-}
+        <!-- Páginas intermedias -->
+        @for ($i = 1; $i <= $totalPaginas; $i++)
+            <li class="page-item {{ $i == $paginaActual ? 'active' : '' }}">
+                <a class="page-link" href="{{ request()->fullUrlWithQuery(['page' => $i]) }}">{{ $i }}</a>
+            </li>
+        @endfor
 
-.modal-content-img {
-    display: block;
-    max-width: 40%;
-    max-height: 40%;
-    margin: auto;
-    margin-top: 10%;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
+        @if ($paginaActual < $totalPaginas)
+            <li class="page-item">
+                <a class="page-link" href="{{ request()->fullUrlWithQuery(['page' => $paginaActual + 1]) }}">Siguiente</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="{{ request()->fullUrlWithQuery(['page' => $totalPaginas]) }}">Última</a>
+            </li>
+        @endif
+    </ul>
+</div>
 
-.close-modal {
-    position: absolute;
-    top: 20%;
-    right: 25%;
-    color: #fff;
-    font-size: 35px;
-    font-weight: bold;
-    cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 5px;
-    border-radius: 50%;
-    line-height: 35px;
-}
-
-.close-modal:hover, .close-modal:focus {
-    color: #bbb;
-}
-</style>
-
-<!-- Script para manejar el modal -->
-<script>
-function openModal(imageUrl) {
-    var modal = document.getElementById("customModal");
-    var modalImg = document.getElementById("modalImg");
-    modal.style.display = "block";
-    modalImg.src = imageUrl;
-
-    // Añadir evento para cerrar el modal al hacer clic fuera de la imagen
-    modal.addEventListener('click', function(event) {
-        if (event.target === modal) {
-            closeModal();
-        }
-    });
-}
-
-function closeModal() {
-    var modal = document.getElementById("customModal");
-    modal.style.display = "none";
-}
-</script>
 
 @endsection
+
+<style>
+.pagination .page-item .page-link svg {
+    display: none !important;
+}
+
+.relative.inline-flex.items-center svg {
+    display: none;
+}
+
+/* Aplica display: flex solo al div con las clases específicas */
+.flex.justify-between.flex-1.sm\:hidden {
+    display: flex;
+    justify-content: center;
+}
+
+.hidden > div:nth-child(1){
+    display: flex;
+    justify-content: center;
+}
+
+a.px-4:nth-child(1){
+    text-decoration:none;
+}
+a.px-4:nth-child(2){
+    text-decoration:none;
+}
+
+</style>
+

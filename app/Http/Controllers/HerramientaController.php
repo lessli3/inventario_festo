@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Herramienta;
 use App\Models\Categoria;
+use App\Models\Solicitud;
+use App\Models\DetalleSolicitud;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 
@@ -197,6 +199,88 @@ class HerramientaController extends Controller
      * @param  int|null  $id
      * @return \Illuminate\Http\Response
      */
+    public function inventario(Request $request)
+    {
+        // Obtener todas las herramientas sin filtros iniciales
+        $query = Herramienta::query();
+        
+        // Aplica los filtros solo si están presentes en la solicitud
+        if ($request->has('categoria') && $request->input('categoria') !== '') {
+            $query->where('categoria', $request->input('categoria'));
+        }
+        
+        if ($request->has('organizador') && in_array($request->input('organizador'), [1, 2])) {
+            $query->where('organizador', $request->input('organizador'));
+        }
+        
+        if ($request->has('cajon') && in_array($request->input('cajon'), [1, 2, 3, 4, 5, 6])) {
+            $query->where('cajon', $request->input('cajon'));
+        }
+        
+        // Ordenar las herramientas por stock si se solicita
+        if ($request->has('ordenar')) {
+            if ($request->input('ordenar') === 'asc') {
+                $query->orderBy('stock', 'asc');
+            } elseif ($request->input('ordenar') === 'desc') {
+                $query->orderBy('stock', 'desc');
+            }
+        }
+        
+        // Definir la cantidad de resultados por página
+        $porPagina = 10;
+    
+        // Obtener las herramientas con los filtros aplicados y paginados
+        $inventario = $query->paginate($porPagina);  // Usamos paginate aquí
+        
+        // Obtener la página actual, o por defecto la primera
+        $paginaActual = $inventario->currentPage();
+        
+        // Calcular el total de páginas
+        $totalPaginas = $inventario->lastPage();
+        
+        // Obtener las categorías para los filtros
+        $categorias = Categoria::all();
+        $categoria = $request->input('categoria');
+        $organizador = $request->input('organizador');
+        $cajon = $request->input('cajon');
+        $ordenar = $request->input('ordenar');
+        
+        // Recorremos todas las herramientas para contar cuántas han sido aceptadas y entregadas
+        foreach ($inventario as $herramienta) {
+            // Buscamos los detalles de la solicitud para esta herramienta
+            $detallesSolicitud = DetalleSolicitud::where('cod_herramienta', $herramienta->cod_herramienta)
+                                                  ->whereIn('proceso', ['aceptada', 'entregada'])
+                                                  ->get();
+            
+            // Inicializamos las cantidades
+            $cantidadAceptadas = 0;
+            $cantidadEntregadas = 0;
+    
+            // Recorremos los detalles de la solicitud para contar la cantidad de herramientas aceptadas
+            foreach ($detallesSolicitud as $detalle) {
+                if ($detalle->proceso == 'aceptada') {
+                    $cantidadAceptadas += $detalle->cantidad;  // Sumamos la cantidad aceptada
+                }
+                if ($detalle->proceso == 'entregada') {
+                    $cantidadEntregadas += $detalle->cantidad;  // Sumamos la cantidad entregada
+                }
+            }
+    
+            // Asignar las cantidades a la herramienta
+            $herramienta->cantidadAceptadas = $cantidadAceptadas;
+            $herramienta->cantidadEntregadas = $cantidadEntregadas;
+        }
+        
+        // Retornar los datos a la vista
+        return view('inventario.index', compact(
+            'inventario', 'totalPaginas', 'paginaActual', 
+            'categorias', 'categoria', 'organizador', 'cajon', 'ordenar'
+        ));
+    }
+    
+    
+    
+
     public function handlePost(Request $request, $id = null)
     {
         if ($request->isMethod('get')) {

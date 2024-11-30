@@ -68,11 +68,13 @@
                     </div>
 
                     <div class="col-md-3">
+                    @if ($solicitud->estado !== 'entregada')
                         @can('editarSolicitud')
                         <button class="btn btn-outline-success agregarHerramientaBtn" data-bs-toggle="modal" data-bs-target="#agregarHerramientaModal" data-solicitud-id="{{ $solicitud->id }}">
                             <i class="fas fa-plus"></i> Agregar herramienta
                         </button>
                         @endcan
+                    @endif
                     </div>
                 <hr>
                 <div class="row">
@@ -86,17 +88,19 @@
                                         <div class="col-md-9">
                                             <h5 class="fw-bold" style="color: white;">{{ $detalle->herramienta->nombre }}</h5> 
                                         </div>
-                                        @can('editarSolicitud')
-                                            <div class="col-md-1">
-                                                <form action="{{ route('eliminar.herramienta', ['solicitudId' => $solicitud->id, 'codHerramienta' => $detalle->herramienta->cod_herramienta]) }}" method="POST" class="d-inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        @endcan
+                                        @if ($solicitud->estado !== 'entregada')
+                                            @can('editarSolicitud')
+                                                <div class="col-md-1">
+                                                    <form action="{{ route('eliminar.herramienta', ['solicitudId' => $solicitud->id, 'codHerramienta' => $detalle->herramienta->cod_herramienta]) }}" method="POST" class="d-inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            @endcan
+                                        @endif
                                     </div>
                                     <p>
                                         <strong style="color: white;">Código:</strong> <span  style="color: white;">{{ $detalle->herramienta->cod_herramienta }}</span><br>
@@ -106,20 +110,23 @@
                                                 <strong style="color: white;">Cantidad:</strong>
                                             </div>
                                             <div class="col-md-2">
-                                                <span style="color: white;">
+                                                <span style="color: white;">      
+                                                @if($solicitud->estado !== 'entregada')
                                                     @can('editarSolicitud')
-                                                    <!-- Formulario para editar la cantidad -->
-                                                    <form action="{{ route('actualizar.cantidad', ['solicitudId' => $solicitud->id, 'detalleId' => $detalle->id]) }}" method="POST" class="d-flex align-items-center" style="display: inline-flex;" >
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <input type="number" name="cantidad" value="{{ $detalle->cantidad }}" class="form-control" style="width: 40px; color: black;height: 30px;">
-                                                        <button type="submit" class="btn btn-outline-info btn-sm ms-1">
-                                                            <i class="fas fa-check" style="font-size: 20px;"></i>
-                                                        </button>
-                                                    </form>
-                                                    @else
-                                                        <span style="color: white;">{{ $detalle->cantidad }}</span>
+                                                        <!-- Formulario para editar la cantidad -->
+                                                        <form action="{{ route('actualizar.cantidad', ['solicitudId' => $solicitud->id, 'detalleId' => $detalle->id]) }}" method="POST" class="d-flex align-items-center" style="display: inline-flex;" >
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <input type="number" name="cantidad" value="{{ $detalle->cantidad }}" class="form-control" style="width: 40px; color: black;height: 30px;">
+                                                            <button type="submit" class="btn btn-outline-info btn-sm ms-1">
+                                                                <i class="fas fa-check" style="font-size: 20px;"></i>
+                                                            </button>
+                                                        </form>
                                                     @endcan
+                                                @else
+                                                    <span style="color: white;">{{ $detalle->cantidad }}</span>
+                                                @endif
+
                                                 </span>
                                             </div>
                                         </div>
@@ -152,9 +159,17 @@
                       <strong style="color: green;">Email:</strong> {{ $solicitud->email }}<br>
                       <strong style="color: green;">Teléfono:</strong> {{ $solicitud->telefono }}<br>
                     @can('editarSolicitud')
-                      <a href="{{ route('solicitudes.confirmar', $solicitud->id) }}" class="btn btn-outline-success mt-2">
-                            <i class="fas fa-circle-check"></i> Confirmar solicitud
-                      </a>
+                        @if($solicitud->estado === 'entregada')
+                            <a href="{{ route('solicitudes.recibir', $solicitud->id) }}" class="btn btn-outline-success mt-2">
+                                <i class="fas fa-box-open"></i> Recibir Herramienta
+                            </a>
+                        @else
+                            @can('editarSolicitud')
+                                <a href="{{ route('solicitudes.confirmar', $solicitud->id) }}" class="btn btn-outline-success mt-2">
+                                    <i class="fas fa-circle-check"></i> Confirmar solicitud
+                                </a>
+                            @endcan
+                        @endif
                     @endcan
 
 

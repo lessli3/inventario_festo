@@ -47,22 +47,37 @@ use Illuminate\Support\Str;
 
         <!-- Segunda columna con las opciones adicionales -->
         <div class="col-lg-7 col-md-6 col-sm-12 d-flex flex-wrap justify-content-end">
-            <div class="col-4 mb-2 me-2">
-                <select wire:model="categoriaSeleccionada" class="btn btn-outline-success form-select w-100">
-                    <option value="">Todas las categorías</option>
-                    @foreach ($categorias as $categoria)
-                        <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+            <div class="col-6 mb-2 me-2">
+                <div class="dropdown">
+                    <button class="btn btn-outline-success dropdown-toggle w-100" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        Filtros
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <!-- Opción de Categoría -->
+                        <li>
+                            <div class="dropdown-item">
+                                <select wire:model="categoriaSeleccionada" class="form-select w-100">
+                                    <option value="">Categorías</option>
+                                    @foreach ($categorias as $categoria)
+                                        <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </li>
 
-                    @endforeach
-                </select>
-            </div>
-                    <div class="col-4 mb-2">
-                        <button wire:click="toggleHerramientasInactivas" class="btn btn-outline-success w-100">
-                            {{ $mostrarInactivas ? 'Herramientas Activas' : 'Herramientas Inactivas' }}
-                        </button>
-                    </div>
+                        <!-- Opción Herramientas Activas/Inactivas -->
+                        <li>
+                            <a class="dropdown-item" href="#" wire:click="toggleHerramientasInactivas">
+                                {{ $mostrarInactivas ? 'Herramientas Activas' : 'Herramientas Inactivas' }}
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
+        </div>
+
+    </div>
+
     @endcan
 
         @can('solicitarHerramienta')
