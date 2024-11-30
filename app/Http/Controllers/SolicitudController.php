@@ -445,7 +445,6 @@ class SolicitudController extends Controller
                 }
                 $detalleSolicitud->save();
             }
-        
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['mensaje' => $e->getMessage()]);
         }

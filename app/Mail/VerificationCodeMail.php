@@ -40,7 +40,7 @@ class VerificationCodeMail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Verification Code Mail',
+            subject: 'Código de Verificación',
         );
     }
 

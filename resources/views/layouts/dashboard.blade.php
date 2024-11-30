@@ -18,6 +18,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap/main.min.js"></script>
 
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('css/styledashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/styletools.css') }}">
     @livewireStyles
@@ -125,7 +126,16 @@
                         <span class="material-symbols-outlined">folder</span>Solicitudes
                     </a>
                 </li>
+                
             @endcanany
+
+            @can('editarSolicitud')
+            <li>
+                <a href="/archivo">
+                    <span class="material-symbols-outlined">attach_file</span> Archivo
+                </a>
+            </li>
+            @endcan
 
             @can('crearHerramienta')
             <li>
