@@ -1,6 +1,6 @@
 
 
-# Inventario Festo
+# Control Festo
 
 
 
@@ -67,7 +67,8 @@ Un paquete de software que incluye Apache, MySQL, PHP y Perl. Es útil para conf
  Un sistema de control de versiones.
 - **Node.jsy npm:**
 Necesarios para la gestión de dependencias y paquetes de frontend.
-
+- **PostgreSQL:**
+  Sistema de gestión de bases de datos que se usará en el proyecto. Asegúrate de tenerlo instalado y configurado.
 
 
 ## Instalación
