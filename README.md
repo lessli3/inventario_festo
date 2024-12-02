@@ -53,6 +53,22 @@ Genera informes sobre el uso y estado de las herramientas, ayudando en la planif
 Diseño fácil de usar que mejora la experiencia de los usuarios y facilita la navegación en el sistema.
 
 
+## Requisitos previos
+
+Antes de instalar el proyecto, asegúrate de tener instalados los siguientes programas y herramientas:
+
+- **Visual Studio Code:** 
+Un editor de código fuente recomendado para el desarrollo.
+- **XAMPP:**
+Un paquete de software que incluye Apache, MySQL, PHP y Perl. Es útil para configurar un entorno de desarrollo en tu computadora.
+- **Composer:**
+ Un gestor de dependencias para PHP.
+- **Git:**
+ Un sistema de control de versiones.
+- **Node.jsy npm:**
+Necesarios para la gestión de dependencias y paquetes de frontend.
+
+
 
 ## Instalación
 
