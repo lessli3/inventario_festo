@@ -125,7 +125,17 @@ Permite que los usuarios que pertenecen a uno de los tres roles definidos acceda
 
 - **Roles disponibles:**
 En el sistema, cada usuario tiene un rol específico (Cuentadante, Instructor o Monitor), el cual determina las acciones y opciones disponibles. Estas funciones están diseñadas para mejorar la organización y el manejo de herramientas en Festo, además de facilitar el trabajo en equipo entre los diferentes roles.
+- Rol de Cuentadante: Su funcion principal es gestionar la creacion y administracion de las herramientas disponibles en Festo
 
+  
+  ![image](https://github.com/user-attachments/assets/fbfedbae-56ca-4b2a-b98c-24ea39050636)
+  ![image](https://github.com/user-attachments/assets/0d7b2ae2-ac07-470b-bbe3-9fbc6161fe40)
+  ![image](https://github.com/user-attachments/assets/ce26afd1-a06d-4801-89fe-d25677f08dd5)
+
+
+
+- Rol de Intructor
+- Rol de Monitor
 
 ## Tecnologias utilizadas
 
