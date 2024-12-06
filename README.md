@@ -32,8 +32,7 @@
 Este proyecto tiene como objetivo organizar y gestionar un inventario de herramientas, asegurando su disponibilidad y uso adecuado. Incluye un sistema de registro detallado que permite clasificar y rastrear cada herramienta mediante un código único. Los usuarios pueden solicitar herramientas, cuya disponibilidad será gestionada por una persona encargada, verificando el estado de cada una antes de su entrega. Con este sistema, se busca optimizar la administración de herramientas, facilitar el acceso y mejorar la eficiencia en su uso.
 
 
-![image](https://github.com/user-attachments/assets/22e85f7d-fc02-44fc-80c6-bc90554483e0)
-
+![image](https://github.com/user-attachments/assets/23050308-2be1-4c5a-9bc9-f7e408687e89)
 ![image](https://github.com/user-attachments/assets/5f9b9f09-0269-4a63-949c-dab53e95c942)
 ![image](https://github.com/user-attachments/assets/56c8570e-66ca-434c-837d-37e9943b0b28)
 
