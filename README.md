@@ -74,6 +74,17 @@ Necesarios para la gestión de dependencias y paquetes de frontend.
 ## Instalación
 
 Sigue estos pasos para configurar el proyecto localmente:
+Antes de clonar el repositorio, es importante asegurarse de tener el entorno de desarrollo correctamente configurado. A continuación, se detalla el orden de las carpetas  y los pasos necesarios  para que el proyecto funcione adecuadamente:
+
+ **Orden de las Carpetas**
+Asegúrate de ubicarte en la carpeta adecuada antes de clonar el repositorio y proceder con la instalación del proyecto. El proyecto debe estar ubicado en la siguiente ruta en tu equipo:
+
+Este equipo > Disco local (C:) > xampp > htdocs > inventario_festo
+
+![image](https://github.com/user-attachments/assets/29de2543-6e23-48d5-88b9-69723b3291fd)
+
+
+
 
 1 **Clonar el repositorio**
 
