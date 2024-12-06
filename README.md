@@ -32,7 +32,8 @@
 Este proyecto tiene como objetivo organizar y gestionar un inventario de herramientas, asegurando su disponibilidad y uso adecuado. Incluye un sistema de registro detallado que permite clasificar y rastrear cada herramienta mediante un código único. Los usuarios pueden solicitar herramientas, cuya disponibilidad será gestionada por una persona encargada, verificando el estado de cada una antes de su entrega. Con este sistema, se busca optimizar la administración de herramientas, facilitar el acceso y mejorar la eficiencia en su uso.
 
 
-![image](https://github.com/user-attachments/assets/c3148fdc-9c01-4c38-8e2c-a9f34018e930)
+![image](https://github.com/user-attachments/assets/22e85f7d-fc02-44fc-80c6-bc90554483e0)
+
 ![image](https://github.com/user-attachments/assets/5f9b9f09-0269-4a63-949c-dab53e95c942)
 ![image](https://github.com/user-attachments/assets/56c8570e-66ca-434c-837d-37e9943b0b28)
 
@@ -76,7 +77,8 @@ Necesarios para la gestión de dependencias y paquetes de frontend.
 Sigue estos pasos para configurar el proyecto localmente:
 Antes de clonar el repositorio, es importante asegurarse de tener el entorno de desarrollo correctamente configurado. A continuación, se detalla el orden de las carpetas  y los pasos necesarios  para que el proyecto funcione adecuadamente:
 
- **Orden de las Carpetas**
+ **Orden de las Carpetas:**
+ 
 Asegúrate de ubicarte en la carpeta adecuada antes de clonar el repositorio y proceder con la instalación del proyecto. El proyecto debe estar ubicado en la siguiente ruta en tu equipo:
 
 Este equipo > Disco local (C:) > xampp > htdocs > inventario_festo
