@@ -12,6 +12,8 @@
 
 * [Características del proyecto](#Características-del-proyecto)
 
+* [Requisitos previos](#Requisitos-previos)
+
 * [Instalacion](#Instalacion)
 
 * [Uso](#Uso)
@@ -153,11 +155,12 @@ En el sistema, cada usuario tiene un rol específico (Cuentadante, Instructor o 
   
 - Rol de Monitor
 
-Su funcion principal es revisar las solicitudes pendientes y entregar las herramientas que se han solicitado.
+  Su funcion principal es revisar las solicitudes pendientes y entregar las herramientas que se han solicitado.
 
-![image](https://github.com/user-attachments/assets/8f3c56de-cc79-4470-8caf-145d9dc04853)
-![image](https://github.com/user-attachments/assets/bc4d2665-3496-48ad-a104-9caf824f9449)
-![image](https://github.com/user-attachments/assets/5ee872b9-d88d-4c27-8000-c17ad07da752)
+  
+  ![image](https://github.com/user-attachments/assets/8f3c56de-cc79-4470-8caf-145d9dc04853)
+  ![image](https://github.com/user-attachments/assets/bc4d2665-3496-48ad-a104-9caf824f9449)
+  ![image](https://github.com/user-attachments/assets/5ee872b9-d88d-4c27-8000-c17ad07da752)
 
 
 
