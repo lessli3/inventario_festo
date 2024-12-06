@@ -1,4 +1,4 @@
-
+x
 
 # Control Festo
 
@@ -35,8 +35,8 @@ Este proyecto tiene como objetivo organizar y gestionar un inventario de herrami
 
 
 ![image](https://github.com/user-attachments/assets/23050308-2be1-4c5a-9bc9-f7e408687e89)
-![image](https://github.com/user-attachments/assets/5f9b9f09-0269-4a63-949c-dab53e95c942)
-![image](https://github.com/user-attachments/assets/56c8570e-66ca-434c-837d-37e9943b0b28)
+![image](https://github.com/user-attachments/assets/0d7b2ae2-ac07-470b-bbe3-9fbc6161fe40)
+![image](https://github.com/user-attachments/assets/ce26afd1-a06d-4801-89fe-d25677f08dd5)
 
 
 
