@@ -117,6 +117,7 @@ Este equipo > Disco local (C:) > xampp > htdocs > inventario_festo
 ## Uso
 
 Para acceder a las diferentes funcionalidades del sistema, sigue estos pasos:
+
 **Inicio de sesion:**
 
 Permite que los usuarios que pertenecen a uno de los tres roles definidos accedan al sistema. Los usuarios pueden iniciar sesión usando su número de documento de identidad. Una vez ingresado este dato, se envía un código de verificación al correo electrónico del usuario para confirmar su identidad. Este proceso se gestiona con Mailtrap, que se encarga de enviar el código de forma segura y de probar el envío de correos. Esto garantiza que solo las personas autorizadas podrán ingresar al sistema de manera sencilla y protegida.
@@ -138,8 +139,28 @@ En el sistema, cada usuario tiene un rol específico (Cuentadante, Instructor o 
 
 
 
-- Rol de Intructor
+- Rol de Intructor:
+
+  Su funcion principal es solicitar las herramientas que  se requeran.
+  
+
+  ![image](https://github.com/user-attachments/assets/e36b3ec3-d5cf-4ff6-beca-f5328f930887)
+  ![image](https://github.com/user-attachments/assets/262ca66f-bd67-4c56-b9c9-23896dc76887)
+  ![image](https://github.com/user-attachments/assets/69dc5007-838d-42cb-a481-5b32a40c5aef)
+
+
+
+  
 - Rol de Monitor
+
+Su funcion principal es revisar las solicitudes pendientes y entregar las herramientas que se han solicitado.
+
+![image](https://github.com/user-attachments/assets/8f3c56de-cc79-4470-8caf-145d9dc04853)
+![image](https://github.com/user-attachments/assets/bc4d2665-3496-48ad-a104-9caf824f9449)
+![image](https://github.com/user-attachments/assets/5ee872b9-d88d-4c27-8000-c17ad07da752)
+
+
+
 
 ## Tecnologias utilizadas
 
