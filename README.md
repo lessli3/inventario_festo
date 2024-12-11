@@ -187,10 +187,9 @@ Laravel incluye un sistema robusto para validar datos y manejar la autenticació
 
 - Livewire:
 Utilizado para construir interfaces de usuario dinámicas sin necesidad de escribir JavaScript. Algunas de sus características clave son:
-
--- Actualización Reactiva: Sincronización automática entre el frontend y backend.
+  - Actualización Reactiva: Sincronización automática entre el frontend y backend.
 Fácil Integración: Compatible con Blade y otras herramientas de Laravel, lo que permite desarrollar componentes dinámicos fácilmente.
--- Laravel Sail:
+  - Laravel Sail:
 Una solución ligera basada en Docker para configurar un entorno de desarrollo completo. Facilita la creación de entornos consistentes sin complicaciones.
 
 
