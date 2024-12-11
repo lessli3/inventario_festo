@@ -59,18 +59,17 @@ Diseño fácil de usar que mejora la experiencia de los usuarios y facilita la n
 Antes de instalar el proyecto, asegúrate de tener instalados los siguientes programas y herramientas:
 
 - **Visual Studio Code:** 
-Un editor de código fuente recomendado para el desarrollo.
+Un editor de código fuente ampliamente recomendado para el desarrollo. Es ligero, potente y compatible con múltiples extensiones que facilitan el trabajo.
 - **XAMPP:**
-Un paquete de software que incluye Apache, MySQL, PHP y Perl. Es útil para configurar un entorno de desarrollo en tu computadora.
+Un paquete de software que incluye Apache, MySQL, PHP y Perl. Útil para configurar un entorno de desarrollo local en su computadora.
 - **Composer:**
- Un gestor de dependencias para PHP.
+ El gestor de dependencias oficial para PHP, necesario para instalar y manejar las dependencias del proyecto.
 - **Git:**
- Un sistema de control de versiones.
+ Un sistema de control de versiones que permite gestionar cambios en el código, colaborar con otros desarrolladores y manejar repositorios.
 - **Node.jsy npm:**
-Necesarios para la gestión de dependencias y paquetes de frontend.
+Herramientas esenciales para la gestión de dependencias y paquetes de frontend, además de permitir el uso de utilidades como Laravel Mix para compilar activos.
 - **PostgreSQL:**
-  Sistema de gestión de bases de datos que se usará en el proyecto. Asegúrate de tenerlo instalado y configurado.
-
+  Sistema de gestión de bases de datos que será utilizado en este proyecto. Asegúrese de tenerlo instalado y correctamente configurado.
 
 ## Instalación
 
@@ -166,11 +165,33 @@ En el sistema, cada usuario tiene un rol específico (Cuentadante, Instructor o 
 
 ## Tecnologias utilizadas
 
-
 - Laravel
 - Livewire
 - PostgreSQL
 - Mailtrap
+  
+## Versiones y Herramientas de Laravel
+Este proyecto está desarrollado utilizando Laravel 11 , la versión más reciente de este destacado framework de PHP. Laravel se caracteriza por su enfoque en la simplicidad y la eficiencia, ofreciendo una plataforma moderna para el desarrollo de aplicaciones web. Entre las principales herramientas y características implementadas en este proyecto se encuentran:
+
+
+- Artisan CLI:
+La línea de comandos de Laravel que proporciona herramientas para generar código, realizar migraciones de base de datos y automatizar tareas de desarrollo.
+
+- Middleware:
+Un sistema que gestiona solicitudes HTTP antes de que lleguen al controlador. Se utiliza para autenticar usuarios, autorizar acciones y aplicar filtros personalizados.
+
+- Sistema de Validación y Autenticación:
+Laravel incluye un sistema robusto para validar datos y manejar la autenticación de usuarios de manera segura y eficiente.
+
+- Livewire:
+Utilizado para construir interfaces de usuario dinámicas sin necesidad de escribir JavaScript. Algunas de sus características clave son:
+
+Actualización Reactiva: Sincronización automática entre el frontend y backend.
+Fácil Integración: Compatible con Blade y otras herramientas de Laravel, lo que permite desarrollar componentes dinámicos fácilmente.
+Laravel Sail:
+Una solución ligera basada en Docker para configurar un entorno de desarrollo completo. Facilita la creación de entornos consistentes sin complicaciones.
+
+
 
 ## Estructura del proyecto
 
