@@ -172,20 +172,20 @@ En el sistema, cada usuario tiene un rol específico (Cuentadante, Instructor o 
 - PostgreSQL
 - Mailtrap
   
+  
 ## Versiones y Herramientas de Laravel
 Este proyecto está desarrollado utilizando Laravel 11 , la versión más reciente de este destacado framework de PHP. Laravel se caracteriza por su enfoque en la simplicidad y la eficiencia, ofreciendo una plataforma moderna para el desarrollo de aplicaciones web. Entre las principales herramientas y características implementadas en este proyecto se encuentran:
 
-
-- Artisan CLI:
+- **Artisan CLI:**
 La línea de comandos de Laravel que proporciona herramientas para generar código, realizar migraciones de base de datos y automatizar tareas de desarrollo.
 
-- Middleware:
+- **Middleware:** 
 Un sistema que gestiona solicitudes HTTP antes de que lleguen al controlador. Se utiliza para autenticar usuarios, autorizar acciones y aplicar filtros personalizados.
 
-- Sistema de Validación y Autenticación:
+- **Sistema de Validación y Autenticación:** 
 Laravel incluye un sistema robusto para validar datos y manejar la autenticación de usuarios de manera segura y eficiente.
 
-- Livewire:
+- **Livewire:** 
 Utilizado para construir interfaces de usuario dinámicas sin necesidad de escribir JavaScript. Algunas de sus características clave son:
   - Actualización Reactiva: Sincronización automática entre el frontend y backend.
 Fácil Integración: Compatible con Blade y otras herramientas de Laravel, lo que permite desarrollar componentes dinámicos fácilmente.
