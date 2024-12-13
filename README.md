@@ -176,7 +176,7 @@ En el sistema, cada usuario tiene un rol específico (Cuentadante, Instructor o 
 ## Versiones y Herramientas de Laravel
 Este proyecto está desarrollado utilizando Laravel 11 , la versión más reciente de este destacado framework de PHP. Laravel se caracteriza por su enfoque en la simplicidad y la eficiencia, ofreciendo una plataforma moderna para el desarrollo de aplicaciones web. Entre las principales herramientas y características implementadas en este proyecto se encuentran:
 
-- **Artisan CLI:**
+- **Artisan:**
 La línea de comandos de Laravel que proporciona herramientas para generar código, realizar migraciones de base de datos y automatizar tareas de desarrollo.
 
 - **Middleware:** 
@@ -199,6 +199,31 @@ Una solución ligera basada en Docker para configurar un entorno de desarrollo c
 ![image](https://github.com/user-attachments/assets/5dd687f5-c17e-4ab6-a0fb-0707f6cb3e82)
 
 ![image](https://github.com/user-attachments/assets/c809ac6f-6d98-49b2-8937-8adfd7a4abe5)
+
+![image](https://github.com/user-attachments/assets/645881ea-0274-4bf6-8479-536036f59da9)
+![image](https://github.com/user-attachments/assets/46cf55ea-0620-4786-951a-f721cfe53161)
+![image](https://github.com/user-attachments/assets/d9dd1f8b-4189-4224-b501-b2cc25f8e2a5)
+![image](https://github.com/user-attachments/assets/6f03b845-dc46-485a-879e-49e95e7807fd)
+![image](https://github.com/user-attachments/assets/5de4d009-3b00-4140-bb76-1c83ed5b69df)
+![image](https://github.com/user-attachments/assets/c4bca93f-e60e-43fe-93be-669dfa6c7f7f)
+![image](https://github.com/user-attachments/assets/194e69ad-22c7-4d6a-9eee-c26eb026dd2c)
+![image](https://github.com/user-attachments/assets/84063549-73ab-4bf4-a18c-3f3d0899a457)
+![image](https://github.com/user-attachments/assets/041b70d0-2ff3-4fac-aef9-1931ef454a6a)
+![image](https://github.com/user-attachments/assets/5d9436b6-6d7a-4b0b-a7b3-f07bdd298769)
+![image](https://github.com/user-attachments/assets/33fc010f-633a-4640-8ffd-67e1a66cca3b)
+![image](https://github.com/user-attachments/assets/6c3a8182-9e50-4279-bd56-d660101b25e3)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
