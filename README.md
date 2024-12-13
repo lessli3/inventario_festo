@@ -203,6 +203,13 @@ Una solución ligera basada en Docker para configurar un entorno de desarrollo c
 
 - La carpeta app incluye la lógica principal de la aplicación, con subcarpetas como Actions para acciones específicas, Fortify para gestión de usuarios y contraseñas, Http para controladores HTTP, Console para comandos, y Exceptions para manejo de excepciones.
 - Este directorio contiene los archivos fuente de la aplicación, organizados en componentes como Livewire para la interfaz de usuario, y archivos como Carritolist.php, Herramientalist.php, Inventariolist.php y Solicitudeslist.php, que generan listas específicas.
+- Middleware contiene scripts para gestionar la autenticación, seguridad y configuración de la aplicación. Mail incluye archivos para el envío de correos relacionados con solicitudes y verificación. Models parece almacenar modelos de datos para gestionar categorías, solicitudes, herramientas, inventario y usuarios.
+- Providers, registra servicios como autenticación, eventos y rutas en Laravel; y View/Components, que almacena componentes reutilizables para la interfaz, como maquetaciones para usuarios autenticados e invitados.
+- Bootstrap para el arranque del framework, cache para mejorar el rendimiento, y config con archivos que gestionan la configuración de la aplicación, autenticación, base de datos y más. También se encuentran archivos clave como .gitignore para exclusiones de Git y livewire-components.php para la configuración de Livewire.
+- La carpeta database gestiona la configuración de la base de datos, con factories para generar datos de prueba, como UserFactory.php, y migrations para describir cambios en la estructura de la base de datos, como la creación de tablas de usuarios y recuperación de contraseñas.
+- Seeders para poblar la base de datos, lang/en para los archivos de idioma en inglés, y configuraciones como auth.php, pagination.php, passwords.php y validation.php. La carpeta node_modules gestiona dependencias de Node.js.
+- public que contiene recursos estáticos accesibles desde el navegador. Dentro de esta carpeta, css incluye varios archivos CSS para el diseño, como los específicos para el panel de control y la página de inicio. La carpeta imagenes alberga imágenes relacionadas con el código y las herramientas, mientras que img contiene imágenes adicionales para distintas secciones, como la página de inicio y las tarjetas.
+- resources contiene recursos estáticos como CSS y JavaScript. markdown tiene documentos de políticas y términos. views alberga las vistas de la aplicación. api gestiona la API, mientras que auth maneja la autenticación. components incluye componentes Blade, como mensajes de acción.
 
 
 ![image](https://github.com/user-attachments/assets/5f23a252-1366-40b8-aa04-ebe6743c2ee4)
