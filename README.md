@@ -120,9 +120,9 @@ Este equipo > Disco local (C:) > xampp > htdocs > inventario_festo
 
 Para acceder a las diferentes funcionalidades del sistema, sigue estos pasos:
 
-**Inicio de sesion:**
+**Inicio:**
 
-Permite que los usuarios que pertenecen a uno de los tres roles definidos accedan al sistema. Los usuarios pueden iniciar sesión usando su número de documento de identidad. Una vez ingresado este dato, se envía un código de verificación al correo electrónico del usuario para confirmar su identidad. Este proceso se gestiona con Mailtrap, que se encarga de enviar el código de forma segura y de probar el envío de correos. Esto garantiza que solo las personas autorizadas podrán ingresar al sistema de manera sencilla y protegida.
+El sistema permite que los usuarios con uno de los tres roles definidos inicien sesión usando su número de documento de identidad. Se envía un código de verificación al correo electrónico del usuario para confirmar su identidad, gestionado de forma segura por Mailtrap. Esto asegura que solo personas autorizadas puedan acceder al sistema.
 
 ![image](https://github.com/user-attachments/assets/7a158aa9-ee70-40a7-ae37-95194f213184)
 ![image](https://github.com/user-attachments/assets/3416230e-f882-4be5-902d-39f62e81db15)
