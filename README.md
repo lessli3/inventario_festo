@@ -205,7 +205,8 @@ La carpeta app incluye la lógica principal de la aplicación, con subcarpetas c
 para acciones específicas, Fortify para gestión de usuarios y contraseñas,
 Http para controladores HTTP, Console para comandos, y Exceptions para manejo de excepciones.
 
-![image](https://github.com/user-attachments/assets/8fafef6e-95c3-4958-bd0a-2514ab38347f)
+![image](https://github.com/user-attachments/assets/794e5ef6-8a76-450d-9790-70fb51eea0ae)
+
 
 Este directorio contiene los archivos fuente de la aplicación,
 organizados en componentes como Livewire para la interfaz de usuario, 
