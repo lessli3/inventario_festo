@@ -200,31 +200,22 @@ Una solución ligera basada en Docker para configurar un entorno de desarrollo c
 
 ![image](https://github.com/user-attachments/assets/c809ac6f-6d98-49b2-8937-8adfd7a4abe5)
 
-![image](https://github.com/user-attachments/assets/645881ea-0274-4bf6-8479-536036f59da9)
-![image](https://github.com/user-attachments/assets/46cf55ea-0620-4786-951a-f721cfe53161)
-![image](https://github.com/user-attachments/assets/d9dd1f8b-4189-4224-b501-b2cc25f8e2a5)
-![image](https://github.com/user-attachments/assets/6f03b845-dc46-485a-879e-49e95e7807fd)
-![image](https://github.com/user-attachments/assets/5de4d009-3b00-4140-bb76-1c83ed5b69df)
-![image](https://github.com/user-attachments/assets/c4bca93f-e60e-43fe-93be-669dfa6c7f7f)
-![image](https://github.com/user-attachments/assets/194e69ad-22c7-4d6a-9eee-c26eb026dd2c)
-![image](https://github.com/user-attachments/assets/84063549-73ab-4bf4-a18c-3f3d0899a457)
-![image](https://github.com/user-attachments/assets/041b70d0-2ff3-4fac-aef9-1931ef454a6a)
-![image](https://github.com/user-attachments/assets/5d9436b6-6d7a-4b0b-a7b3-f07bdd298769)
-![image](https://github.com/user-attachments/assets/33fc010f-633a-4640-8ffd-67e1a66cca3b)
-![image](https://github.com/user-attachments/assets/6c3a8182-9e50-4279-bd56-d660101b25e3)
-
-
-
-
-
-
-
-
-
-
-
-
-
+![image](https://github.com/user-attachments/assets/8fafef6e-95c3-4958-bd0a-2514ab38347f)
+![image](https://github.com/user-attachments/assets/5bee6c34-1a63-49fa-b52c-928b6bbb6feb)
+![image](https://github.com/user-attachments/assets/cdc81a5b-acc0-40e3-bec8-1f09052ceff4)
+![image](https://github.com/user-attachments/assets/23d883bf-9934-4293-b8e4-dba12a632f21)
+![image](https://github.com/user-attachments/assets/c8926542-ff3d-42a0-ba82-18f3b01a17cb)
+![image](https://github.com/user-attachments/assets/81a7fb74-ce5f-4f43-bf1c-c621da00f138)
+![image](https://github.com/user-attachments/assets/dd9e2cae-2358-43f5-9969-6557db32b6fb)
+![image](https://github.com/user-attachments/assets/88659af9-ec71-4ffc-8c8d-24c844dc6cc2)
+![image](https://github.com/user-attachments/assets/7903bf6c-448e-4be2-b6d1-ef060b391265)
+![image](https://github.com/user-attachments/assets/7feaf1d7-9de4-4060-86dd-ebb3238b2d45)
+![image](https://github.com/user-attachments/assets/33bbbdf5-61f7-4786-bd11-337d09f5f2d0)
+![image](https://github.com/user-attachments/assets/4765864f-3ecb-43c7-a34c-8720a581dcbe)
+![image](https://github.com/user-attachments/assets/7aa2fc8c-fd7f-49f4-9fe7-e703b44f2436)
+![image](https://github.com/user-attachments/assets/20e31805-fb42-4c44-915e-5cecf1b51f6d)
+![image](https://github.com/user-attachments/assets/57cadd31-930e-4b46-9ae1-2cf29384ff72)
+![image](https://github.com/user-attachments/assets/d77ac0f1-918e-4948-b5c0-f23aa15cfa22)
 
 
 
