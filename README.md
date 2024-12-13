@@ -234,6 +234,7 @@ Una solución ligera basada en Docker para configurar un entorno de desarrollo c
 ![image](https://github.com/user-attachments/assets/88659af9-ec71-4ffc-8c8d-24c844dc6cc2)
   
 - resources contiene recursos estáticos como CSS y JavaScript. markdown tiene documentos de políticas y términos. views alberga las vistas de la aplicación. api gestiona la API, mientras que auth maneja la autenticación. components incluye componentes Blade, como mensajes de acción.
+  
 ![image](https://github.com/user-attachments/assets/7903bf6c-448e-4be2-b6d1-ef060b391265)
 
 
