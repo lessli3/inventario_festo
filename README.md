@@ -204,6 +204,8 @@ Una solución ligera basada en Docker para configurar un entorno de desarrollo c
 - La carpeta app incluye la lógica principal de la aplicación, con subcarpetas como Actions para acciones específicas, Fortify para gestión de usuarios y contraseñas, Http para controladores HTTP, Console para comandos, y Exceptions para manejo de excepciones.
 
   ![image](https://github.com/user-attachments/assets/5f23a252-1366-40b8-aa04-ebe6743c2ee4)
+
+  ---
   
 - Este directorio contiene los archivos fuente de la aplicación, organizados en componentes como Livewire para la interfaz de usuario, y archivos como Carritolist.php, Herramientalist.php, Inventariolist.php y Solicitudeslist.php, que generan listas específicas.
 
