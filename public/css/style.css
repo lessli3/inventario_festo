@@ -3,7 +3,6 @@ html, body {
     height: 100%;
     margin: 0;
 }
-
  /* Asegúrate de que el contenedor del carrusel tenga posición relativa para que los elementos hijos se posicionen correctamente */
  .carousel {
     position: relative;
@@ -11,7 +10,6 @@ html, body {
 
 /* Asegúrate de que cada carrusel-item ocupe toda la altura del carrusel */
 .carousel-item {
-    background-color: rgb(89, 181, 72); /* Fondo verde para cada diapositiva */
     display: flex;
     height: 100vh; /* Ajusta al tamaño de la ventana del navegador */
     justify-content: center;
@@ -19,22 +17,9 @@ html, body {
 
 }
 
-/*.carouselb{
-    background-color: white; /* Fondo verde para cada diapositiva 
-    
-}
-
-.carousel-textb {
-    margin-left: 50px;
-    background-color: white; /* Fondo verde para la columna de texto 
-    color: rgb(89, 181, 72); /* Color de texto blanco para contraste
- }
-*/
-
 
 .carousel-text {
     margin-left: 50px;
-    background-color: rgb(89, 181, 72); /* Fondo verde para la columna de texto */
     color: white; /* Color de texto blanco para contraste */
 }
 
@@ -55,7 +40,7 @@ html, body {
     width: 80%;
     height: 100%; /* Ocupa toda la altura del contenedor */
     max-width: 450px; /* Tamaño máximo opcional para la tarjeta */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Sombra */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1); /* Sombra */
     display: flex;
     flex-direction: column; /* Organiza los elementos de la tarjeta en columna */
 }
@@ -111,7 +96,7 @@ html, body {
     padding: 0; /* Espaciado interno para el contenido de la tarjeta */
     color: white; /* Color de texto blanco para contraste */
     border-radius: 15px; /* Redondear las esquinas del contenido de la tarjeta */
-    background-color: rgba(0, 0, 0, 0.3); /* Fondo semi-transparente para el contenido */
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo semi-transparente para el contenido */
 }
 
       /* Estilo para el botón */
@@ -142,7 +127,12 @@ html, body {
         right: 10%;
         bottom: 50%;
         z-index: 2;
-        background-color: rgba(0, 0, 0, 0.0);
+        background-color: transparent !important;
+    }
+
+    #text{
+        color: white !important;
+
     }
 
     .carousel-card {
@@ -215,6 +205,10 @@ html, body {
     .card-title{
         font-size: 27px;
     }
+    #text{
+        color: white !important;
+
+    }
 
 
     .carousel-text {
@@ -224,7 +218,7 @@ html, body {
         right: 10%;
         bottom: 50%;
         z-index: 2;
-        background-color: rgba(0, 0, 0, 0.0);
+        background-color: transparent !important;
     }
 
     .carousel-text h4{
@@ -276,7 +270,7 @@ html, body {
     }
 
     .card-body{
-        background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente para el contenido */
+        background-color: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente para el contenido */
     }
 
 }

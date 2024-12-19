@@ -95,4 +95,6 @@ class AuthController extends Controller
             return response()->json(['message' => 'Código de verificación incorrecto'], 400);
         }
     }
+
+    
 }

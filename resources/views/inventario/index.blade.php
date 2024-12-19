@@ -1,11 +1,11 @@
 @extends('layouts.dashboard')
 @section('title', 'INVENTARIO DE HERRAMIENTAS')
 @section('content')
-<h4 class="fw-bold">INVENTARIO DE HERRAMIENTAS</h4>
+<h2 class="text-center mb-3 mt-4 mb-4 fw-bold">INVENTARIO DE HERRAMIENTAS</h2>
 
 <div class="row">
-    <div class="col-md-2 offset-10">
-    <button type="button" class="btn btn-plus fw-bold" id="limpiarFiltros">
+    <div class="col-md-3 offset-lg-10 offset-md-9 ">
+    <button type="button" class="btn btn-plus fw-bold ms-3" id="limpiarFiltros">
         <a href="/inventario" style="text-decoration: none; color:white;">Limpiar filtros</a></button>
     </div>
 </div>
@@ -197,6 +197,11 @@
     display: none !important;
 }
 
+.pagination .page-item .page-link {
+    font-size: 0.8rem; /* Reducir tamaño de los números */
+    padding: 5px 10px; /* Reducir padding */
+}
+
 .relative.inline-flex.items-center svg {
     display: none;
 }
@@ -217,6 +222,10 @@ a.px-4:nth-child(1){
 }
 a.px-4:nth-child(2){
     text-decoration:none;
+}
+
+.main-content{
+    margin-left: 5% !important;
 }
 
 </style>

@@ -55,8 +55,10 @@ class SolicitudController extends Controller
         // Comprobar si la colección está vacía después de aplicar los filtros
         // Si no hay solicitudes aceptadas, redirigir con un mensaje de notificación
         if ($solicitudesAceptadas->isEmpty()) {
-            return redirect()->route('dashboard')->with('error', 'No hay solicitudes para mostrar.');
+            return redirect()->route('solicitudes.index')->with('error', 'No hay solicitudes para mostrar.');
         }
+        
+        
     
         // Cargar herramientas disponibles
         $herramientasDisponibles = Herramienta::query();

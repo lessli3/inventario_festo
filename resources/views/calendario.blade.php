@@ -3,14 +3,15 @@
 @section('content')
 @can('editarSolicitud')
     <!-- Sección para mostrar el calendario -->
-    <h4 class="fw-bold mb-4" style="color: green;">CALENDARIO SOLICITUDES PENDIENTES</h4>
-    <div class="container mb-5" style="width: 700px">
+    <div class="container-fluid mb-5">
+    <h2 class="text-center mb-3 mt-4 mb-4 fw-bold">CALENDARIO SOLICITUDES PENDIENTES</h2>
         <div id="calendar"></div>
-    </div>    
+    </div>
+   
 
     <!-- Modal para editar solicitud -->
     <div class="modal fade" id="solicitudModal" tabindex="-1" aria-labelledby="solicitudModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="solicitudModalLabel">Detalles de la Solicitud</h5>
@@ -165,13 +166,151 @@
     z-index: 1050; /* Asegúrate de que esté por encima */
     max-width: 500px; /* Establece un ancho máximo */
     top: 50%; 
-    left: 35%; 
     transform: translateY(-40%); /* Ajusta el modal hacia arriba para centrarlo verticalmente */
 }
 
 .modal-backdrop {
     z-index: 1;
 }
+
+.header{
+        padding-bottom: 15% !important;
+}
+
+
+/* Calendario - Pantallas pequeñas */
+@media (max-width: 677px) {
+    /* Calendario */
+    #calendar {
+        width: 100% !important;  /* El calendario ocupa el 100% del ancho disponible */
+        margin: 0 auto;  /* Centrado automático */
+        margin-top: 8%;
+        height: 650px;
+    }
+
+    /* Modal */
+    #solicitudModal {
+        max-width: 90%; /* El modal ocupa el 90% del ancho de la pantalla */
+        margin-left: 5%;
+        margin-top: 40%;
+    }
+
+    .modal-content {
+        width: 100%;
+        max-width: 100%;
+    }
+
+
+    .fc-dayGridMonth-button{
+        display:none !important;
+    }
+
+    .fc-today-button, .fc-timeGridDay-button, .fc-timeGridWeek-button{
+        display:none !important;
+    }
+
+    #fc-dom-1{
+        font-size: 1.2rem !important; 
+        text-transform: uppercase !important; 
+    }
+
+    .header{
+        z-index: 2 !important;
+        padding-top: 0 !important;
+        width: 100% !important;
+        margin-left: 3% !important
+    }
+
+    .modal-backdrop{
+        z-index: -5 !important;
+        margin-top: 10%
+    }
+}
+
+/* Pantallas medianas (tablets) */
+@media (min-width: 677px) and (max-width: 1000px) {
+    /* Calendario */
+    #calendar {
+        margin-top:10%;
+        height: 800px;
+        width: 100%; 
+        margin-top: 6%;
+
+    }
+
+    /* Modal */
+    #solicitudModal  {
+        margin-left: 20%;
+        max-width: 75%; 
+        margin-top: 20%; 
+    }
+
+    .fc-today-button{
+        display:none !important;
+    }
+
+    #fc-dom-1{
+        font-size: 1.5rem !important; 
+        text-transform: uppercase !important; 
+    }
+
+    .modal-backdrop{
+        z-index: -5 !important;
+        margin-top: 10%
+    }
+
+    .header{
+        background: 0 !important;
+    }
+
+    .main-content{
+        margin-top: 10% !important
+    }
+
+    .modal-dialog{
+        margin-right: 20% !important;
+    }
+
+}
+
+/* Pantallas grandes (escritorio) */
+@media (min-width: 1001px) {
+    /* Calendario */
+    #calendar {
+        width: 700px;
+        margin: 0 auto; 
+        margin-top: 5% !important;
+    }
+
+    /* Modal */
+    #solicitudModal  {
+        max-width: 500px;
+        margin-top: 8%; 
+        margin-left: 35%;
+
+    }
+
+    #fc-dom-1{
+        font-size: 1.5rem !important; 
+        text-transform: uppercase !important; 
+    }
+
+    .header{
+        background: 0 !important;
+        width: 90% !important;
+    }
+    }
+
+    .modal {
+        z-index: 1050; 
+        top: 50%; 
+        transform: translateY(-50%); /
+    }
+
+    .modal-backdrop {
+        z-index: 1;
+    }
+
 
 </style>
 

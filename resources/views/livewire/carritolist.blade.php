@@ -9,46 +9,79 @@
           </div>
         </div>
       @else
-        @foreach($solicitudItems as $item)
-          <div class="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start" style="min-height: 150px; max-height: 160px" wire:key="item{{ $item->id }}">
-            @if($item->herramienta)
-              <img src="{{ 
-                        filter_var($item->herramienta->imagen, FILTER_VALIDATE_URL) 
-                        ? $item->herramienta->imagen 
-                        : asset('imagenes/herramientas/' . $item->herramienta->imagen) 
-                    }}" alt="product-image" class="object-cover rounded-lg d-block mx-auto mb-4 xs:mx-auto" style="width: 160px; height: 120px;" />
-              <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between sm:items-center">
-                <div>
-                  <h2 class="text-lg font-bold text-gray-900 text-center">{{$item->herramienta->nombre}}</h2>
-                  <p class="mt-1 text-xs text-gray-700 text-center ms-4" style="font-size: 18px">{{$item->herramienta->descripcion}}</p>
-                  <p class="mt-1 text-xs text-center ms-2 mt-3" style="font-size: 15px; color:gray;">Stock Disponible: {{$item->herramienta->stock}}</p>
-                </div>
-                <div class="mt-4 flex flex-col items-center sm:space-y-6 sm:mt-0 sm:flex sm:flex-row sm:items-center sm:space-x-6">
-                  <div class="flex items-center gap-1 border-gray-100">
-                    <button class="w-7 h-7 rounded-full border border-gray-300 cursor-pointer" wire:click="decrementCant({{ $item->id }})">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M5 12h14" />
-                      </svg>
-                    </button>
-                    <input type="text" readonly="readonly" value="{{$item->cantidad}}" class="w-9 h-9 text-center text-gray-900 text-sm outline-none border border-gray-300 rounded-sm">
-                    <button class="w-7 h-7 rounded-full border border-gray-300 cursor-pointer" 
-                            wire:click="incrementCant({{ $item->id }})"
-                            @if($item->cantidad >= $item->herramienta->stock) disabled @endif>
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M12 5v14M5 12h14" />
-                      </svg>
-                    </button>
-                  </div>
-                  <div class="flex items-center space-x-4 mt-2 sm:mt-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-8 w-8 cursor-pointer mb-2  duration-150 hover:text-red-500" wire:click="eliminarItem({{ $item->id }})">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </div>
+      @foreach($solicitudItems as $item)
+        <div class="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex md:flex lg:flex sm:justify-start md:justify-start lg:justify-start relative" style="min-height: 150px; max-height: 190px" wire:key="item{{ $item->id }}">
+          @if($item->herramienta)
+            <!-- Imagen -->
+            <img src="{{ 
+                      filter_var($item->herramienta->imagen, FILTER_VALIDATE_URL) 
+                      ? $item->herramienta->imagen 
+                      : asset('imagenes/herramientas/' . $item->herramienta->imagen) 
+                  }}" 
+                  alt="product-image" 
+                  class="object-cover rounded-lg mx-auto mb-4" 
+                  style="width: 160px; height: 120px;" />
+
+            <!-- Contenido encima de la tarjeta (visible en sm y md) -->
+            <div class="card-content absolute inset-0 flex flex-col items-center justify-center text-white">
+              <h2 class="text-lg text-center font-bold">{{$item->herramienta->nombre}}</h2>
+              <p class="text-md text-center">{{$item->herramienta->descripcion}}</p>
+              <p class="text-xs">Stock: {{$item->herramienta->stock}}</p>
+
+              <!-- Botones de cantidad (para sm y md) -->
+              <div class="flex items-center gap-2 mt-3 ms-5">
+                <button class="w-7 h-7 rounded-full border border-gray-300 bg-white text-gray-900 cursor-pointer" 
+                        wire:click="decrementCant({{ $item->id }})">
+                  -
+                </button>
+                <input type="text" readonly="readonly" value="{{$item->cantidad}}" 
+                      class="w-9 h-9 text-center text-gray-900 text-sm outline-none border border-gray-300 rounded-sm">
+                <button class="w-7 h-7 rounded-full border border-gray-300 bg-white text-gray-900 cursor-pointer" 
+                        wire:click="incrementCant({{ $item->id }})"
+                        @if($item->cantidad >= $item->herramienta->stock) disabled @endif>
+                  +
+                </button>
+                <div class="flex justify-center items-center ms-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-8 w-8 cursor-pointer text-red-500" wire:click="eliminarItem({{ $item->id }})">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
                 </div>
               </div>
-            @endif
-          </div>
-        @endforeach
+            </div>
+
+            <!-- Contenido normal (oculto en sm y md, visible solo en lg) -->
+            <div class="hidden sm:hidden md:hidden lg:flex lg:ml-4 lg:w-full lg:justify-between lg:items-center">
+              <div>
+                <h2 class="text-lg font-bold text-gray-900">{{$item->herramienta->nombre}}</h2>
+                <p class="mt-1 text-md text-gray-700">{{$item->herramienta->descripcion}}</p>
+                <p class="mt-1 text-sm mt-3" style="color:gray;">Stock Disponible: {{$item->herramienta->stock}}</p>
+              </div>
+              <!-- Botones de cantidad (para lg) -->
+              <div class="flex items-center gap-2">
+                <button class="w-7 h-7 rounded-full border border-gray-300 text-gray-900 cursor-pointer" 
+                        wire:click="decrementCant({{ $item->id }})">
+                  -
+                </button>
+                <input type="text" readonly="readonly" value="{{$item->cantidad}}" 
+                      class="w-9 h-9 text-center text-gray-900 text-sm outline-none border border-gray-300 rounded-sm">
+                <button class="w-7 h-7 rounded-full border border-gray-300 text-gray-900 cursor-pointer" 
+                        wire:click="incrementCant({{ $item->id }})"
+                        @if($item->cantidad >= $item->herramienta->stock) disabled @endif>
+                  +
+                </button>
+              </div>
+
+              <!-- Botón de eliminación (visible solo en lg) -->
+              <div class="flex items-center space-x-4 mt-2 lg:mt-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-8 w-8 cursor-pointer text-red-500" wire:click="eliminarItem({{ $item->id }})">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </div>
+            </div>
+          @endif
+        </div>
+      @endforeach
+
       @endif
     </div>
     <!-- Sub total -->
@@ -66,3 +99,66 @@
     </div>
   </div>
 </div>
+
+<style>
+
+  /* General: Ocultar contenido superpuesto por defecto */
+.card-content {
+  display: none;
+}
+
+/* Mostrar contenido superpuesto en pantallas pequeñas */
+@media (max-width: 677px) {
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    color: white;
+    padding-top: 60px !important;
+    padding-bottom: 60px !important;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    z-index: 10;
+  }
+
+  .lg\\:flex {
+    display: none; /* Ocultar contenido normal en pantallas pequeñas */
+  }
+
+  
+  .header{
+    margin-top: 0 !important;
+  }
+}
+
+
+
+/* Pantallas medianas (tablets) */
+@media (min-width: 677px) and (max-width: 1000px) {
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    color: white;
+    padding-top: 60px !important;
+    padding-bottom: 60px !important;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    z-index: 10;
+  }
+
+  .lg\\:flex {
+    display: none; 
+  }
+
+}
+</style>
+  

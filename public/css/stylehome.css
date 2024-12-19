@@ -2,108 +2,126 @@
 
 /* Estilo general del cuerpo */
 body {
+    font-family: 'Work Sans', sans-serif !important;
+    /*font-family: Calibri, sans-serif !important;*/
     margin: 0;
-    font-family: Arial, sans-serif;
 }
 
-/* Fondo verde semitransparente */
+/* Estilo para el overlay */
+    #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+        z-index: 1040; /* Asegura que esté debajo del modal */
+        visibility: hidden; /* Oculto por defecto */
+        pointer-events: none; /* Evita interacciones */
+    }
+    #overlay.show {
+    visibility: visible;
+    pointer-events: auto; /* Habilita interacciones solo cuando se muestre */
+    }
+  
+/* Fondo verde semitransparente 
 .overlay {
-    position: fixed; /* Cambia a fixed para cubrir toda la ventana */    
+    position: fixed; /* Cambia a fixed para cubrir toda la ventana    
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(27, 160, 22, 0.459); /* Verde con 50% de opacidad */
-    z-index: 1; /* Asegura que la superposición esté encima de la imagen */
-    pointer-events: none; /* Permite que los clics pasen a través del overlay */
+    background-color: rgba(27, 160, 22, 0.459); /* Verde con 50% de opacidad 
+    z-index: 1; /* Asegura que la superposición esté encima de la imagen 
+    pointer-events: none; /* Permite que los clics pasen a través del overlay 
 }
 
 .modal-backdrop {
-    background-color: rgba(30, 180, 24, 0.911); /* Cambia el 0.5 por la opacidad deseada */
-}
+    background-color: rgba(30, 180, 24, 0.911); /* Cambia el 0.5 por la opacidad deseada 
+}*/
 
-/* Modal */
 .modal {
-    z-index: 4; /* Asegura que el modal esté encima de todo */
+    z-index: 5; /* Asegura que el modal esté encima de todo */
 }
 
-/* Sección carousel */
-.carousel-section {
-    position: relative;
-    height: 100vh; /* Ocupa toda la altura de la ventana */
-    width:auto;
-    color: white;
-    display: flex;
+/* Sección carousel 
+    .carousel-section {
+        position: relative;
+        height: 100vh; /* Ocupa toda la altura de la ventana 
+        width:auto;
+        color: white;
+        display: flex;
 
-}
+    }
 
-.carousel-content{
-    height: 100vh; /* Ocupa toda la altura de la ventana */
-    width: 100%;
-    position: relative;
-    z-index: 2; /* Asegura que el texto esté encima de la superposición */
+    .carousel-content{
+        height: 100vh; /* Ocupa toda la altura de la ventana 
+        width: 100%;
+        position: relative;
+        z-index: 2; /* Asegura que el texto esté encima de la superposición 
 
 
-}
+    }
 
-.carousel-section .navbar{
-    align-items:normal;
-    justify-content: 0;
-    text-align: 0;
-    z-index: 2; /* Asegura que el texto esté encima de la superposición */
+    .carousel-section .navbar{
+        align-items:normal;
+        justify-content: 0;
+        text-align: 0;
+        z-index: 2; /* Asegura que el texto esté encima de la superposición 
 
-}
+    }
 
-#carouselBackground {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh; /* Ocupa toda la altura de la ventana */
-    z-index: -1; /* Asegura que el carrusel esté detrás del contenido */
-}
+    #carouselBackground {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh; /* Ocupa toda la altura de la ventana 
+        z-index: -1; /* Asegura que el carrusel esté detrás del contenido 
+    }
 
-.carousel-inner img {
-    object-fit: cover; /* Asegura que las imágenes cubran todo el área sin distorsionarse */
-    height: 100vh; /* Ocupa toda la altura de la ventana */
-}
+    .carousel-inner img {
+        object-fit: cover; /* Asegura que las imágenes cubran todo el área sin distorsionarse 
+        height: 100vh; /* Ocupa toda la altura de la ventana 
+    }*/
 
-/* Botón de desplazamiento */
+/* Botón de desplazamiento 
 .scroll-down-button{
     position: absolute;
     bottom: 5px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 3rem;
-    color: white; /* Color inicial del icono */
-    text-decoration: none; /* Quita el subrayado del enlace */
-}
+    color: white; /* Color inicial del icono 
+    text-decoration: none; /* Quita el subrayado del enlace 
 
-/* Cambia el color del icono al pasar el ratón sobre el enlace */
+
+ Cambia el color del icono al pasar el ratón sobre el enlace 
 .scroll-down-button:hover i {
-    color: rgb(35, 199, 29); /* Color del icono al pasar el ratón */
+    color: rgb(35, 199, 29); /* Color del icono al pasar el ratón 
 }
+}*/
 
 /* Botones de inicio */
-#login{
-    border-radius: 10px;
-    color: rgb(89, 181, 72);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra */
-    padding: 10px;
-    align-items: center;
+    #login{
+        border-radius: 10px;
+        color: #39a900;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra */
+        padding: 10px;
+        align-items: center;
 
-    i {
-        vertical-align: middle; /* Alinea verticalmente el icono */
+        i {
+            vertical-align: middle; /* Alinea verticalmente el icono */
+        }
     }
-}
-#msg{
-    border-radius: 100%;
-    background-color: rgb(89, 181, 72);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra */
-    color: white;
-    font-size: 28px;
-    
-}
+    #msg{
+        border-radius: 100%;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra */
+        color: white;
+        font-size: 28px;
+        
+    }
 
 /* Texto del contenedor del carousel*/
 .container-text{
@@ -159,13 +177,9 @@ body {
 }
 
 .text-content {
-    padding-top: 100px;
-    padding-left: 50px;
-    padding-right: 50px;
-    background: rgba(0, 0, 0, 0.3); /* Fondo semitransparente para el texto */
     color: white;
     width: 100%;
-    height: 100%; /* Ocupa toda la altura disponible */
+    height: 90; /* Ocupa toda la altura disponible */
     overflow: auto; /* Permite el scroll dentro del texto */
 }
 
@@ -185,6 +199,8 @@ body {
     display: flex;
     width: 100%;
     max-width: 100%; 
+    color: #5b6357 !important;
+
 }
 
 /*Seccion con cards*/
@@ -213,23 +229,22 @@ body {
     padding: 0; /* Espaciado interno para el contenido de la tarjeta */
     color: white; /* Color de texto blanco para contraste */
     border-radius: 15px; /* Redondear las esquinas del contenido de la tarjeta */
-    background-color: rgba(27, 126, 23, 0.781); /* Fondo semi-transparente para el contenido */
 }
 
 .card-title{
     color: white;
 }
 
-
-
-
 /* seccion informacion e imagen circular*/
 .container-info{
     text-align: justify;
+    color:  #5b6357 !important;
+
 }
 
 .row2{
     text-align: justify;
+    color:  #5b6357 !important;
 
 }
 
@@ -261,16 +276,13 @@ body {
     z-index: 2; /* Se asegura de que el contenido esté encima del pseudo-elemento */
 }
 
-
-
-
 .modal-footer .btn {
     border-radius: 0.25rem; /* Bordes redondeados para el botón */
 }
 
 #login2{
     border-radius: 10px;
-    background-color: green;
+    background-color: #39a900;
     color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
     padding: 10px;
@@ -280,7 +292,7 @@ body {
 
 #register{
     border-radius: 10px;
-    background-color: rgb(40, 182, 15);
+    background-color: #39a900;
     color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
     padding: 10px;
@@ -290,13 +302,22 @@ body {
 
 #code{
     border-radius: 10px;
-    background-color: rgb(11, 197, 11);
+    background-color: #39a900;
     color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
     padding: 10px;
     align-items: center;
 
 }
+
+
+#herramientasContainer{
+    padding-top: 20px;
+    padding-left: 90px;
+    padding-right: 90px;
+}
+
+
 
 /* Ajusta el tamaño de la tarjeta en pantallas pequeñas */
 @media (min-width: 300px) and (max-width: 676px) {
@@ -308,7 +329,7 @@ body {
     }
     
     .container-text img {
-        width: 51%;
+        width: 48%;
         height: 170px;
     }
     
@@ -334,7 +355,7 @@ body {
         }
     }
     .left-content{
-        padding-top: 100px;
+        padding-top: 20px;
     }
     .text-content {
         padding: 10px; /* Ajusta el padding según sea necesario */
@@ -352,6 +373,7 @@ body {
         flex-direction: column;
         align-items: center;
         text-align: center;
+        padding: 20px;
 
         h2{
             text-align: center;
@@ -359,6 +381,10 @@ body {
         img{
             margin-bottom: 6%;
         }
+        p{
+            font-size: 16px !important;
+        }
+        
     }
 
     .row2{
@@ -366,6 +392,7 @@ body {
         flex-direction: column;
         align-items: center;
         text-align: center;
+        padding: 20px;
 
         padding-left: 10px;
         
@@ -376,13 +403,93 @@ body {
             margin-top: 10%;
             text-align: center;
         }
+        p{
+            font-size: 16px !important;
+        }
     }
 
 /*Cards*/
     .container-card{
-        margin-top: 25%;
-        margin-bottom: 130px;
+        margin-top: 30%;
+        margin-bottom: 10px;
     }
+
+    .text-content{
+        padding: 0% !important;
+    }
+
+    #toolModal{
+        .modal-dialog{
+            max-width: 100%;
+            padding: 10px !important;
+            
+        }
+        .modal-body{
+            max-height: 500px !important;
+            padding: 0 !important;
+        }
+        .modal-content{
+            background-color: transparent;
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent !important;
+            z-index: 2; /* Se asegura de que esté detrás del contenido */
+            border-radius: 2rem;
+        }
+    }
+
+    #modalCarousel{
+        .modal-content{
+            background-color: transparent;
+            color: #39a900;
+            margin: 10px !important;
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent !important;
+            z-index: 2; /* Se asegura de que esté detrás del contenido */
+            border-radius: 2rem;
+        }
+    }
+
+    
+    #herramientasContainer{
+        padding-top: 20px;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+
+    #fondo{
+        height: 40vh !important;
+        border-bottom-left-radius: 0%; 
+        border-bottom-right-radius: 55%;
+    }
+
+    #bienv{
+        margin-left: 10px;
+        padding-right: 50px ;
+
+    }
+
+    #bienvh{
+        margin-top: 20%;
+        padding-right: 50px ;
+
+    }
+
 
 }
 /* Ajusta el tamaño de la tarjeta en pantallas medianas */
@@ -417,6 +524,8 @@ body {
     }
 
     .container-info{
+        padding: 20px;
+
         h2{
             margin-top: 5%;
             text-align: center;
@@ -424,6 +533,7 @@ body {
     }
 
     .row2{
+        padding: 20px;
         h2{
             margin-top: 5%;
             text-align: center;
@@ -434,8 +544,83 @@ body {
         }
     }
     .container-card{
-        margin-bottom: 130px;
+        margin-bottom: 50px;
     }
+
+    .text-content{
+        padding: 0 !important;
+    }
+    #toolModal{
+        .modal-dialog{
+            max-width: 92%;
+        }
+        .modal-body{
+            max-height: 500px !important;
+        }
+        .modal-content{
+            background-color: transparent;
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent !important;
+            z-index: 2; /* Se asegura de que esté detrás del contenido */
+            border-radius: 2rem;
+        }
+    }
+
+    #modalCarousel{
+        .modal-dialog{
+            max-width: 90%;
+        }
+        .modal-content{
+            background-color: transparent;
+            color: #39a900;
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent !important;
+            z-index: 2; /* Se asegura de que esté detrás del contenido */
+            border-radius: 2rem;
+        }
+    }
+
+    #herramientasContainer{
+        padding-top: 20px;
+        padding-left: 40px !important;
+        padding-right: 40px !important;
+    }
+    #fondo{
+        height: 50vh !important;
+        border-bottom-left-radius: 2%; 
+        border-bottom-right-radius: 55%;
+    }
+
+    #bienv{
+        margin-left: 20px;
+        margin-right: 10px;
+
+    }
+    #bienvh{
+        margin-top: 140px;
+
+    }
+    #carouselExample{
+        padding-top: 50px;
+    }
+
+    
     
 }
 
@@ -451,26 +636,31 @@ body {
     }
 
     .container-info{
-        padding-top: 70px;
-        padding-left: 100px;  /* Padding izquierdo */
-        padding-right: 100px; /* Padding derecho */
+        padding-top: 10px;
+        padding-left: 50px;  /* Padding izquierdo */
+        padding-right: 50px; /* Padding derecho */
+        padding-bottom: 20px; /* Padding derecho */
+
         
     }
 
     .row2{
-        padding-left: 150px;  /* Padding izquierdo */
-        padding-right: 100px; /* Padding derecho */
-
-
+        padding-left: 70px;  /* Padding izquierdo */
+        padding-right: 50px; /* Padding derecho */
+        padding-bottom: 100px; /* Padding derecho */
     }
 
     .container-card{
         position: relative;
-        padding-left: 150px;
-        padding-right: 150px;
+        padding-left: 90px;
+        padding-right: 90px;
         width: 100%;
         padding-top: 60px;
         
+    }
+
+    .content-container{
+        padding-top: 20px !important;
     }
 
     /*Modal Login*/
@@ -479,6 +669,40 @@ body {
     margin-right: 140px;
     padding-left: 15px;
     padding-right: 15px;
+    }
+
+    #toolModal{
+        .modal-dialog{
+            max-width: 100%;
+        }
+        .modal-content{
+            background-color: transparent;
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent !important;
+            z-index: 2; /* Se asegura de que esté detrás del contenido */
+            border-radius: 2rem;
+        }
+    }
+
+    #fondo{
+        height: 70vh !important;
+        border-bottom-left-radius: 2%; 
+        border-bottom-right-radius: 55%;
+    }
+
+    #bienv{
+        margin-left: 100px;
+    }
+    #bienvh{
+        margin-top: 100px;
     }
 
 }

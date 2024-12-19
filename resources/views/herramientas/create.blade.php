@@ -5,7 +5,7 @@
 
 <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
     <div class="gcontainer py-3 bg-container" style="max-height: 2000px">
-        <h2 class="text-center mb-5 fw-bold">CREAR HERRAMIENTA</h2>
+        <h2 class="text-center mb-3 mt-2 fw-bold">CREAR HERRAMIENTA</h2>
         <div class="container d-flex justify-content-center" >
             <form action="/herramientas" method="POST" enctype="multipart/form-data" class="form-editar">
                 @csrf
@@ -74,6 +74,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="col-lg-6 mb-4 d-flex justify-content-center">
                         <div class="card">
                             <label for="imagencode" class="form-label fw-bold">Imagen - Código de barras</label>
@@ -93,8 +94,17 @@
                     </div>
 
                 </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-plus py-2 fw-bold">Crear Herramienta</button>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-plus py-2 fw-bold">CREAR HERRAMIENTA</button>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <div class="text-center mt-2">
+                            <a href="/herramientas" class="btn btn-secondary">Volver</a>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

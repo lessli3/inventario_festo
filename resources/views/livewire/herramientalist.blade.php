@@ -5,83 +5,65 @@ use Illuminate\Support\Str;
 <div class="container">
     @include('layouts.mensaje')
     <div class="row mb-5">
-        <h1 class="col-12 text-center fw-bold mt-4">Herramientas</h1>
+        <h1 class="col-12 text-center fw-bold mt-4">HERRAMIENTAS</h1>
 
-@can('crearHerramienta')
-    <div class="row mt-5 mb-5 ps-5">
-        <!-- Botón desplegable solo para pantallas pequeñas y medianas -->
-        <div class="col-lg-5 col-md-6 col-sm-12 d-lg-none"> <!-- Visible solo en pantallas pequeñas y medianas -->
-            <div class="dropdown">
-                <button class="btn btn-plus dropdown-toggle w-100" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    Opciones
-                </button>
-                <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
-                    <li>
-                        <a class="dropdown-item" href="/inventario">
-                            <i class="fas fa-check me-1"></i> Gestionar Inventario
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="/herramientas/create">
-                            <i class="fas fa-plus"></i> Agregar Herramienta
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        @can('crearHerramienta')
+            <div class="row mt-3 mb-1" id="opciones">
+                <!-- Botón desplegable (Opciones) -->
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                    <div class="dropdown">
+                        <button class="btn btn-plus dropdown-toggle w-100" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            Opciones
+                        </button>
+                        <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
+                            <li>
+                                <a class="dropdown-item" href="/inventario">
+                                    <i class="fas fa-check me-1"></i> Gestionar Inventario
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/herramientas/create">
+                                    <i class="fas fa-plus"></i> Agregar Herramienta
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
-        <!-- Botones separados para pantallas grandes -->
-        <div class="col-lg-5 col-md-6 col-sm-12 d-none d-lg-flex justify-content-start"> <!-- Visible solo en pantallas grandes -->
-            <div class="me-3">
-                <a href="/inventario" class="btn btn-plus">
-                    <i class="fas fa-check me-1"></i> Gestionar Inventario
-                </a>
+                <!-- Botón Filtros -->
+                <div class="col-lg-3 offset-lg-6 col-md-6 col-sm-12">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-success dropdown-toggle w-100" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                            Filtros
+                        </button>
+                        <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton2">
+                            <!-- Opción de Categoría -->
+                            <li>
+                                <div class="dropdown-item">
+                                    <select wire:model="categoriaSeleccionada" class="form-select w-100">
+                                        <option value="">Categorías</option>
+                                        @foreach ($categorias as $categoria)
+                                            <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </li>
 
-            </div>
-            <div>
-                <a href="/herramientas/create" class="btn btn-plus">
-                    <i class="fas fa-plus"></i> Agregar Herramienta
-                </a>
-            </div>
-        </div>
-
-        <!-- Segunda columna con las opciones adicionales -->
-        <div class="col-lg-7 col-md-6 col-sm-12 d-flex flex-wrap justify-content-end">
-            <div class="col-6 mb-2 me-2">
-                <div class="dropdown">
-                    <button class="btn btn-outline-success dropdown-toggle w-100" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                        Filtros
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <!-- Opción de Categoría -->
-                        <li>
-                            <div class="dropdown-item">
-                                <select wire:model="categoriaSeleccionada" class="form-select w-100">
-                                    <option value="">Categorías</option>
-                                    @foreach ($categorias as $categoria)
-                                        <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </li>
-
-                        <!-- Opción Herramientas Activas/Inactivas -->
-                        <li>
-                            <a class="dropdown-item" href="#" wire:click="toggleHerramientasInactivas">
-                                {{ $mostrarInactivas ? 'Herramientas Activas' : 'Herramientas Inactivas' }}
-                            </a>
-                        </li>
-                    </ul>
+                            <!-- Opción Herramientas Activas/Inactivas -->
+                            <li>
+                                <a class="dropdown-item" href="#" wire:click="toggleHerramientasInactivas">
+                                    {{ $mostrarInactivas ? 'Herramientas Activas' : 'Herramientas Inactivas' }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endcan
 
-    </div>
-
-    @endcan
 
         @can('solicitarHerramienta')
-        <div class="col-3 offset-9 d-flex justify-content-end">
+        <div class="col-lg-3 col-md-6 offset-md-6 offset-lg-9 d-flex justify-content-end">
             <select wire:model="categoriaSeleccionada" class="btn btn-outline-success form-select my-4 me-3">
                 <option value="">Todas las categorías</option>
                 @foreach ($categorias as $categoria)
@@ -92,13 +74,23 @@ use Illuminate\Support\Str;
         @endcan
 
         @can('editarSolicitud')
-        <div class="col-3 offset-9 d-flex justify-content-end">
-            <select wire:model="categoriaSeleccionada" class="btn btn-outline-success form-select my-4 me-3">
-                <option value="">Todas las categorías</option>
-                @foreach ($categorias as $categoria)
-                    <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
-                @endforeach
-            </select>
+        <div class="row my-4">
+            <!-- Botón Inventario a la izquierda -->
+            <div class="col-lg-3 col-sm-12 col-md-6 d-flex justify-content-start">
+                <a href="/inventario" class="btn btn-outline-success my-2" style="width:100%">
+                    <i class="fas fa-list"></i> Inventario
+                </a>
+            </div>
+
+            <!-- Botón Categorías a la derecha con offset -->
+            <div class="col-lg-3 col-sm-12 col-md-6 offset-lg-6 d-flex justify-content-end">
+                <select wire:model="categoriaSeleccionada" class="btn btn-outline-success form-select my-2">
+                    <option value="">Todas las categorías</option>
+                    @foreach ($categorias as $categoria)
+                        <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+                    @endforeach
+                </select>
+            </div>
         </div>
         @endcan
 
@@ -107,8 +99,8 @@ use Illuminate\Support\Str;
         @else
 
         @foreach($herramientaCont as $herramientaVista)
-    @if($herramientaVista->estado == ($mostrarInactivas ? 'inactivo' : 'activo'))
-        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+         @if($herramientaVista->estado == ($mostrarInactivas ? 'inactivo' : 'activo'))
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4" id="cardh" >
             <!-- Añade la clase 'inactive-tool' si la herramienta está inactiva -->
             <div class="card herramienta-card {{ $herramientaVista->estado == 'inactivo' ? 'inactive-tool' : '' }}" 
             style="background-image: url('{{ Str::startsWith($herramientaVista->imagen, ['http://', 'https://']) ? $herramientaVista->imagen : asset('imagenes/herramientas/' . $herramientaVista->imagen) }}');">
@@ -146,7 +138,7 @@ use Illuminate\Support\Str;
                 </div>
             </div>
         </div>
-    @endif
+         @endif
     @endforeach
 
         @endif
@@ -184,4 +176,30 @@ use Illuminate\Support\Str;
             color: gray; /* Color de fondo gris */
         }
     }
+
+    .header{
+        padding-bottom: 15% !important;
+    }  
+    /* Pantallas pequeñas (móviles) */
+@media (max-width: 677px) {
+    #cardh{
+        margin-top: 10%;
+        width: 110% !important;
+        max-width: 120% !important;
+    }
+    .herramienta-card{
+        height: 250px !important;
+    }
+
+    #opciones{
+        padding-left: 40px;
+    }
+}
+/* Pantallas medianas (tablets) */
+@media (min-width: 677px) and (max-width: 1000px) {
+    .herramienta-card{
+        height: 250px !important;
+    }
+
+}
 </style>

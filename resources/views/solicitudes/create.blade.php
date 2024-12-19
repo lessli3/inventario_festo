@@ -4,7 +4,7 @@
 @can('solicitarHerramienta')
 <section>
     <center>
-        <h4 class="mb-4 fw-bold">COMPLETA LA SOLICITUD</h4>
+        <h3 class="my-4 fw-bold">COMPLETA LA SOLICITUD</h3>
     </center>
     <div class="container mt-5">
         <div class="row">
@@ -64,8 +64,8 @@
                         </div>
                     </div>
 
-                <div class="col-md-12 col-lg-6">
-                <div class="form-group col-lg-12 mb-4">
+                <div class="col-md-12 col-lg-6 col-sm-12">
+                <div class="form-group col-lg-12 mb-4 col-sm-12" id="calendar">
                             <label for="semana" class="mb-2 fw">Fecha de la solicitud:</label>
                             <div class="cardc">
                             <div id="calendar"></div>
@@ -75,8 +75,17 @@
                             </div>
                         </div>
                 </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-plus fw-bold" >Guardar Solicitud</button>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                    <div class="text-center my-4">
+                        <button type="submit" class="btn btn-plus fw-bold" >Guardar Solicitud</button>
+                    </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <div class="text-center mt-1 mb-4">
+                            <a href="/herramientas" class="btn btn-secondary">Volver</a>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
@@ -193,6 +202,48 @@
         
     }
 
+</style>
+<style>
+@media (max-width: 677px) {
+        .fc-today-button{
+            display: none !important;
+        }
+
+        .fc-col-header-cell{
+            width: 35px !important;
+        }
+
+        .cardc{
+            width: 110%;
+            max-width: 150% !important;
+            padding: 0;
+            height: 300px;
+
+        }
+
+        #calendar{
+            border-radius: none !important;
+            margin-top: 30px;
+        }
+
+        #fc-dom-1{
+        font-size: 1.5rem !important; 
+        text-transform: uppercase !important; 
+        }
+
+        .card{
+            height: 320px !important;
+        }
+
+}
+
+
+/* Pantallas medianas (tablets) */
+@media (min-width: 677px) and (max-width: 1000px) {
+    .card{
+            height: 300px !important;
+        }
+}    
 </style>
 
 <script>

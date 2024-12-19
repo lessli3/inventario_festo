@@ -143,7 +143,7 @@ public function crearMonitor(Request $request)
         // Crear el nuevo usuario (monitor)
         $monitor = User::create([
             'name' => $request->name,
-            'lastname' => $request->name,
+            'lastname' => $request->lastname,
             'email' => $request->email,
             'telefono' => $request->telefono,
             'user_identity' => $request->user_identity,

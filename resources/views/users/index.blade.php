@@ -4,12 +4,12 @@
 @can('verSolicitud')
 
 <div class="row">
-    <h4 class="ms-3 fw-bold" style="color:green;">Perfil</h4>
+<h2 class="text-center mb-3 mt-4 mb-4 fw-bold">PERFIL</h2>
 </div>
 
 <div class="container h-70">
     <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col col-lg-9 mb-1 mb-lg-0">
+      <div class="col col-lg-9 mb-1 mb-lg-0" style="padding-right: 0 !important">
         <div class="card mb-1" style="border-radius: .5rem; height: 80%">
           <div class="row g-0">
             <div class="col-md-4 gradient-custom text-center fw-bold"

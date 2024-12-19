@@ -21,8 +21,8 @@
             <tr style="height: 50px">
                 <th>NOMBRE</th>
                 <th>CANTIDAD</th>
-                <th>ESTADO</th>
-                <th>Actions</th>
+                <th class="ps-3">ESTADO</th>
+                <th>EDITAR</th>
             </tr>
         </thead>
         <tbody id="tools-list">
@@ -83,74 +83,74 @@
 <script>
     const socket = io("http://localhost:3000");
 
-// Escuchar el evento "barcodeScanned" para actualizar la lista
-socket.on('barcodeScanned', (scannedTools) => {
-    console.log("Evento barcodeScanned recibido:", scannedTools);
+    // Escuchar el evento "barcodeScanned" para actualizar la lista
+    socket.on('barcodeScanned', (scannedTools) => {
+        console.log("Evento barcodeScanned recibido:", scannedTools);
 
-    scannedTools.forEach(scannedTool => {
-        // Buscar la herramienta en el DOM usando el barcode
-        const toolElement = document.querySelectorAll('.tool-item').forEach((toolItem) => {
-            const toolBarcode = toolItem.getAttribute('data-barcode'); // Obtener el barcode desde el atributo 'data-barcode'
+        scannedTools.forEach(scannedTool => {
+            // Buscar la herramienta en el DOM usando el barcode
+            const toolElement = document.querySelectorAll('.tool-item').forEach((toolItem) => {
+                const toolBarcode = toolItem.getAttribute('data-barcode'); // Obtener el barcode desde el atributo 'data-barcode'
 
-            // Si el código escaneado coincide con el de la herramienta, actualizar el estado
-            if (toolBarcode === scannedTool.barcode) {
-                const statusElement = toolItem.querySelector('.status');
-                if (statusElement) {
-                    statusElement.innerText = 'ESCANEADA';
-                    statusElement.style.backgroundColor = 'green';  // Cambiar color a verde
-                    toolItem.classList.add('scanned');
+                // Si el código escaneado coincide con el de la herramienta, actualizar el estado
+                if (toolBarcode === scannedTool.barcode) {
+                    const statusElement = toolItem.querySelector('.status');
+                    if (statusElement) {
+                        statusElement.innerText = 'ESCANEADA';
+                        statusElement.style.backgroundColor = 'green';  // Cambiar color a verde
+                        toolItem.classList.add('scanned');
+                    }
                 }
-            }
+            });
         });
+
+        checkAllScanned();
     });
 
-    checkAllScanned();
-});
+    function checkAllScanned() {
+        const totalTools = document.querySelectorAll('.tool-item').length;
+        const scannedTools = document.querySelectorAll('.tool-item.scanned').length;
 
-function checkAllScanned() {
-    const totalTools = document.querySelectorAll('.tool-item').length;
-    const scannedTools = document.querySelectorAll('.tool-item.scanned').length;
-
-    const entregadaBtn = document.getElementById('entregadaBtn');
-    if (totalTools === scannedTools) {
-        entregadaBtn.disabled = false;
-        console.log("El botón ahora está habilitado");
+        const entregadaBtn = document.getElementById('entregadaBtn');
+        if (totalTools === scannedTools) {
+            entregadaBtn.disabled = false;
+            console.log("El botón ahora está habilitado");
+        }
     }
-}
 
-document.addEventListener('DOMContentLoaded', () => {
-    const entregadaBtn = document.getElementById('entregadaBtn');
+    document.addEventListener('DOMContentLoaded', () => {
+        const entregadaBtn = document.getElementById('entregadaBtn');
 
-    if (entregadaBtn) {
-        entregadaBtn.addEventListener('click', (e) => {
-            // Prevenir múltiples envíos
-            e.preventDefault();
+        if (entregadaBtn) {
+            entregadaBtn.addEventListener('click', (e) => {
+                // Prevenir múltiples envíos
+                e.preventDefault();
 
-            entregadaBtn.innerText = "Procesando...";
-            entregadaBtn.style.backgroundColor = "gray";
-            entregadaBtn.style.cursor = "not-allowed";
+                entregadaBtn.innerText = "Procesando...";
+                entregadaBtn.style.backgroundColor = "gray";
+                entregadaBtn.style.cursor = "not-allowed";
 
-            // Deshabilitar el botón inmediatamente para evitar clics múltiples
-            entregadaBtn.disabled = true;
+                // Deshabilitar el botón inmediatamente para evitar clics múltiples
+                entregadaBtn.disabled = true;
 
-            setTimeout(() => {
-                entregadaBtn.style.display = 'none'; 
+                setTimeout(() => {
+                    entregadaBtn.style.display = 'none'; 
 
-                 // Cambiar el botón "Regresar" por "Finalizado"
-                 if (finalizadoBtn) {
-                    finalizadoBtn.style.backgroundColor = "gray"; // Cambiar color a gris
-                    finalizadoBtn.style.cursor = "not-allowed"; // Cambiar cursor
-                    finalizadoBtn.querySelector('a').innerText = "Finalizado"; // Cambiar texto del enlace
-                }
+                    // Cambiar el botón "Regresar" por "Finalizado"
+                    if (finalizadoBtn) {
+                        finalizadoBtn.style.backgroundColor = "gray"; // Cambiar color a gris
+                        finalizadoBtn.style.cursor = "not-allowed"; // Cambiar cursor
+                        finalizadoBtn.querySelector('a').innerText = "Finalizado"; // Cambiar texto del enlace
+                    }
 
-            }, 7000); 
+                }, 7000); 
 
 
-            // Si es necesario, envía el formulario manualmente
-            entregadaBtn.closest('form').submit();
-        });
-    }
-});
+                // Si es necesario, envía el formulario manualmente
+                entregadaBtn.closest('form').submit();
+            });
+        }
+    });
 
 </script>
 </html>
@@ -166,6 +166,17 @@ document.addEventListener('DOMContentLoaded', () => {
         margin-bottom: auto;
         margin-top: 40px;
     }
+
+
+
+@media (max-width: 677px) {
+ .header{
+    width: 92% !important;
+    margin-left: 25% !important;
+    margin-bottom: 0 !important;
+    z-index: 5 !important;
+ }
+}
 
 </style>
 

@@ -28,18 +28,92 @@
 @livewireScripts
 <div class="row mt-3">
     <header class="header d-flex align-items-center" style="z-index: 1">
-        <span class="hamburger-menu material-symbols-outlined">menu</span>
+        <!-- Menú hamburguesa alineado a la izquierda -->
+        <span class="hamburger-menu material-symbols-outlined d-lg-none" id="menuToggle">menu</span>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+            <ul class="sidebar-links" style="padding: 0;">
+            <!---<h4 class="fw-bold">
+                <span>Menu</span>
+                <div class="menu-separator"></div>
+            </h4>-->
+            <li class="admin-title fw-bold" style="color: #504f4f;">
+                @if(Auth::user()->can('crearHerramienta'))
+                    <p>Cuentadante</p>
+                @elseif(Auth::user()->can('solicitarHerramienta'))
+                    <p>Instructor</p>
+                @elseif(Auth::user()->can('editarSolicitud'))
+                    <p>Monitor</p>
+                @else
+                    <p>Sin permisos específicos</p>
+                @endif
+            </li>
+            <li>
+                <a href="/dashboard"><span class="material-symbols-outlined">home</span></a>
+                <span class="submenu-text">Home</span>
+
+            </li>
+            <li>
+                <a href="/herramientas"><span class="material-symbols-outlined">build</span></a>
+                <span class="submenu-text">Herram.</span>
+            </li>
+
+            @can('editarSolicitud')
+            <li>
+                <a href="/calendario">
+                    <span class="material-symbols-outlined">event</span></a>
+                <span class="submenu-text">Calendar</span>
+            </li>
+            @endcan
+            @canany(['solicitarHerramienta', 'editarSolicitud'])
+                <li>
+                    <a href="/solicitudIndex">
+                        <span class="material-symbols-outlined">folder</span></a>
+                    <span class="submenu-text">Solicitud</span>
+                </li>
+                
+            @endcanany
+
+            @can('editarSolicitud')
+            <li>
+                <a href="/archivo">
+                    <span class="material-symbols-outlined">attach_file</span> </a>
+                <span class="submenu-text">Archivo</span>
+            </li>
+            @endcan
+
+            @can('crearHerramienta')
+            <li>
+                <a href="/monitores"><span class="material-symbols-outlined">groups</span></a>
+                <span class="submenu-text">Usuarios</span>
+            </li>
+            @endcan
+            <hr>
+            <li>
+                <a href="{{ route('profile') }}"><span class="material-symbols-outlined">account_circle</span></a>
+                <span class="submenu-text">Perfil</span>
+
+            </li>
+            <li>
+                <a href="/home"><span class="material-symbols-outlined">logout</span></a>
+                <span class="submenu-text">Cerrar sesión</span>
+            </li>
+            </ul>
+        </div>
+
         @auth
         @if (Auth::user())
-        <div class="col-md-5 ms-auto d-flex align-items-center">
-            @can('solicitarHerramienta')
-                <!-- Contador de solicitudes -->
+        <div class="col-md-7 col-lg-10 d-flex justify-content-between align-items-center">
+            <!-- Contenedor de los iconos o botones -->
+            <div class="d-flex align-items-center">
+                @can('solicitarHerramienta')
                 <div class="Usuario me-2" style="margin-left: 7%">
                     <livewire:solicitud-contador />
                 </div>
-            @endcan
-            @can('editarSolicitud')
-                <!-- Contador de solicitudes -->
+                @endcan
+
+                @can('editarSolicitud')
                 <div class="Usuario me-2" style="margin-left: 7%">
                     <div style="background-color: rgb(25, 161, 13); width: 48px; border-radius: 50%; height: 45px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">
                         <a href="/solicitudIndex" style="color: rgb(242, 243, 243);">
@@ -47,9 +121,9 @@
                         </a>
                     </div>
                 </div>
-            @endcan
-            @can('crearHerramienta')
-                <!-- Contador de solicitudes -->
+                @endcan
+
+                @can('crearHerramienta')
                 <div class="Usuario me-2" style="margin-left: 7%">
                     <div style="background-color: rgb(25, 161, 13); width: 48px; border-radius: 50%; height: 45px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">
                         <a href="/herramientas" style="color: rgb(242, 243, 243);">
@@ -57,25 +131,22 @@
                         </a>
                     </div>
                 </div>
-            @endcan
-            
-            <!-- Contenedor del usuario -->
+                @endcan
+            </div>
+
+            <!-- Contenedor del usuario, alineado a la derecha -->
             <div class="user d-flex align-items-center mx-3" style="background-color: #b5b8b477; border-radius: 15px; color: rgb(25, 161, 13); height: 55px; width: 200px;justify-content: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); padding: 1%;">
                 <div class="col-md-4 d-flex justify-content-center align-items-center">
-                     <!-- Círculo con la inicial del nombre -->
-                     <div class="user-b inline-flex justify-center items-center fw-bold pb-1 ms-1" style="background-color: rgb(25, 161, 13);border-radius: 50%;height: 40px;text-align: center;width: 40px;align-content: center; color:white; font-size: 22px">
+                    <div class="user-b inline-flex justify-center items-center fw-bold pb-1 ms-1" style="background-color: rgb(25, 161, 13);border-radius: 50%;height: 40px;text-align: center;width: 40px;align-content: center; color:white; font-size: 22px">
                         {{ strtoupper(substr(Auth::user()->name, 0, 1)) }} <!-- Mostrar la inicial en mayúscula -->
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <!-- Botón con el nombre completo -->
                     <button type="button" class="inline-flex items-center py-3" style="background-color: transparent; border: none; color: green;">
                         {{ Auth::user()->name }} <!-- Mostrar el nombre completo del usuario -->
                     </button>
                 </div>
             </div>
-
-            
         </div>
         @endif
         @endauth    
@@ -83,7 +154,8 @@
 </div>
 
 
-    <aside class="sidebar">
+
+    <aside class="sidebar d-none d-lg-block">
         <div class="sidebar-header">
             <div class="row">
             <img src="img/logov.png" alt="">
@@ -163,12 +235,107 @@
         @yield('content')
     </div>
 
-    <script>
-        document.querySelector('.hamburger-menu').addEventListener('click', function() {
-            document.querySelector('.sidebar').classList.toggle('active');
+<script>
+            document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.style.display = (mobileMenu.style.display === 'none' || mobileMenu.style.display === '') ? 'block' : 'none';
         });
-    </script>
+
+        document.addEventListener('click', function(e) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuToggle = document.getElementById('menuToggle');
+            
+            if (!mobileMenu.contains(e.target) && e.target !== menuToggle) {
+                mobileMenu.style.display = 'none';
+            }
+        });
+        });
+     </script>
+
+
+
+<!--<script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>  Usando CDN para Hammer.js 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const menu = document.getElementById('mobileMenu');
+        const body = document.body;
+
+        // Detectar gestos en el cuerpo de la página
+        const hammer = new Hammer(body, {
+            inputClass: Hammer.TouchInput
+        });
+
+        hammer.on('swiperight', () => {
+            console.log('Deslizado hacia la derecha');
+            menu.classList.add('active');
+        });
+
+        hammer.on('swipeleft', () => {
+            console.log('Deslizado hacia la izquierda');
+            menu.classList.remove('active');
+        });
+    });
+</script>--->
 </body>
 </html>
+
+<style>
+    /* Menú móvil oculto por defecto en pantallas grandes */
+.mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    z-index: 1050;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    overflow-y: auto;
+}
+
+.mobile-menu.active {
+    transform: translateX(0);
+}
+
+/* Mostrar el menú en pantallas pequeñas */
+@media (max-width: 991.98px) { /* lg y menor */
+    .mobile {
+        display: block;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+    }
+    
+
+    .mobile ul {
+        padding: 0;
+    }
+
+    .mobile ul li {
+        margin-bottom: 15px;
+    }
+
+    .mobile ul li a {
+        text-decoration: none;
+        color: white;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+    }
+
+    .mobile ul li a i {
+        margin-right: 10px;
+        font-size: 20px;
+    }
+}
+
+</style>
 
 

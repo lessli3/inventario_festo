@@ -21,7 +21,7 @@
             <tr style="height: 50px">
                 <th class="ps-4">NOMBRE</th>
                 <th>CANTIDAD</th>
-                <th>ESTADO</th>
+                <th class="ps-3" >ESTADO</th>
             </tr>
         </thead>
         <tbody id="tools-list">
@@ -73,73 +73,72 @@
 <script>
   const socket = io("http://localhost:3000");
 
-// Escuchar el evento "barcodeScanned" para actualizar la lista
-socket.on('barcodeScanned', (scannedTools) => {
-    console.log("Evento barcodeScanned recibido:", scannedTools);  // Verifica lo que llega
+    socket.on('barcodeScanned', (scannedTools) => {
+        console.log("Evento barcodeScanned recibido:", scannedTools);  // Verifica lo que llega
 
-    scannedTools.forEach(scannedTool => {
-        // Buscar la herramienta en el DOM usando el barcode
-        const toolElement = document.querySelectorAll('.tool-item').forEach((toolItem) => {
-            const toolBarcode = toolItem.getAttribute('data-barcode'); // Obtener el barcode desde el atributo 'data-barcode'
+        scannedTools.forEach(scannedTool => {
+            // Buscar la herramienta en el DOM usando el barcode
+            const toolElement = document.querySelectorAll('.tool-item').forEach((toolItem) => {
+                const toolBarcode = toolItem.getAttribute('data-barcode'); // Obtener el barcode desde el atributo 'data-barcode'
 
-            // Si el código escaneado coincide con el de la herramienta, actualizar el estado
-            if (toolBarcode === scannedTool.barcode) {
-                const statusElement = toolItem.querySelector('.status');
-                if (statusElement) {
-                    statusElement.innerText = 'ESCANEADA';
-                    statusElement.style.backgroundColor = 'green';  // Cambiar color a verde
-                    toolItem.classList.add('scanned');
+                // Si el código escaneado coincide con el de la herramienta, actualizar el estado
+                if (toolBarcode === scannedTool.barcode) {
+                    const statusElement = toolItem.querySelector('.status');
+                    if (statusElement) {
+                        statusElement.innerText = 'ESCANEADA';
+                        statusElement.style.backgroundColor = 'green';  // Cambiar color a verde
+                        toolItem.classList.add('scanned');
+                    }
                 }
-            }
+            });
         });
+        checkAllScanned();
     });
-    checkAllScanned();
-});
 
-function checkAllScanned() {
-    const totalTools = document.querySelectorAll('.tool-item').length;
-    const scannedTools = document.querySelectorAll('.tool-item.scanned').length;
+    function checkAllScanned() {
+        const totalTools = document.querySelectorAll('.tool-item').length;
+        const scannedTools = document.querySelectorAll('.tool-item.scanned').length;
 
-    const finalizarBtn = document.getElementById('finalizarBtn');
-    if (totalTools === scannedTools) {
-        finalizarBtn.disabled = false;
-        console.log("El botón ahora está habilitado");
+        const finalizarBtn = document.getElementById('finalizarBtn');
+        if (totalTools === scannedTools) {
+            finalizarBtn.disabled = false;
+            console.log("El botón ahora está habilitado");
+        }
     }
-}
 
-document.addEventListener('DOMContentLoaded', () => {
-    const finalizarBtn = document.getElementById('finalizarBtn');
+    document.addEventListener('DOMContentLoaded', () => {
+        const finalizarBtn = document.getElementById('finalizarBtn');
 
-    if (finalizarBtn) {
-        finalizarBtn.addEventListener('click', (e) => {
-            // Prevenir múltiples envíos
-            e.preventDefault();
+        if (finalizarBtn) {
+            finalizarBtn.addEventListener('click', (e) => {
+                // Prevenir múltiples envíos
+                e.preventDefault();
 
-            finalizarBtn.innerText = "Procesando...";
-            finalizarBtn.style.backgroundColor = "gray";
-            finalizarBtn.style.cursor = "not-allowed";
+                finalizarBtn.innerText = "Procesando...";
+                finalizarBtn.style.backgroundColor = "gray";
+                finalizarBtn.style.cursor = "not-allowed";
 
-            // Deshabilitar el botón inmediatamente para evitar clics múltiples
-            finalizarBtn.disabled = true;
+                // Deshabilitar el botón inmediatamente para evitar clics múltiples
+                finalizarBtn.disabled = true;
 
-            setTimeout(() => {
-                finalizarBtn.style.display = 'none'; 
+                setTimeout(() => {
+                    finalizarBtn.style.display = 'none'; 
 
-                 // Cambiar el botón "Regresar" por "Finalizado"
-                 if (finalizadoBtn) {
-                    finalizadoBtn.style.backgroundColor = "gray"; // Cambiar color a gris
-                    finalizadoBtn.style.cursor = "not-allowed"; // Cambiar cursor
-                    finalizadoBtn.querySelector('a').innerText = "Finalizado"; // Cambiar texto del enlace
-                }
+                    // Cambiar el botón "Regresar" por "Finalizado"
+                    if (finalizadoBtn) {
+                        finalizadoBtn.style.backgroundColor = "gray"; // Cambiar color a gris
+                        finalizadoBtn.style.cursor = "not-allowed"; // Cambiar cursor
+                        finalizadoBtn.querySelector('a').innerText = "Finalizado"; // Cambiar texto del enlace
+                    }
 
-            }, 10000); 
+                }, 10000); 
 
 
-            // Si es necesario, envía el formulario manualmente
-            finalizarBtn.closest('form').submit();
-        });
-    }
-});
+                // Si es necesario, envía el formulario manualmente
+                finalizarBtn.closest('form').submit();
+            });
+        }
+    });
 
 </script>
 </html>
@@ -167,5 +166,20 @@ document.addEventListener('DOMContentLoaded', () => {
         margin-top: 40px;
     }
 
+
+@media (max-width: 677px) {
+    .header{
+        width: 100% !important;
+        margin-left: 0% !important;
+        margin-top: 0 !important;
+        z-index: 5 !important;
+    }
+}
+@media (min-width: 677px) and (max-width: 1000px) {
+    .header{
+        margin-top: 0 !important;
+        z-index: 5 !important;
+    }
+}
 </style>
 @endsection

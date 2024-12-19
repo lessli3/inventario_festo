@@ -2,47 +2,50 @@
 @section('titulo', 'Solicitudes Finalizadas')
 @section('content')
 
-    @if(isset($mensaje))
-        <div class="alert alert-warning">
-            {{ $mensaje }}
-        </div>
-    @else
-    <div class="container">
-        <h3 class="fw-bold">SOLICITUDES FINALIZADAS</h3>
-        <div class="row mt-5">
-            <!-- Cambiar la clase col-md-5 a col-md-3 para que las tarjetas se acomoden mejor -->
-            @foreach($solicitudesFinalizadas as $solicitud)
-                <div class="col-md-4 mb-4">
-                    <div class="book">
-                        <!-- Detalles de las herramientas (inicialmente ocultos) -->
-                        @foreach($solicitud->detalles as $detalle)
-                                <div class="tool-card">
-                                    <div class="card " style="height: 90px; width: 260px; margin-left: 10px; background-image: url('{{ $detalle->herramienta->imagen }}');">
-                                        <div class="card-body">
-                                            <p class="card-text">
-                                                <strong>{{ $detalle->herramienta->nombre }}</strong><br>
-                                                Cod: {{ $detalle->cod_herramienta }} <br>
-                                                Estado: {{ $detalle->estado }} <br>
-                                            </p>
-                                        </div>
-                                    </div>
+@if(isset($mensaje))
+    <div class="alert alert-warning">
+        {{ $mensaje }}
+    </div>
+@else
+<div class="container">
+<h2 class="text-center mb-3 mt-4 mb-4 fw-bold">SOLICITUDES FINALIZADAS</h2>
+    <div class="row mt-5">
+        @foreach($solicitudesFinalizadas as $solicitud)
+            <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
+                <div class="book" onclick="toggleCards(this)">
+                    <!-- Detalles de las herramientas -->
+                    @foreach($solicitud->detalles as $detalle)
+                        <div class="tool-card">
+                            <div class="card" style="height: 90px; width: 260px; margin: 10px auto; background-image: url('{{ $detalle->herramienta->imagen }}'); background-size: cover;">
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        <strong>{{ $detalle->herramienta->nombre }}</strong><br>
+                                        Cod: {{ $detalle->cod_herramienta }} <br>
+                                        Estado: {{ $detalle->proceso }} <br>
+                                    </p>
                                 </div>
-                            @endforeach
-
-                            <!-- Información de la solicitud (por encima de las herramientas) -->
-                            <div class="cover">
-                                <center>
-                                    <h5 class="fw-bold">Instructor {{ $solicitud->nombre }}  <br>{{ $solicitud->user_identity }} <br> {{ $solicitud->fecha }}</h5>
-                                </center>
                             </div>
+                        </div>
+                    @endforeach
+
+                    <!-- Información de la solicitud -->
+                    <div class="cover">
+                        <center>
+                            <h5 class="fw-bold">
+                                Instructor {{ $solicitud->nombre }} <br>
+                                {{ $solicitud->user_identity }} <br>
+                                {{ $solicitud->fecha }}
+                            </h5>
+                        </center>
                     </div>
                 </div>
-            @endforeach
-
-        </div>
+            </div>
+        @endforeach
     </div>
-    @endif
+</div>
+@endif
 @endsection
+
 
 <style>
     /* From Uiverse.io by eslam-hany */ 
@@ -130,4 +133,86 @@
     transform: rotatey(-80deg);
 }
 
+
+/* Tarjetas ocultas por defecto */
+.tool-card {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px); /* Efecto de desplazamiento inicial */
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Mostrar tarjetas al pasar el mouse */
+.book:hover .tool-card {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0); /* Retorna a su posición */
+}
+
+/* Mostrar tarjetas al hacer clic */
+.book.active .tool-card {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0); /* Retorna a su posición */
+}
+
+/* Cubierta (portada) animada */
+.cover {
+    transition: transform 0.5s;
+}
+
+/* Cubierta animada al pasar el mouse */
+.book:hover .cover {
+    transform: rotateY(-80deg);
+}
+
+/* Cubierta animada al hacer clic */
+.book.active .cover {
+    transform: rotateY(-80deg);
+}
+
+
+
+/* Responsividad para tamaños pequeños */
+@media (max-width: 767px) {
+    .book {
+        width: 90%; /* Ajustar ancho en móviles */
+        height: 250px;
+    }
+
+    .tool-card {
+        margin: 10px auto; /* Centrar las tarjetas */
+    }
+
+    .card{
+        width: 190px !important;
+        height: 115px !important;
+    }
+
+    .main-content{
+        margin-left: 15% !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .book {
+        width: 100%; /* Ajustar ancho en pantallas medianas */
+    }
+    .tool-card {
+        margin: 10px auto; /* Centrar las tarjetas */
+    }
+
+    .card{
+        width: 210px !important;
+        height: 115px !important;
+        margin-left: 15px !important; 
+    }
+}
 </style>
+
+<script>
+function toggleCards(book) {
+    book.classList.toggle('active'); // Alterna la clase "active" para mostrar las tarjetas
+}
+
+</script>

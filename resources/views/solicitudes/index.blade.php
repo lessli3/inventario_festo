@@ -2,10 +2,11 @@
 @section('titulo', 'Solicitudes')
 @section('content')
 @can('verSolicitud')
+<!-- Mensaje de éxito o error -->
 <div class="container">
     <div class="row">
         <div class="col-md-7">
-        <h4 class="fw-semibold mb-4" style="color: green;">Revisa tus solicitudes <i class="fas fa-pencil icono me-1 mb-1" style="color: green; font-size: 18px"></i></h4>
+        <h2 class="text-center mb-3 mt-4 mb-4 fw-bold">SOLICITUDES</h2>
         </div>
         @can('editarSolicitud')
         <div class="col-md-5">
@@ -20,8 +21,7 @@
         </div>
         @endcan
     </div>
-<!-- Mensaje de éxito o error -->
-  @if (session('success'))
+    @if (session('success'))
   <div class="alert alert-success" id="successAlert">
       {{ session('success') }}
   </div>
@@ -35,6 +35,17 @@
   </div>
   @endif 
 
+  @if (session('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>{{ session('error') }}</strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <!-- Limpiar el mensaje de la sesión después de mostrarlo -->
+    @php
+        session()->forget('error');
+    @endphp
+@endif
 @if ($solicitudesAceptadas->isNotEmpty())
 @foreach($solicitudesAceptadas as $solicitud)
 <div class="row">
@@ -60,11 +71,11 @@
         <div id="collapseCard-{{ $solicitud->id }}" class="collapse" data-bs-parent="#accordion">
           <div class="cardl-body">
             <div class="row">
-                    <div class="col-md-9" style="margin-bottom: 10px;">
+                    <div class="col-md-9 col-sm-12" style="margin-bottom: 10px;">
                     <p style="margin-top: 8px;"><strong style="color: green; "></strong>Información de la solicitud<br>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-sm-12 ">
                     @if ($solicitud->estado !== 'entregada')
                         @can('editarSolicitud')
                         <button class="btn btn-outline-success agregarHerramientaBtn" data-bs-toggle="modal" data-bs-target="#agregarHerramientaModal" data-solicitud-id="{{ $solicitud->id }}">
@@ -73,7 +84,7 @@
                         @endcan
                     @endif
                     </div>
-                <hr>
+                <hr class="mt-3">
                 <div class="row">
                   <div class="col-md-9 ">
                   <div class="row">
@@ -81,29 +92,27 @@
                         <div class="col-md-6 mb-3"> <!-- Cambié a col-md-6 para 2 columnas en pantallas medianas -->
                             <div class="card p-1 pt-2" style="background-image: url('{{ filter_var($detalle->herramienta->imagen, FILTER_VALIDATE_URL) ? $detalle->herramienta->imagen : asset('imagenes/herramientas/' . $detalle->herramienta->imagen) }}'); background-size: cover; height: 180px">
                                 <div class="card-content col-md-12">
-                                    <div class="row mb-1">
-                                        <div class="col-md-9">
-                                            <h5 class="fw-bold" style="color: white;">{{ $detalle->herramienta->nombre }}</h5> 
-                                        </div>
+                                <div class="row mb-1">
+                                    <div class="col-sm-12 d-flex align-items-center justify-content-between">
+                                        <h5 class="fw-bold text-white mb-0 me-2" id="nombre">{{ $detalle->herramienta->nombre }}</h5>
                                         @if ($solicitud->estado !== 'entregada')
                                             @can('editarSolicitud')
-                                                <div class="col-md-1">
-                                                    <form action="{{ route('eliminar.herramienta', ['solicitudId' => $solicitud->id, 'codHerramienta' => $detalle->herramienta->cod_herramienta]) }}" method="POST" class="d-inline">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
-                                                    </form>
-                                                </div>
+                                                <form action="{{ route('eliminar.herramienta', ['solicitudId' => $solicitud->id, 'codHerramienta' => $detalle->herramienta->cod_herramienta]) }}" method="POST" class="d-inline mb-0">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
                                             @endcan
                                         @endif
                                     </div>
+                                </div>
                                     <p>
                                         <strong style="color: white;">Código:</strong> <span  style="color: white;">{{ $detalle->herramienta->cod_herramienta }}</span><br>
                                         <strong style="color: white;">Estado:</strong> <span class="fw-bold" style="color: green;">{{ $detalle->proceso }}</span><br>
-                                        <div class="row" style="top: 130;display: flex;position: absolute;">
-                                            <div class="col-md-10">
+                                        <div class="row" style="top: 110;display: flex;position: absolute;">
+                                            <div class="col-md-10" id="cantidad">
                                                 @can('solicitarHerramienta')
                                                 <strong style="color: white;">Cantidad: {{ $detalle->cantidad}}</strong>
                                                 @endcan
@@ -126,27 +135,11 @@
                                                             </button>
                                                         </form>
                                                     @endcan
+                                                @endif
                                                 </span>
                                             </div>
                                         </div>
                                         </p>
-                                        @can('editarSolicitud')
-                                            <!---<form action="{{ route('solicitud.actualizarEstado', $detalle->id) }}" method="POST">
-                                                @csrf
-                                                @method('put')
-                                                <label for="estado" class="mb-0">Actualizar Estado</label>
-                                                <div class="form-group d-flex align-items-center">
-                                                    <select name="estado" class="form-control me-2 estado-select" data-herramienta-id="{{ $detalle->id }}">
-                                                        <option value="aceptada" {{ $detalle->estado == 'aceptada' ? 'selected' : '' }}>Aceptada</option>
-                                                        <option value="entregada" {{ $detalle->estado == 'entregada' ? 'selected' : '' }}>Entregada</option>
-                                                        <option value="recibida" {{ $detalle->estado == 'recibida' ? 'selected' : '' }}>Recibida</option>
-                                                    </select>
-                                                    <button type="button" class="btn btn-primary text-white abrirModalBtn" data-herramienta-id="{{ $detalle->id }}" data-bs-toggle="modal" data-bs-target="#codigoBarrasModal">
-                                                        <i class="fas fa-sync-alt"></i> 
-                                                    </button>
-                                                </div>
-                                            </form>--->
-                                        @endcan
                                 </div>
                             </div>
                         </div>
@@ -188,7 +181,7 @@
 @endif
 </div>
 
-<!-- Modal para lector de código de barras -->
+<!-- Modal para lector de código de barras 
 <div class="modal fade" id="codigoBarrasModal" tabindex="-1" aria-labelledby="codigoBarrasModalLabel" aria-hidden="true" data-bs-backdrop="false">
   <div class="modal-dialog">
     <div class="modal-content" style="background-color: rgba(0, 0, 0, 0.7); border-radius: 2rem">
@@ -210,7 +203,7 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->
 
 <!-- Modal para buscar herramientas 
 <div class="modal fade" id="agregarHerramientaModal" tabindex="-1" aria-labelledby="agregarHerramientaModalLabel" aria-hidden="true">
@@ -251,21 +244,21 @@
 </div>
 -->
 <div class="modal fade" id="agregarHerramientaModal" tabindex="-1" aria-labelledby="agregarHerramientaModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="agregarHerramientaModalLabel">Seleccionar Herramienta</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            <form id="filterForm" method="GET" action="{{ route('solicitudes.index') }}">
-                <div class="form-group mb-3 d-flex">
-                    <input type="text" id="buscarHerramienta" name="search" class="form-control" placeholder="Buscar herramienta..." value="{{ request('search') }}">
-                    <button type="submit" class="btn btn-outline-primary ms-2" id="filtrarBtn">
-                        <i class="fas fa-search"></i> Filtrar
-                    </button>
-                </div>
-            </form>
+                <form id="filterForm" method="GET" action="{{ route('solicitudes.index') }}">
+                    <div class="form-group mb-3 d-flex">
+                        <input type="text" id="buscarHerramienta" name="search" class="form-control" placeholder="Buscar herramienta..." value="{{ request('search') }}">
+                        <button type="submit" class="btn btn-outline-primary ms-2" id="filtrarBtn">
+                            <i class="fas fa-search"></i> Filtrar
+                        </button>
+                    </div>
+                </form>
                 <div class="form-group">
                     <div class="herramientas-list">
                         <ul class="list-group">
@@ -273,14 +266,13 @@
                                 <li class="list-group-item d-flex justify-content-between align-items-center herramienta-item">
                                     {{ $herramienta->nombre }} - {{ $herramienta->cod_herramienta }}
                                     <form id="agregarHerramientaForm" action="{{ route('solicitudes.agregarHerramienta', $solicitud->id) }}" method="POST" class="d-inline">
-                                          @csrf
-                                          <input type="hidden" name="solicitud_id" id="solicitudIdInput" value="">
-                                          <input type="hidden" name="cod_herramienta" value="{{ $herramienta->cod_herramienta }}">
-                                          <button type="submit" class="btn btn-outline-success agregar-btn">
-                                              <i class="fas fa-plus"></i> Agregar
-                                          </button>
-                                      </form>
-                                   
+                                        @csrf
+                                        <input type="hidden" name="solicitud_id" id="solicitudIdInput" value="">
+                                        <input type="hidden" name="cod_herramienta" value="{{ $herramienta->cod_herramienta }}">
+                                        <button type="submit" class="btn btn-outline-success agregar-btn">
+                                            <i class="fas fa-plus"></i> Agregar
+                                        </button>
+                                    </form>
                                 </li>
                             @endforeach
                         </ul>
@@ -293,8 +285,6 @@
         </div>
     </div>
 </div>
-
-
 
 @else
     <div class="alert alert-success text-center mx-5" role="alert">
@@ -321,19 +311,33 @@
 </script>
 
 <style>
-    .modal-dialog {
-        z-index: 1080 !important; /* Asegúrate de que esté por encima del backdrop */
-        top: 20%; 
-        transform: translate(-50%, -50%); /* Centrar el modal */
-        max-width: 500px; /* Opcional: puedes limitar el ancho */
-        background-color: rgba(0, 0, 0, 0.7);
-        border-radius: 2rem; /* Bordes redondeados más suaves */
 
-    }
+/* Estilo para el modal */
+.modal-dialog {
+    position: fixed;
+    transform: translate(-50%, -50%);
+    width: 90%; /* Ajusta el ancho según sea necesario */
+    max-width: 600px;
+    height: 90vh; /* Altura fija del modal */
+}
 
-    .modal-backdrop {
-        display: none !important;
-    }
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Ajusta el contenido al tamaño del modal */
+}
+
+.modal-body {
+    flex-grow: 1;
+    overflow-y: auto; /* Permite desplazamiento dentro del cuerpo del modal */
+}
+
+/* Lista desplazable */
+.herramientas-list {
+    max-height: 80%; /* Usa el espacio disponible */
+    overflow-y: auto; /* Activa el scroll si el contenido es mayor */
+
+}
 
 </style>
 
@@ -472,6 +476,67 @@
       padding: 10px;
   }
 
+
+
+/* Solicitud - Pantallas pequeñas */
+@media (max-width: 677px) {
+
+    .header{
+        width: 100% !important;
+        z-index: 3 !important;
+    }
+
+    .modal-dialog {
+        height: 70vh; /* Ajusta la altura para dispositivos pequeños */
+        margin-top: 10% !important;
+        width: 90% !important;
+        margin-left: 5% !important;
+        margin-right: 5% !important;
+    }
+
+    .modal-content {
+        top: -50;
+        display: flex;
+        flex-direction: column;
+        height: 60% !important; /* Ajusta el contenido al tamaño del modal */
+    }
+
+
+}
+/* Pantallas medianas (tablets) */
+@media (min-width: 677px) and (max-width: 1000px) {
+    .modal-dialog {
+        height: 60% !important; /* Ajusta la altura para dispositivos pequeños */
+        margin-top: 5% !important;
+        margin-bottom: 20% !important;
+    }
+
+    .modal-content {
+        top: -80;
+        display: flex;
+        flex-direction: column;
+        height: 60% !important; /* Ajusta el contenido al tamaño del modal */
+    }
+
+    .card{
+        height: 220px !important;
+    }
+
+    #cantidad{
+        padding-top: 40px !important;
+    }
+    
+    .main-content{
+        margin-top: 15% !important;
+    }
+}
+
+/* Pantallas grandes (escritorio) */
+@media (min-width: 1001px) {
+    .modal-dialog {
+        height: 90vh; /* Ajusta la altura para dispositivos pequeños */
+    }
+}
 </style>
 <script>
     // Cuando se carga la página

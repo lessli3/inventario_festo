@@ -7,6 +7,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ScannerController;
 use App\Http\Controllers\HerramientaController;
 use App\Http\Controllers\SolicitudController;
+use App\Http\Controllers\HomeController;
+
+use App\Models\Herramienta;
+use App\Models\Categoria;
 use App\Http\Livewire\Post;
 
 /*
@@ -24,9 +28,8 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/home', function () {
-    return view('home');
-})->name('home'); 
+Route::get('/home', [HomeController::class, 'index'])->name('home');    
+Route::get('/buscar-herramientas', [HomeController::class, 'buscar'])->name('buscar.herramientas'); // Ruta para buscar herramientas
 
 #Route::get('/pdfview', function () {return view('pdf.solicitud');});
 
