@@ -196,9 +196,7 @@ Una solución ligera basada en Docker para configurar un entorno de desarrollo c
 
 ## Estructura del proyecto
 
-![image](https://github.com/user-attachments/assets/5dd687f5-c17e-4ab6-a0fb-0707f6cb3e82)
 
-![image](https://github.com/user-attachments/assets/c809ac6f-6d98-49b2-8937-8adfd7a4abe5)
 
 | **Descripción**                                                                                                                                                          | **Imagen**                                                                                                                |
 |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
@@ -221,7 +219,8 @@ Una solución ligera basada en Docker para configurar un entorno de desarrollo c
 
         
 
-
+![image](https://github.com/user-attachments/assets/5dd687f5-c17e-4ab6-a0fb-0707f6cb3e82)
+![image](https://github.com/user-attachments/assets/c809ac6f-6d98-49b2-8937-8adfd7a4abe5)
 
 
 
