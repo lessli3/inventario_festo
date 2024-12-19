@@ -200,10 +200,11 @@ Una solución ligera basada en Docker para configurar un entorno de desarrollo c
 
 ![image](https://github.com/user-attachments/assets/c809ac6f-6d98-49b2-8937-8adfd7a4abe5)
 
-| **Descripción** | **Imagen** |
-|-----------------|-----------|
-| La carpeta `app` incluye la lógica principal de la aplicación, con subcarpetas como:<br> - **Actions**: Acciones específicas.<br> - **Fortify**: Gestión de usuarios y contraseñas.<br> - **Http**: Controladores HTTP.<br> - **Console**: Comandos personalizados.<br> - **Exceptions**: Manejo de excepciones. | ![Estructura App](https://github.com/user-attachments/assets/5f23a252-1366-40b8-aa04-ebe6743c2ee4) |
-| Este directorio contiene los archivos fuente de la aplicación, organizados en componentes como:<br> - **Livewire**: Interfaz de usuario.<br> - **Carritolist.php**<br> - **Herramientalist.php**<br> - **Inventariolist.php**<br> - **Solicitudeslist.php** | ![Archivos Fuente](https://github.com/user-attachments/assets/5bee6c34-1a63-49fa-b52c-928b6bbb6feb) |
+| **Descripción**                                                                                                                                                         | **Imagen**                                                                                                                |
+|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
+| La carpeta `app` incluye la lógica principal de la aplicación, con subcarpetas como `Actions` para acciones específicas, `Fortify` para gestión de usuarios y contraseñas, `Http` para controladores HTTP, `Console` para comandos, y `Exceptions` para manejo de excepciones. | ![image](https://github.com/user-attachments/assets/5f23a252-1366-40b8-aa04-ebe6743c2ee4)                                 |
+| Este directorio contiene los archivos fuente de la aplicación, organizados en componentes como `Livewire` para la interfaz de usuario, y archivos como `Carritolist.php`, `Herramientalist.php`, `Inventariolist.php` y `Solicitudeslist.php`, que generan listas específicas.        | ![image](https://github.com/user-attachments/assets/5bee6c34-1a63-49fa-b52c-928b6bbb6feb)                                 |
+
 
 
         
