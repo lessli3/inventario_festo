@@ -11,7 +11,7 @@ use App\Http\Controllers\HomeController;
 
 use App\Models\Herramienta;
 use App\Models\Categoria;
-use App\Http\Livewire\Post;
+/*use App\Http\Livewire\Post;*/
 
 /*
 |--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     
     Route::post('/solicitudes', [SolicitudController::class, 'store'])->name('solicitudes.store');
     Route::get('/solicitudIndex', [SolicitudController::class, 'index'])->name('solicitudes.index')->middleware('auth');
-    Route::put('/solicitudes/update', [SolicitudController::class, 'update'])->name('solicitudes.update');
+    Route::match(['get', 'post', 'put'], '/solicitudes/{id}/update', [SolicitudController::class, 'update'])->name('solicitud.update');
     Route::get('/calendario', [SolicitudController::class, 'calendario'])->name('solicitudes.calendario')->middleware('auth');
     Route::get('/solicitudes/create', [SolicitudController::class, 'create'])->name('solicitudes.create');
     Route::put('/solicitudes/{id}/estado', [SolicitudController::class, 'actualizarEstado'])->name('solicitud.actualizarEstado');
@@ -73,9 +73,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         //Route::post('/solicitudes/{solicitud}/agregar-herramienta', [SolicitudController::class, 'agregarHerramienta'])->name('solicitudes.agregarHerramienta');
     Route::get('/solicitudes/filtrar', [SolicitudController::class, 'filtrarHerramientas'])->name('solicitudes.filtrar');
     Route::delete('/solicitudes/{solicitudId}/herramienta/{codHerramienta}', [SolicitudController::class, 'eliminarHerramienta'])->name('eliminar.herramienta');
-    Route::post('/solicitudes/{solicitud}/agregarHerramienta', [SolicitudController::class, 'agregarHerramienta'])->name('solicitudes.agregarHerramienta');
+    Route::post('/solicitudes/{id}/agregarHerramienta', [SolicitudController::class, 'agregarHerramienta'])->name('solicitudes.agregarHerramienta');
     Route::put('/solicitudes/{solicitudId}/detalle/{detalleId}/cantidad', [SolicitudController::class, 'actualizarCantidad'])->name('actualizar.cantidad');
     Route::get('/archivo', [SolicitudController::class, 'finalizadas'])->name('archivo');
+    Route::get('/solicitudes/{id}/edit', [SolicitudController::class, 'edit'])->name('solicitud.edit');
 
     //Route::post('/solicitudes/{solicitudId}/agregar-herramienta', [SolicitudController::class, 'agregarHerramienta'])->name('solicitudes.agregarHerramienta');
     Route::get('/verificar-codigo-herramienta/{herramientaId}/{codigoBarras}', [SolicitudController::class, 'verificarCodigo']);
@@ -95,6 +96,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/monitores', [UserController::class, 'Roles'])->name('monitores');
     Route::get('/crearMonitor', [UserController::class, 'mostrarFormularioCrearMonitor'])->name('mostrarFormularioCrearMonitor');
     Route::post('/crearMonitor', [UserController::class, 'crearMonitor'])->name('crearMonitor');
+
+    Route::post('/logout', [AuthController::class, 'destroy'])->middleware('web')->name('logout');
 
 });
 

@@ -10,6 +10,7 @@ class Solicitud extends Model
     use HasFactory; 
 
     protected $table = 'solicitudes'; 
+    const MAX_HERRAMIENTAS = 2;
 
     protected $fillable = [
         'user_identity',
@@ -32,5 +33,13 @@ class Solicitud extends Model
     {
         return $this->hasMany(DetalleSolicitud::class);
     }
+
+    public function puedeAgregarHerramienta()
+    {
+        return $this->detalles->count() < self::MAX_HERRAMIENTAS;
+    }
+
+
+    
     
 }

@@ -4,21 +4,32 @@
     <div class="container">
     <h1 class="col-12 text-center fw-bold mb-4 mt-3">USUARIOS</h1>
 
-@if (session('success'))
-  <div class="alert alert-success" id="successAlert">
-      {{ session('success') }}
-  </div>
-  @endif
+    <!--Alertas--->
+        @if (session('success'))
+            <script>
+                alertify.success('<i class="fas fa-check-circle"></i> {{ session('success') }}');
+            </script>
+        @endif
+        @if ($errors->any())
+            <script>
+                @foreach ($errors->all() as $error)
+                    alertify.error('<i class="fas fa-times-circle"></i> {{ session('error') }}');
+                @endforeach
+            </script>
+        @endif
+        @if (session('error'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    alertify.error('<i class="fas fa-times-circle"></i> {{ session('error') }}');
+                });
+            </script>
 
-  @if ($errors->any())
-  <div class="alert alert-danger" id="errorAlert">
-      @foreach ($errors->all() as $error)
-          <li>{{ $error }}</li>
-      @endforeach
-  </div>
-@endif 
-
-        <!-- Botones para alternar entre Instructores y Monitores -->
+            @php
+                // Limpiar el mensaje de error de la sesión
+                session()->forget('error');
+            @endphp
+        @endif
+    <!-- Botones para alternar entre Instructores y Monitores -->
         <div class="row mb-4">
             <!-- Botón de Instructores -->
             <div class="col-lg-2 col-md-4 col-sm-12 mb-2 text-lg-end text-center">
@@ -52,8 +63,7 @@
                     <form action="{{ $role == 'Monitor' ? route('convertirInstructor') : route('createMonitor') }}" method="POST" style="display: inline;">
                         <div class="card-client {{ $role == 'Monitor' ? 'monitor' : 'instructor' }}"
                             id="card-{{ $instructor->id }}"
-                            style="background-color: {{ $role == 'Monitor' ? '#2b9baa' : 'rgb(29, 148, 40)' }}; 
-                                border: 4px solid {{ $role == 'Monitor' ? 'rgb(102, 172, 167)' : 'rgb(68, 177, 80)' }};">
+                            style="background-color: {{ $role == 'Monitor' ? '#00304d' : '#007832' }};">
                             <div class="card-inner">
                                 <!-- Cara frontal -->
                                 <div class="front">
@@ -78,11 +88,11 @@
 
                                 <!-- Cara trasera (información adicional) -->
                                 <div class="back">
-                                    <p>CC: {{ $instructor->user_identity }}</p>
+                                    <p class="fw-bold"><i class="fas fa-address-card"></i> {{ $instructor->user_identity }}</p>
                                     <br>
-                                    <p>Email: {{ $instructor->email }}</p>
+                                    <p class="fw-bold"><i class="fas fa-at"></i> {{ $instructor->email }}</p>
                                     <br>
-                                    <p>Teléfono: {{ $instructor->telefono }}</p>
+                                    <p class="fw-bold"><i class="fas fa-phone"></i> {{ $instructor->telefono }}</p>
 
                                     <button type="button" onclick="flipCardBack('{{ $instructor->id }}')" class="btn btn-secondary mt-3">
                                         Volver
@@ -316,6 +326,22 @@
     opacity: 1;
     transform: translate(-50%, -130%);
 }
+
+
+
+.card-client.card-flipped {
+    background-color: #1d2939; /* Color de fondo para la parte trasera */
+    color: #fff; /* Asegura que el texto sea legible */
+}
+
+.card-client.monitor.card-flipped {
+    background-color: rgb(102, 172, 167) !important; /* Color para monitores */
+}
+
+.card-client.instructor.card-flipped {
+    background-color:  rgb(68, 177, 80)  !important; /* Color para instructores */
+}
+
 </style>
 
 <style>

@@ -2,14 +2,14 @@
 @section('titulo', 'Solicitudes')
 @section('content')
 @can('verSolicitud')
-<!-- Mensaje de éxito o error -->
+
 <div class="container">
     <div class="row">
-        <div class="col-md-7">
-        <h2 class="text-center mb-3 mt-4 mb-4 fw-bold">SOLICITUDES</h2>
+        <div class="col-md-12">
+        <h2 class="text-center mb-3 mt-3 mb-4 fw-bold">SOLICITUDES ACEPTADAS</h2>
         </div>
         @can('editarSolicitud')
-        <div class="col-md-5">
+        <div class="col-md-5 offset-lg-7 mt-1">
         <form id="filterForm" method="GET" action="{{ route('solicitudes.index') }}">
             <div class="form-group mb-3 d-flex">
                 <input type="text" id="buscarUserIdentity" name="solicitud" class="form-control" placeholder="Buscar por cédula..." >
@@ -21,41 +21,41 @@
         </div>
         @endcan
     </div>
+
     @if (session('success'))
-  <div class="alert alert-success" id="successAlert">
-      {{ session('success') }}
-  </div>
-  @endif
+        <script>
+            alertify.success('<i class="fas fa-check-circle"></i> {{ session('success') }}');
+        </script>
+    @endif
+    @if ($errors->any())
+        <script>
+            @foreach ($errors->all() as $error)
+                alertify.error('<i class="fas fa-times-circle"></i> {{ session('error') }}');
+            @endforeach
+        </script>
+    @endif
+    @if (session('error'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                alertify.error('<i class="fas fa-times-circle"></i> {{ session('error') }}');
+            });
+        </script>
 
-  @if ($errors->any())
-  <div class="alert alert-danger" id="errorAlert">
-      @foreach ($errors->all() as $error)
-          <li>{{ $error }}</li>
-      @endforeach
-  </div>
-  @endif 
+        @php
+            // Limpiar el mensaje de error de la sesión
+            session()->forget('error');
+        @endphp
+    @endif
 
-  @if (session('error'))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong>{{ session('error') }}</strong> 
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-
-    <!-- Limpiar el mensaje de la sesión después de mostrarlo -->
-    @php
-        session()->forget('error');
-    @endphp
-@endif
 @if ($solicitudesAceptadas->isNotEmpty())
 @foreach($solicitudesAceptadas as $solicitud)
 <div class="row">
   <div class="col-md-12">
     <div id="accordion">
       <!-- Tarjeta colapsable -->
-      <div class="cardl">
-        <!-- Este enlace activa el colapso dentro de la tarjeta -->
+      <div class="cardl solicitud-card" id="solicitud-{{ $solicitud->id }}">
         <a class="card1" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCard-{{ $solicitud->id }}" aria-expanded="false" aria-controls="collapseCard-{{ $solicitud->id }}">
-        <h5 class="fw-bold" style="color: green;"> {{ $solicitud->fecha }}</h5>
+            <h5 class="fw-bold" style="color: green;"> {{ $solicitud->fecha }}</h5>
                     <p><strong style="color: green;">Hora de la solicitud:</strong> {{ $solicitud->hora }}<br>
                         <strong class="mt-1" style="color: green;">Instructor:</strong> {{ $solicitud->nombre }}<br>
                         <strong style="color: green;">Estado:</strong> {{ $solicitud->estado }}
@@ -68,21 +68,27 @@
         </a>
 
         <!-- Contenido colapsable relacionado a la tarjeta -->
-        <div id="collapseCard-{{ $solicitud->id }}" class="collapse" data-bs-parent="#accordion">
+        <div id="collapseCard-{{ $solicitud->id }}" 
+        class="collapse {{ session('active_solicitud_id') == $solicitud->id ? 'show' : '' }}" 
+        data-bs-parent="#accordion">
           <div class="cardl-body">
             <div class="row">
                     <div class="col-md-9 col-sm-12" style="margin-bottom: 10px;">
                     <p style="margin-top: 8px;"><strong style="color: green; "></strong>Información de la solicitud<br>
                     </div>
 
-                    <div class="col-md-3 col-sm-12 ">
-                    @if ($solicitud->estado !== 'entregada')
-                        @can('editarSolicitud')
-                        <button class="btn btn-outline-success agregarHerramientaBtn" data-bs-toggle="modal" data-bs-target="#agregarHerramientaModal" data-solicitud-id="{{ $solicitud->id }}">
-                            <i class="fas fa-plus"></i> Agregar herramienta
-                        </button>
-                        @endcan
-                    @endif
+                    <div class="col-md-3 col-sm-12 mt-2">
+                        @if ($solicitud->estado !== 'entregada')
+                            @can('editarSolicitud')
+                                <form action="{{ route('solicitud.update', $solicitud->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" class="btn btn-outline-success">
+                                        <i class="fas fa-pencil-alt"></i> Editar Solicitud
+                                    </button>
+                                </form>
+                            @endcan
+                        @endif
                     </div>
                 <hr class="mt-3">
                 <div class="row">
@@ -90,56 +96,25 @@
                   <div class="row">
                     @foreach($solicitud->detalles as $detalle)
                         <div class="col-md-6 mb-3"> <!-- Cambié a col-md-6 para 2 columnas en pantallas medianas -->
-                            <div class="card p-1 pt-2" style="background-image: url('{{ filter_var($detalle->herramienta->imagen, FILTER_VALIDATE_URL) ? $detalle->herramienta->imagen : asset('imagenes/herramientas/' . $detalle->herramienta->imagen) }}'); background-size: cover; height: 180px">
+                            <div class="card p-1 pt-2" style="background-image: url('{{ filter_var($detalle->herramienta->imagen, FILTER_VALIDATE_URL) ? $detalle->herramienta->imagen : asset('imagenes/herramientas/' . $detalle->herramienta->imagen) }}'); background-size: cover; height: 150px">
                                 <div class="card-content col-md-12">
                                 <div class="row mb-1">
                                     <div class="col-sm-12 d-flex align-items-center justify-content-between">
                                         <h5 class="fw-bold text-white mb-0 me-2" id="nombre">{{ $detalle->herramienta->nombre }}</h5>
-                                        @if ($solicitud->estado !== 'entregada')
-                                            @can('editarSolicitud')
-                                                <form action="{{ route('eliminar.herramienta', ['solicitudId' => $solicitud->id, 'codHerramienta' => $detalle->herramienta->cod_herramienta]) }}" method="POST" class="d-inline mb-0">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </form>
-                                            @endcan
-                                        @endif
                                     </div>
                                 </div>
                                     <p>
                                         <strong style="color: white;">Código:</strong> <span  style="color: white;">{{ $detalle->herramienta->cod_herramienta }}</span><br>
-                                        <strong style="color: white;">Estado:</strong> <span class="fw-bold" style="color: green;">{{ $detalle->proceso }}</span><br>
-                                        <div class="row" style="top: 110;display: flex;position: absolute;">
-                                            <div class="col-md-10" id="cantidad">
-                                                @can('solicitarHerramienta')
-                                                <strong style="color: white;">Cantidad: {{ $detalle->cantidad}}</strong>
-                                                @endcan
+                                        <strong style="color: white;">Cantidad: {{ $detalle->cantidad}}</strong>
                                                 @if($solicitud->estado === 'entregada')
                                                     <strong style="color: white;">Cantidad: {{ $detalle->cantidad}}</strong>
                                                 @endif
-                                            </div>
-                                            <div class="col-md-10">
-                                                <span style="color: white;">      
-                                                @if($solicitud->estado !== 'entregada')
-                                                    @can('editarSolicitud')
-                                                    <strong style="color: white;">Cantidad:</strong>
-                                                        <!-- Formulario para editar la cantidad -->
-                                                        <form action="{{ route('actualizar.cantidad', ['solicitudId' => $solicitud->id, 'detalleId' => $detalle->id]) }}" method="POST" class="d-flex align-items-center" style="display: inline-flex;" >
-                                                            @csrf
-                                                            @method('PUT')
-                                                            <input type="number" name="cantidad" value="{{ $detalle->cantidad }}" class="form-control" style="width: 40px; color: black;height: 30px;">
-                                                            <button type="submit" class="btn btn-outline-info btn-sm ms-1">
-                                                                <i class="fas fa-check" style="font-size: 20px;"></i>
-                                                            </button>
-                                                        </form>
-                                                    @endcan
-                                                @endif
-                                                </span>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                            <strong style="color: white;">Estado:</strong> <span class="fw-bold" style="color: green;">{{ $detalle->proceso }}</span><br>
                                             </div>
                                         </div>
-                                        </p>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -181,110 +156,8 @@
 @endif
 </div>
 
-<!-- Modal para lector de código de barras 
-<div class="modal fade" id="codigoBarrasModal" tabindex="-1" aria-labelledby="codigoBarrasModalLabel" aria-hidden="true" data-bs-backdrop="false">
-  <div class="modal-dialog">
-    <div class="modal-content" style="background-color: rgba(0, 0, 0, 0.7); border-radius: 2rem">
-      <div class="modal-header">
-        <h5 class="modal-title" id="codigoBarrasModalLabel" style="color: white;">Verificar Herramienta</h5>
-      </div>
-      <div class="modal-body">
-        <form id="codigoBarrasForm">
-          <div class="mb-3">
-            <label for="codigoBarras" class="form-label" style="color: white;">Escanea el código de barras</label>
-            <input type="text" class="form-control" id="codigoBarras" placeholder="Escanea aquí">
-          </div>
-          <div id="errorMensaje" class="text-danger" style="display: none;">Código de herramienta no coincide.</div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" id="verificarCodigoBtn">Verificar</button>
-      </div>
-    </div>
-  </div>
-</div>-->
 
-<!-- Modal para buscar herramientas 
-<div class="modal fade" id="agregarHerramientaModal" tabindex="-1" aria-labelledby="agregarHerramientaModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="agregarHerramientaModalLabel">Seleccionar Herramienta</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="agregarHerramientaForm" action="" method="POST">
-            @csrf
-            <div class="form-group mb-3 d-flex">
-                <input type="text" id="buscarHerramienta" class="form-control" placeholder="Buscar herramienta...">
-                <button type="button" class="btn btn-outline-primary ms-2" id="filtrarBtn">
-                    <i class="fas fa-search"></i> Filtrar
-                </button>
-            </div>
-            <input type="text" wire:model.debounce.300ms="search" class="form-control" placeholder="Buscar herramienta...">
-            <div class="form-group">
-                <div class="herramientas-list">
-                    <ul class="list-group">
-                        @foreach($herramientasDisponibles as $herramienta)
-                        <li class="list-group-item d-flex justify-content-between align-items-center herramienta-item">
-                            {{ $herramienta->nombre }} - {{ $herramienta->cod_herramienta }}
-                            <button type="submit" class="btn btn-outline-success agregar-btn" data-herramienta-id="{{ $herramienta->id }}">
-                                <i class="fas fa-plus"></i> Agregar
-                            </button>
-                        </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
--->
-<div class="modal fade" id="agregarHerramientaModal" tabindex="-1" aria-labelledby="agregarHerramientaModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="agregarHerramientaModalLabel">Seleccionar Herramienta</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="filterForm" method="GET" action="{{ route('solicitudes.index') }}">
-                    <div class="form-group mb-3 d-flex">
-                        <input type="text" id="buscarHerramienta" name="search" class="form-control" placeholder="Buscar herramienta..." value="{{ request('search') }}">
-                        <button type="submit" class="btn btn-outline-primary ms-2" id="filtrarBtn">
-                            <i class="fas fa-search"></i> Filtrar
-                        </button>
-                    </div>
-                </form>
-                <div class="form-group">
-                    <div class="herramientas-list">
-                        <ul class="list-group">
-                            @foreach($herramientasDisponibles as $herramienta)
-                                <li class="list-group-item d-flex justify-content-between align-items-center herramienta-item">
-                                    {{ $herramienta->nombre }} - {{ $herramienta->cod_herramienta }}
-                                    <form id="agregarHerramientaForm" action="{{ route('solicitudes.agregarHerramienta', $solicitud->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        <input type="hidden" name="solicitud_id" id="solicitudIdInput" value="">
-                                        <input type="hidden" name="cod_herramienta" value="{{ $herramienta->cod_herramienta }}">
-                                        <button type="submit" class="btn btn-outline-success agregar-btn">
-                                            <i class="fas fa-plus"></i> Agregar
-                                        </button>
-                                    </form>
-                                </li>
-                            @endforeach
-                        </ul>
-                        @if (request('search') && $herramientasDisponibles->isEmpty())
-                            <div class="alert alert-warning">No se encontraron coincidencias.</div>
-                        @endif
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 @else
     <div class="alert alert-success text-center mx-5" role="alert">
@@ -308,50 +181,34 @@
         hideAlertAfterDelay('successAlert');
         hideAlertAfterDelay('errorAlert');
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+    // Selecciona todas las tarjetas
+    const solicitudCards = document.querySelectorAll('.solicitud-card');
+
+    solicitudCards.forEach(card => {
+        // Encuentra el contenido colapsable asociado
+        const collapseContent = card.querySelector('.collapse');
+
+        // Agrega un evento para cuando se expande el colapsable
+        collapseContent.addEventListener('show.bs.collapse', () => {
+            solicitudCards.forEach(otherCard => {
+                if (otherCard !== card) {
+                    otherCard.style.display = 'none'; // Oculta las demás tarjetas
+                }
+            });
+        });
+
+        // Agrega un evento para cuando se cierra el colapsable
+        collapseContent.addEventListener('hide.bs.collapse', () => {
+            solicitudCards.forEach(otherCard => {
+                otherCard.style.display = 'block'; // Muestra todas las tarjetas
+            });
+        });
+    });
+});
+
 </script>
-
-<style>
-
-/* Estilo para el modal */
-.modal-dialog {
-    position: fixed;
-    transform: translate(-50%, -50%);
-    width: 90%; /* Ajusta el ancho según sea necesario */
-    max-width: 600px;
-    height: 90vh; /* Altura fija del modal */
-}
-
-.modal-content {
-    display: flex;
-    flex-direction: column;
-    height: 100%; /* Ajusta el contenido al tamaño del modal */
-}
-
-.modal-body {
-    flex-grow: 1;
-    overflow-y: auto; /* Permite desplazamiento dentro del cuerpo del modal */
-}
-
-/* Lista desplazable */
-.herramientas-list {
-    max-height: 80%; /* Usa el espacio disponible */
-    overflow-y: auto; /* Activa el scroll si el contenido es mayor */
-
-}
-
-</style>
-
-<style>
-    input[type="number"]::-webkit-outer-spin-button,
-    input[type="number"]::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-
-    input[type="number"] {
-        -moz-appearance: textfield;
-    }
-</style>
 
 <!---<div class="modal-backdrop fade show" style="background-color: transparent"></div>--->
 
@@ -477,8 +334,6 @@
   }
 
 
-
-/* Solicitud - Pantallas pequeñas */
 @media (max-width: 677px) {
 
     .header{

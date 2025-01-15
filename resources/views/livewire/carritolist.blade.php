@@ -1,5 +1,6 @@
-<div class="min-h-screen pt-3">
-  <h1 class="mb-10 text-center text-2xl font-bold" style="color: green">Herramientas para Solicitud <i class="fas fa-clipboard-check"></i></h1>
+
+<div class="min-h-screen">
+  <h1 class="text-center mb-5 fw-bold" style="font-size: 28px">HERRAMIENTAS PARA SOLICITUD</h1>
   <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
     <div class="rounded-lg md:w-2/3">
       @if($solicitudItems->isEmpty())
@@ -35,7 +36,7 @@
                   -
                 </button>
                 <input type="text" readonly="readonly" value="{{$item->cantidad}}" 
-                      class="w-9 h-9 text-center text-gray-900 text-sm outline-none border border-gray-300 rounded-sm">
+                      class="w-9 h-9 text-center text-gray-900 text-sm outline-none border border-gray-300 rounded-sm" style="border-radius: 10px;">
                 <button class="w-7 h-7 rounded-full border border-gray-300 bg-white text-gray-900 cursor-pointer" 
                         wire:click="incrementCant({{ $item->id }})"
                         @if($item->cantidad >= $item->herramienta->stock) disabled @endif>
@@ -63,7 +64,7 @@
                   -
                 </button>
                 <input type="text" readonly="readonly" value="{{$item->cantidad}}" 
-                      class="w-9 h-9 text-center text-gray-900 text-sm outline-none border border-gray-300 rounded-sm">
+                      class="w-9 h-9 text-center text-gray-900 text-sm outline-none border border-gray-300 rounded-sm " style="border-radius: 10px;">
                 <button class="w-7 h-7 rounded-full border border-gray-300 text-gray-900 cursor-pointer" 
                         wire:click="incrementCant({{ $item->id }})"
                         @if($item->cantidad >= $item->herramienta->stock) disabled @endif>
@@ -86,28 +87,33 @@
     </div>
     <!-- Sub total -->
     <div class="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
-    <h5 class="text-center">¿Desea generar una solicitud con las herramientas seleccionadas?</h5>
+      <h5 class="text-center">¿Desea generar una solicitud con las herramientas seleccionadas?</h5>
       <hr class="my-4" />
       @if(!$solicitudItems->isEmpty())
         <div class="text-center mt-4">
             <a href="{{ route('solicitudes.create', [
                 'items' => $solicitudItems,
-
             ]) }}" class="btn fw-semibold btn-outline-success">Confirmar <i class="fas fa-check"></i></a>
         </div>
+        <div class="text-center mt-2">
+            <a href="/herramientas" class="btn btn-outline-secondary">Regresar <i class="fas fa-arrow-left"></i></a>
+        </div>
+      @else
+        <div class="text-center mt-4">
+            <a href="/herramientas" class="btn fw-semibold btn-outline-success">Agregar Herramientas <i class="fas fa-plus"></i></a>
+        </div>
       @endif
+
     </div>
   </div>
 </div>
-
 <style>
 
   /* General: Ocultar contenido superpuesto por defecto */
-.card-content {
+  .card-content {
   display: none;
-}
+  }
 
-/* Mostrar contenido superpuesto en pantallas pequeñas */
 @media (max-width: 677px) {
   .card-content {
     display: flex;
@@ -134,10 +140,6 @@
     margin-top: 0 !important;
   }
 }
-
-
-
-/* Pantallas medianas (tablets) */
 @media (min-width: 677px) and (max-width: 1000px) {
   .card-content {
     display: flex;

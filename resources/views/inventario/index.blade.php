@@ -228,5 +228,10 @@ a.px-4:nth-child(2){
     margin-left: 5% !important;
 }
 
+@media (min-width: 1001px) {
+    .main-content{
+    margin-left: 20% !important;
+}
+}
 </style>
 

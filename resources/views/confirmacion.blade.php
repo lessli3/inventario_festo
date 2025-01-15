@@ -22,7 +22,6 @@
                 <th>NOMBRE</th>
                 <th>CANTIDAD</th>
                 <th class="ps-3">ESTADO</th>
-                <th>EDITAR</th>
             </tr>
         </thead>
         <tbody id="tools-list">
@@ -49,11 +48,6 @@
                     </td>
                     <td>
                         <span class="status badge badge-success rounded-pill d-inline" style="background-color: cadetblue;">PENDIENTE</span>
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-link btn-sm btn-rounded">
-                            <a href="/solicitudIndex" style="text-decoration:none !important"><i class="fas fa-pencil"> </i>Editar</a>
-                        </button>
                     </td>
                 </tr>
             @endforeach

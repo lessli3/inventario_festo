@@ -1,10 +1,11 @@
 @extends('layouts.dashboard')
+<link rel="icon" href="{{ asset('img/logosenavv.png?v=1') }}" type="image/png" >
 @section('titulo', 'Crear Solicitud')
 @section('content')
 @can('solicitarHerramienta')
 <section>
     <center>
-        <h3 class="my-4 fw-bold">COMPLETA LA SOLICITUD</h3>
+        <h4 class="mb-4 fw-bold">COMPLETA LA SOLICITUD</h4>
     </center>
     <div class="container mt-5">
         <div class="row">
@@ -32,41 +33,40 @@
 
                     <h6 class="mt-4">Información de la solicitud</h6>
                     <hr>
-                    <div class="card p-3" style="height: 180px">
+                    <div class="card pt-4 mb-5" style="height: 200px">
+                    <ol >
                         @foreach($solicituditemsArray as $item)
                             <!-- Hidden inputs for storing item data -->
                             <input type="hidden" name="solicituditemsArray[]" value="{{ json_encode($item) }}">
                             <input type="hidden" name="cod_herramienta[]" value="{{ $item['cod_herramienta'] }}">
                             <input type="hidden" name="cantidad[]" value="{{ $item['cantidad'] }}">
                             
-                            <div class="row">
-                                <div class="form-group col-lg-6">
-                                    <label for="herramienta"> Herramienta:</label>
-                                    <h5 class="fw-semibold ms-2">
-                                        {{ $item['nombre'] }}
-                                    </h5> 
-                                </div>   
-                                <div class="form-group col-lg-6">
-                                    <label for="cantidad_herramienta">Cantidad:</label>
-                                    <h6 class="fw-semibold ms-2">
+                            <li class="row">
+                                <div class="form-group col-md-7 ">
+                                    <h6 style="font-size: 20px; text-transform: uppercase;" class="ms-2 mt-2">
+                                        <i class="fas fa-tools fw-bold" style="color: green"></i> {{ $item['nombre'] }}
+                                    </h6> 
+                                </div>  
+                                <div class="form-group col-md-4" id="cantidad_herramienta">
+                                    <label for="cantidad_herramienta" class="fw-bold">Cantidad:</label>
+                                    <h6 style="font-size: 16px" class=" ms-2">
                                         {{ $item['cantidad'] }} unidad(es)
                                     </h6>  
                                 </div>     
-                            </div>
+                            </li>
                         @endforeach
-                        <div class="row">
-                                <div class="d-flex col-lg-6 p-3">
-                                <a href="/solicitudItems" class="btn btn-outline-info">
-                                    <i class="fas fa-edit me-1"></i> Editar
-                                </a>
-                                </div>
-                            </div>
+                    </ol>
+                    <center class="mb-5">
+                        <a href="/solicitudItems" class="btn btn-outline-success">
+                            <i class="fas fa-edit me-1"></i> Editar
+                        </a>
+                    </center>
                         </div>
-                    </div>
-
-                <div class="col-md-12 col-lg-6 col-sm-12">
-                <div class="form-group col-lg-12 mb-4 col-sm-12" id="calendar">
-                            <label for="semana" class="mb-2 fw">Fecha de la solicitud:</label>
+                </div>
+                <div class="col-md-12 col-lg-6">
+                <div class="form-group col-lg-12 mb-4">
+                            <label for="semana" class="mb-2fw">Fecha de la solicitud:</label>
+                            <hr>
                             <div class="cardc">
                             <div id="calendar"></div>
                             <!-- Campos ocultos para fecha y hora -->
@@ -75,17 +75,11 @@
                             </div>
                         </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12 col-sm-12">
-                    <div class="text-center my-4">
-                        <button type="submit" class="btn btn-plus fw-bold" >Guardar Solicitud</button>
-                    </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12">
-                        <div class="text-center mt-1 mb-4">
-                            <a href="/herramientas" class="btn btn-secondary">Volver</a>
-                        </div>
-                    </div>
+                <div class="text-center pt-3">
+                    <button type="submit" class="btn btn-outline-success fw-bold" >GENERAR SOLICITUD <i class="fas fa-check"></i></button>
+                </div>
+                <div class="text-center mt-3 mb-5">
+                    <a href="/solicitudItems" class="btn btn-outline-secondary" ><i class="fas fa-arrow-left"></i> Regresar</a>
                 </div>
             </form>
         </div>
@@ -214,7 +208,7 @@
         }
 
         .cardc{
-            width: 110%;
+            width: 105%;
             max-width: 150% !important;
             padding: 0;
             height: 300px;
@@ -232,7 +226,13 @@
         }
 
         .card{
-            height: 320px !important;
+            height: 290px !important;
+            width: 100% !important;
+        }
+
+        #cantidad_herramienta{
+            margin-left: 50px !important;
+            margin-top: 4px !important;
         }
 
 }
@@ -241,7 +241,7 @@
 /* Pantallas medianas (tablets) */
 @media (min-width: 677px) and (max-width: 1000px) {
     .card{
-            height: 300px !important;
+            height: 210px !important;
         }
 }    
 </style>
@@ -368,7 +368,6 @@
  });
 
 </script>
-
 
 
 

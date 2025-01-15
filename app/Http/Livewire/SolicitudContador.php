@@ -10,6 +10,7 @@ class SolicitudContador extends Component
     // Escucha el evento 'updateSolicitudCount' y llama al método 'obtenerSolicitudCount'
     protected $listeners = ['updateSolicitudCount' => 'obtenerSolicitudCount'];
 
+        public $total;
     // Método que se ejecuta para renderizar la vista
     public function render()
     {

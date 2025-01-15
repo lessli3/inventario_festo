@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Dashboard')</title>    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="{{ asset('img/logosenavv.png?v=1') }}" type="image/png" >
+    <title>@yield('title', 'CONTROL FESTO')</title>    
+    
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -15,8 +16,24 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
     <!-- Localización en español -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales/es.js'></script>
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap/main.min.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap/main.min.js"></script>-->
+    
+    <!-- Estilos de Alertify.js -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
 
+    <!-- Script de Alertify.js -->
+    <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+    <script>
+    alertify.set('notifier', 'position', 'top-right'); // Posición del ícono
+    </script>
+
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.8/dist/sweetalert2.min.css" rel="stylesheet">
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.8/dist/sweetalert2.all.min.js"></script>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('css/styledashboard.css') }}">
@@ -25,7 +42,6 @@
 
 </head>
 <body>
-@livewireScripts
 <div class="row mt-3">
     <header class="header d-flex align-items-center" style="z-index: 1">
         <!-- Menú hamburguesa alineado a la izquierda -->
@@ -115,7 +131,7 @@
 
                 @can('editarSolicitud')
                 <div class="Usuario me-2" style="margin-left: 7%">
-                    <div style="background-color: rgb(25, 161, 13); width: 48px; border-radius: 50%; height: 45px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">
+                    <div style="background-color: #39a900; width: 48px; border-radius: 50%; height: 50px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">
                         <a href="/solicitudIndex" style="color: rgb(242, 243, 243);">
                             <i class="fas fa-clipboard-check icono" style="font-size: 25px;"></i>
                         </a>
@@ -125,7 +141,7 @@
 
                 @can('crearHerramienta')
                 <div class="Usuario me-2" style="margin-left: 7%">
-                    <div style="background-color: rgb(25, 161, 13); width: 48px; border-radius: 50%; height: 45px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">
+                    <div style="background-color: #39a900; width: 48px; border-radius: 50%; height: 50px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">
                         <a href="/herramientas" style="color: rgb(242, 243, 243);">
                             <i class="fas fa-tools icono" style="font-size: 25px;"></i>
                         </a>
@@ -135,9 +151,9 @@
             </div>
 
             <!-- Contenedor del usuario, alineado a la derecha -->
-            <div class="user d-flex align-items-center mx-3" style="background-color: #b5b8b477; border-radius: 15px; color: rgb(25, 161, 13); height: 55px; width: 200px;justify-content: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); padding: 1%;">
+            <div class="user d-flex align-items-center mx-3" style="background-color: #b5b8b477; border-radius: 15px; color: #39a900; height: 55px; width: 200px;justify-content: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); padding: 1%;">
                 <div class="col-md-4 d-flex justify-content-center align-items-center">
-                    <div class="user-b inline-flex justify-center items-center fw-bold pb-1 ms-1" style="background-color: rgb(25, 161, 13);border-radius: 50%;height: 40px;text-align: center;width: 40px;align-content: center; color:white; font-size: 22px">
+                    <div class="user-b inline-flex justify-center items-center fw-bold pb-1 ms-1 me-1" style="background-color: #39a900;border-radius: 50%;height: 40px;text-align: center;width: 40px;align-content: center; color:white; font-size: 22px">
                         {{ strtoupper(substr(Auth::user()->name, 0, 1)) }} <!-- Mostrar la inicial en mayúscula -->
                     </div>
                 </div>
@@ -152,17 +168,14 @@
         @endauth    
     </header>
 </div>
-
-
-
     <aside class="sidebar d-none d-lg-block">
         <div class="sidebar-header">
             <div class="row">
-            <img src="img/logov.png" alt="">
+            <img src="{{ asset('img/logov.png') }}" alt="">
             </div>
-            <h4 class="mt-2 fw-bold" style="color: rgb(25, 161, 13)">FESTO</h4>
+            <h4 class="mt-2 fw-bold" style="color: #39a900; font-size: 28px !important;" >FESTO</h4>
         </div>
-        <ul class="sidebar-links" style="padding: 0;">
+        <ul class="sidebar-links" style="padding: 0; overflow-y: auto; max-height: 380px; scrollbar-width: none; -ms-overflow-style: none;">
             <!---<h4 class="fw-bold">
                 <span>Menu</span>
                 <div class="menu-separator"></div>
@@ -219,7 +232,13 @@
                 <a href="{{ route('profile') }}"><span class="material-symbols-outlined">account_circle</span>Perfil</a>
             </li>
             <li>
-                <a href="/home"><span class="material-symbols-outlined">logout</span>Cerrar Sesión</a>
+                <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
+                    @csrf
+                </form>
+
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="cursor: pointer;">
+                    <span class="material-symbols-outlined">logout</span> Cerrar Sesión
+                </a>
             </li>
             <!---
             <li>
@@ -235,7 +254,8 @@
         @yield('content')
     </div>
 
-<script>
+
+    <script>
             document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('menuToggle').addEventListener('click', function() {
             const mobileMenu = document.getElementById('mobileMenu');
@@ -252,8 +272,6 @@
         });
         });
      </script>
-
-
 
 <!--<script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>  Usando CDN para Hammer.js 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
@@ -280,30 +298,32 @@
         });
     });
 </script>--->
+@livewireScripts
 </body>
 </html>
 
+
 <style>
     /* Menú móvil oculto por defecto en pantallas grandes */
-.mobile-menu {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #333;
-    color: white;
-    padding: 20px;
-    z-index: 1050;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease-in-out;
-    overflow-y: auto;
-}
+    .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #333;
+        color: white;
+        padding: 20px;
+        z-index: 1050;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        overflow-y: auto;
+    }
 
-.mobile-menu.active {
-    transform: translateX(0);
-}
+    .mobile-menu.active {
+        transform: translateX(0);
+    }
 
 /* Mostrar el menú en pantallas pequeñas */
 @media (max-width: 991.98px) { /* lg y menor */
@@ -335,7 +355,6 @@
         font-size: 20px;
     }
 }
-
 </style>
 
 

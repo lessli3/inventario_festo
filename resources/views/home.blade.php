@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{!! asset('css/stylehome.css') !!}">
-    <script src="{{ asset('js/home.js') }}"></script>
+    <script type="module" src="{{ asset('js/home.js') }}"></script>
     
     <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-RANDOM_HASH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YOUR_HASH" crossorigin="anonymous"></script>-->
@@ -144,7 +144,7 @@
                 <div class="carousel-inner">
                         <!-- Tarjeta 1 -->
                         <div class="carousel-item active" style="padding-top: 90px;">
-                        <div class="card" id="card1" style="background: url('img/home/card1.jpg') no-repeat center center; background-size: cover; height: 300px !important;">
+                        <div class="card" id="card1" style="background: url('img/home/card1.jpg') no-repeat center center; background-size: cover; height: 280px !important;">
                             <div class="card-body position-relative bottom-0 start-0 ">
                             <h5 class="card-title mb-2 fw-bold" style="color: white;">Préstamo de recursos</h5>
                             <p class="fw-semibold" style="color: white;">Permite el préstamo de recursos a los instructores que lo requieran.</p>
@@ -153,7 +153,7 @@
                         </div>
                         <!-- Tarjeta 2 -->
                         <div class="carousel-item" style="padding-top: 90px;">
-                        <div class="card" style="background: url('img/home/card2.jpg') no-repeat center center; background-size: cover; height: 300px !important;">
+                        <div class="card" style="background: url('img/home/card2.jpg') no-repeat center center; background-size: cover; height: 280px !important;">
                             <div class="card-body position-relative bottom-0 start-0 ">
                             <h5 class="card-title mb-2 fw-bold" style="color: white;">Incentivo al desarrollo</h5>
                             <p class="fw-semibold" style="color: white;">Incentiva a cada aprendiz, para que pueda acceder a los beneficios de FESTO.</p>
@@ -163,7 +163,7 @@
                         <!-- Agrega el resto de las tarjetas aquí de forma similar -->
                         <!-- Tarjeta 3 -->
                         <div class="carousel-item" style="padding-top: 90px;">
-                        <div class="card" style="background: url('img/home/card3.avif') no-repeat center center; background-size: cover; height: 300px !important;">
+                        <div class="card" style="background: url('img/home/card3.avif') no-repeat center center; background-size: cover; height: 280px !important;">
                             <div class="card-body position-relative bottom-0 start-0 ">
                             <h5 class="card-title mb-2 fw-bold" style="color: white;">Desarrollo en ambientes</h5>
                             <p class="fw-semibold" style="color: white;">Los ambientes que lo requieran podrán capacitarse con los recursos necesarios.</p>
@@ -172,7 +172,7 @@
                         </div>
                         <!-- Tarjeta 4 -->
                         <div class="carousel-item" style="padding-top: 90px;">
-                        <div class="card" style="background: url('img/home/card4.jpg') no-repeat center center; background-size: cover; height: 300px !important;">
+                        <div class="card" style="background: url('img/home/card4.jpg') no-repeat center center; background-size: cover; height: 280px !important;">
                             <div class="card-body position-relative bottom-0 start-0 ">
                             <h5 class="card-title mb-2 fw-bold" style="color: white;">Herramientas Manuales</h5>
                             <p class="fw-semibold" style="color: white;">Podrán realizarse préstamos de las herramientas manuales que se requieran.</p>
@@ -181,7 +181,7 @@
                         </div>
                         <!-- Tarjeta 5 -->
                         <div class="carousel-item" style="padding-top: 90px;">
-                        <div class="card" style="background: url('img/home/card5.jpg') no-repeat center center; background-size: cover; height: 300px !important;">
+                        <div class="card" style="background: url('img/home/card5.jpg') no-repeat center center; background-size: cover; height: 280px !important;">
                             <div class="card-body position-relative bottom-0 start-0 ">
                             <h5 class="card-title mb-2 fw-bold" style="color: white;">Control Entrada - Salida</h5>
                             <p class="fw-semibold" style="color: white;">Se llevará un control de todos los préstamos que se realicen en el área de FESTO.</p>
@@ -190,7 +190,7 @@
                         </div>
                         <!-- Tarjeta 6 -->
                         <div class="carousel-item" style="padding-top: 90px;">
-                        <div class="card" style="background: url('img/home/card6.jpg') no-repeat center center; background-size: cover; height: 300px !important;">
+                        <div class="card" style="background: url('img/home/card6.jpg') no-repeat center center; background-size: cover; height: 280px !important;">
                             <div class="card-body position-relative bottom-0 start-0 ">
                             <h5 class="card-title mb-2 fw-bold" style="color: white;">Herramientas Eléctricas</h5>
                             <p class="fw-semibold" style="color: white;">Podrán realizarse préstamos de las herramientas eléctricas que se requieran.</p>
@@ -203,7 +203,7 @@
                     </div>
             </div>
             <div class="col-md-6 pt-5">
-            <h2 class="fw-bold text-center" id="bienvh">¡Bienvenido a Control Festo!</h2>
+            <h2 class="fw-bold text-center" id="bienvh">¡Bienvenido(a) a Control Festo!</h2>
             <p class="text-start mt-3" id="bienv">Optimiza el proceso de préstamo, devolución y seguimiento de herramientas de FESTO dentro del CBA.</p>
             </div>
         </div>

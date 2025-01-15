@@ -2,13 +2,14 @@
 use Illuminate\Support\Str;
 @endphp
 
+
 <div class="container">
-    @include('layouts.mensaje')
+    <!--@include('layouts.mensaje')--->
     <div class="row mb-5">
-        <h1 class="col-12 text-center fw-bold mt-4">HERRAMIENTAS</h1>
+        <h2 class="col-12 text-center fw-bold mt-4">HERRAMIENTAS</h2>
 
         @can('crearHerramienta')
-            <div class="row mt-3 mb-1" id="opciones">
+            <div class="row mt-3 mb-4" id="opciones">
                 <!-- Botón desplegable (Opciones) -->
                 <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
                     <div class="dropdown">
@@ -55,6 +56,7 @@ use Illuminate\Support\Str;
                                     {{ $mostrarInactivas ? 'Herramientas Activas' : 'Herramientas Inactivas' }}
                                 </a>
                             </li>
+                            
                         </ul>
                     </div>
                 </div>
@@ -99,47 +101,47 @@ use Illuminate\Support\Str;
         @else
 
         @foreach($herramientaCont as $herramientaVista)
-         @if($herramientaVista->estado == ($mostrarInactivas ? 'inactivo' : 'activo'))
-        <div class="col-lg-4 col-md-6 col-sm-12 mb-4" id="cardh" >
-            <!-- Añade la clase 'inactive-tool' si la herramienta está inactiva -->
-            <div class="card herramienta-card {{ $herramientaVista->estado == 'inactivo' ? 'inactive-tool' : '' }}" 
-            style="background-image: url('{{ Str::startsWith($herramientaVista->imagen, ['http://', 'https://']) ? $herramientaVista->imagen : asset('imagenes/herramientas/' . $herramientaVista->imagen) }}');">
-                <div class="card-body">
-                    <div class="row" style="margin-bottom: 25%;">
-                        <div class="d-flex justify-content-between align-items-start mb-2">
-                            @if($herramientaVista->stock > 0 && $herramientaVista->stock <= 3)
-                                @can('editarHerramienta')
-                                <p class="badge bg-warning m-0"><strong>¡Quedan {{ $herramientaVista->stock }} unidades!</strong></p>
-                                @endcan
-                            @elseif($herramientaVista->stock == 0)
-                                <p class="badge bg-danger m-0"><strong>No hay stock disponible.</strong></p>
-                            @endif
-
-                            <div class="d-flex gap-2" style="position: absolute; top: 25px; left: 20px;">
-                                @can('editarHerramienta')
-                                <a href="/herramientas/{{$herramientaVista->id}}/edit" class="btn btn-success">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                @endcan
-
-                                @if($herramientaVista->stock > 0)
-                                    @can('solicitarHerramienta')
-                                    <button type="button" class="btn btn-success d-flex gap-2" wire:click="agregarSolicitud('{{ $herramientaVista->cod_herramienta }}')">
-                                        <i class="fas fa-clipboard-list" style="font-size: 20px"></i>
-                                    </button>
+        @if($herramientaVista->estado == ($mostrarInactivas ? 'inactivo' : 'activo'))
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <!-- Añade la clase 'inactive-tool' si la herramienta está inactiva -->
+                <div class="card herramienta-card {{ $herramientaVista->estado == 'inactivo' ? 'inactive-tool' : '' }}" 
+                style="background-image: url('{{ Str::startsWith($herramientaVista->imagen, ['http://', 'https://']) ? $herramientaVista->imagen : asset('imagenes/herramientas/' . $herramientaVista->imagen) }}');">
+                    <div class="card-body">
+                        <div class="row" style="margin-bottom: 25%;">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                @if($herramientaVista->stock > 0 && $herramientaVista->stock <= 3)
+                                    @can('editarHerramienta')
+                                    <p class="badge bg-warning m-0"><strong>¡Quedan {{ $herramientaVista->stock }} unidades!</strong></p>
                                     @endcan
+                                @elseif($herramientaVista->stock == 0)
+                                    <p class="badge bg-danger m-0"><strong>No hay stock disponible.</strong></p>
                                 @endif
+
+                                <div class="d-flex gap-2" style="position: absolute; top: 25px; left: 20px;">
+                                    @can('editarHerramienta')
+                                    <a href="/herramientas/{{$herramientaVista->id}}/edit" class="btn btn-success">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    @endcan
+
+                                    @if($herramientaVista->stock > 0)
+                                        @can('solicitarHerramienta')
+                                        <button type="button" class="btn btn-success d-flex gap-2" wire:click="agregarSolicitud('{{ $herramientaVista->cod_herramienta }}')">
+                                            <i class="fas fa-clipboard-list" style="font-size: 20px"></i>
+                                        </button>
+                                        @endcan
+                                    @endif
+                                </div>
                             </div>
                         </div>
+                        <h4 class="card-title fw-bold ">{{ $herramientaVista->nombre }}</h4>
+                        <p class="card-text fw-semibold" style="font-size: 18px display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; min-height: 3.8em;">{{ $herramientaVista->descripcion }}</p>
+                        <p class="card-text fw-bold" style="font-size: 15px">{{ $herramientaVista->stock }} en stock</p>
                     </div>
-                    <h4 class="card-title fw-bold">{{ $herramientaVista->nombre }}</h4>
-                    <p class="card-text fw-semibold" style="font-size: 18px">{{ $herramientaVista->descripcion }}</p>
-                    <p class="card-text fw-bold" style="font-size: 15px">{{ $herramientaVista->stock }} en stock</p>
                 </div>
             </div>
-        </div>
-         @endif
-    @endforeach
+        @endif
+        @endforeach
 
         @endif
     </div>
@@ -167,6 +169,18 @@ use Illuminate\Support\Str;
             document.querySelector('.alert').style.display = 'block';
         });
     });
+
+
+    document.addEventListener('livewire:load', function () {
+    Livewire.on('showError', message => {
+        alertify.error('<i class="fas fa-times-circle"></i> ' + message);
+    });
+
+    Livewire.on('showSuccess', message => {
+        alertify.success('<i class="fas fa-check-circle"></i> ' + message);
+    });
+});
+
 </script>
 
 <style>

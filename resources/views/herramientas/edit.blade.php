@@ -74,53 +74,60 @@
                             </select>
                         </div>
                         <div class="col-lg-6 mb-4">
-    <!-- Imagen anterior -->
-    <div class="card" style="height: 180px; width: 80%; margin-left: 10%;">
-        <label class="text-center form-label fw-bold">Imagen - Herramienta anterior</label>
-        <div class="card-body text-center" style="background: transparent;">
-            <img id="old-tool-image-preview" src="/imagenes/herramientas/{{$herramientaEditar->imagen}}" alt="Imagen Anterior" class="object-cover rounded-lg d-block mx-auto mb-4" style="height: 110px"/>
-        </div>
-    </div>
-    <!-- Nueva imagen seleccionada -->
-    <div id="card-new-tool-image" class="card mt-3" style="height: 180px; width: 80%; margin-left: 10%; display: none;">
-        <label class="text-center ms-3 form-label fw-bold">Nueva Imagen</label>
-        <div class="card-body text-center" style="background: transparent;">
-            <img id="new-tool-image-preview" src="#" alt="Nueva Imagen" class="object-cover rounded-lg d-block mx-auto mb-4" style="height: 110px; display: none;"/>
-        </div>
-    </div>
+                <!-- Imagen anterior -->
+                <div class="card" style="height: 180px; width: 80%; margin-left: 10%;">
+                    <label class="text-center form-label fw-bold">Imagen - Herramienta anterior</label>
+                    <div class="card-body text-center" style="background: transparent;">
+                        <img id="old-tool-image-preview" src="/imagenes/herramientas/{{$herramientaEditar->imagen}}" alt="Imagen Anterior" class="object-cover rounded-lg d-block mx-auto mb-4" style="height: 110px"/>
+                    </div>
+                </div>
+                <!-- Nueva imagen seleccionada -->
+                <div id="card-new-tool-image" class="card mt-3" style="height: 180px; width: 80%; margin-left: 10%; display: none;">
+                    <label class="text-center ms-3 form-label fw-bold">Nueva Imagen</label>
+                    <div class="card-body text-center" style="background: transparent;">
+                        <img id="new-tool-image-preview" src="#" alt="Nueva Imagen" class="object-cover rounded-lg d-block mx-auto mb-4" style="height: 110px; display: none;"/>
+                    </div>
+                </div>
 
-    <!-- Input para seleccionar nueva imagen -->
-    <label for="imagen" class="form-label fw-semibold mt-3">Seleccionar nueva imagen</label>
-    <input type="file" id="preview-imagen" class="form-control" name="imagen" accept="image/*" onchange="previewImage(event, 'new-tool-image-preview', 'card-new-tool-image')">    <p style="font-size: 13px; color: red;">(Si no desea cambiar la imagen no seleccione ningún archivo)</p>
-</div>
-
-<div class="col-lg-6 mb-4">
-    <!-- Código de barras anterior -->
-    <div class="card" style="height: 180px; width: 80%; margin-left: 10%">
-        <label class="text-center form-label fw-bold">Código de Barras Anterior</label>
-        <div class="card-body text-center" style="background: transparent;">
-            <img id="old-code-image-preview" src="/imagenes/codeb/{{$herramientaEditar->imagencode}}" alt="Código de Barras Anterior" class="object-cover rounded-lg d-block mx-auto mb-4" style="height: 110px"/>
-        </div>
-    </div>
-
-    <!-- Nuevo código de barras seleccionado -->
-    <div id="card-new-code-image" class="card mt-3" style="height: 180px; width: 80%; margin-left: 10%; display:none;">
-        <label class="text-center ms-3 form-label fw-bold">Nuevo Código de Barras</label>
-        <div class="card-body text-center" style="background: transparent;">
-            <img id="new-code-image-preview" src="#" alt="Nuevo Código de Barras" class="object-cover rounded-lg d-block mx-auto mb-4" style="height: 110px; display: none;"/>
-        </div>
-    </div>
-
-    <!-- Input para seleccionar nuevo código de barras -->
-    <label for="imagencode" class="form-label fw-semibold mt-3">Seleccionar nuevo código de barras</label>
-    <input type="file" id="code-image-input" class="form-control" name="imagencode" accept="image/*" onchange="previewImage(event, 'new-code-image-preview', 'card-new-code-image')">    <p style="font-size: 13px; color: red;">(Si no desea cambiar el código de barras no seleccione ningún archivo)</p>
-    </div>
-
-
-            <div class="text-center">
-                <button type="submit" class="btn btn-plus py-2">Editar</button>
+                <!-- Input para seleccionar nueva imagen -->
+                <label for="imagen" class="form-label fw-semibold mt-3">Seleccionar nueva imagen</label>
+                <input type="file" id="preview-imagen" class="form-control" name="imagen" accept="image/*" onchange="previewImage(event, 'new-tool-image-preview', 'card-new-tool-image')">    <p style="font-size: 13px; color: red;">(Si no desea cambiar la imagen no seleccione ningún archivo)</p>
             </div>
+
+            <div class="col-lg-6 mb-4">
+                <!-- Código de barras anterior -->
+                <div class="card" style="height: 180px; width: 80%; margin-left: 10%">
+                    <label class="text-center form-label fw-bold">Código de Barras Anterior</label>
+                    <div class="card-body text-center" style="background: transparent;">
+                        <img id="old-code-image-preview" src="/imagenes/codeb/{{$herramientaEditar->imagencode}}" alt="Código de Barras Anterior" class="object-cover rounded-lg d-block mx-auto mb-4" style="height: 110px"/>
+                    </div>
+                </div>
+
+                <!-- Nuevo código de barras seleccionado -->
+                <div id="card-new-code-image" class="card mt-3" style="height: 180px; width: 80%; margin-left: 10%; display:none;">
+                    <label class="text-center ms-3 form-label fw-bold">Nuevo Código de Barras</label>
+                    <div class="card-body text-center" style="background: transparent;">
+                        <img id="new-code-image-preview" src="#" alt="Nuevo Código de Barras" class="object-cover rounded-lg d-block mx-auto mb-4" style="height: 110px; display: none;"/>
+                    </div>
+                </div>
+
+                <!-- Input para seleccionar nuevo código de barras -->
+                <label for="imagencode" class="form-label fw-semibold mt-3">Seleccionar nuevo código de barras</label>
+                <input type="file" id="code-image-input" class="form-control" name="imagencode" accept="image/*" onchange="previewImage(event, 'new-code-image-preview', 'card-new-code-image')">    <p style="font-size: 13px; color: red;">(Si no desea cambiar el código de barras no seleccione ningún archivo)</p>
             </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-plus py-2">Editar</button>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <div class="text-center mt-2">
+                            <a href="/herramientas" class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> Regresar</a>
+                        </div>
+                    </div>
+                </div>
+        </div>
     </form>
 </div>
 @else

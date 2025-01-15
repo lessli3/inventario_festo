@@ -30,16 +30,16 @@
         session()->forget('error');
     @endphp
 @endif
-
 <div class="container mt-4">
     <h4 class="fw-bold" style="color: green;">HERRAMIENTAS EN FESTO</h4>
 
     <div class="vitrina-carousel mt-4 mb-5">
     <div class="vitrina-track d-flex">
+        <!-- Primera pasada de herramientas -->
         @foreach ($herramientasAl as $herramienta)
             <div class="vitrina-item">
                 <div class="card1">
-                <img src="{{ 
+                    <img src="{{ 
                         filter_var($herramienta->imagen, FILTER_VALIDATE_URL) 
                         ? $herramienta->imagen 
                         : asset('imagenes/herramientas/' . $herramienta->imagen) 
@@ -48,34 +48,24 @@
                 <h5 class="fw-bold text-center" style="color:gray;">{{ $herramienta->nombre }}</h5>
             </div>
         @endforeach
-        @foreach ($herramientasAl as $herramienta)
-            <div class="vitrina-item">
-                <div class="card1">
-                    <img src="{{ 
-                        filter_var($herramienta->imagen, FILTER_VALIDATE_URL) 
-                        ? $herramienta->imagen 
-                        : asset('imagenes/herramientas/' . $herramienta->imagen) 
-                    }}">
-                </div>
-                <h5 class="fw-bold text-center" style="color:gray;">{{ $herramienta->nombre }}</h5>
-            </div>
-        @endforeach
 
-            <!-- Clona las herramientaso -->
-        @foreach ($herramientasAl as $herramienta)
-            <div class="vitrina-item">
-                <div class="card1">
-                    <img src="{{ 
-                        filter_var($herramienta->imagen, FILTER_VALIDATE_URL) 
-                        ? $herramienta->imagen 
-                        : asset('imagenes/herramientas/' . $herramienta->imagen) 
-                    }}">
+            <!-- Duplicación de las herramientas para efecto de bucle -->
+            @foreach ($herramientasAl as $herramienta)
+                <div class="vitrina-item">
+                    <div class="card1">
+                        <img src="{{ 
+                            filter_var($herramienta->imagen, FILTER_VALIDATE_URL) 
+                            ? $herramienta->imagen 
+                            : asset('imagenes/herramientas/' . $herramienta->imagen) 
+                        }}" class="card1-img-top" alt="{{ $herramienta->nombre }}">
+                    </div>
+                    <h5 class="fw-bold text-center" style="color:gray;">{{ $herramienta->nombre }}</h5>
                 </div>
-                <h5 class="fw-bold text-center" style="color:gray;">{{ $herramienta->nombre }}</h5>
-            </div>
-        @endforeach
-        </div>
+            @endforeach
     </div>
+    </div>
+
+
 </div>
 
 
@@ -249,9 +239,7 @@
     </div>
 </div>
 @endsection
-
 <style>
-
     .podio {
         display: flex;
         flex-direction: column;
@@ -328,12 +316,12 @@
         position: relative;
         overflow: hidden;
         position: relative;
-        width: 400px;
+        width: 350px;
         box-shadow: 0px 1px 13px rgba(0,0,0,0.1);
         cursor: pointer;
         align-items: center;
         background: #fff;
-        height: 150px;
+        height: 200px;
         border-radius: 15px;
         flex-direction: column;
         justify-content: space-between;
@@ -347,30 +335,33 @@
     }
 
     .vitrina-carousel {
-        overflow: hidden;
-        width: 100%;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
     }
 
     .vitrina-track {
         display: flex;
-        width: max-content;
-        animation: scroll 60s linear infinite;
+        animation: scroll 60s linear infinite; /* Bucle infinito con animación continua */
+        width: max-content; /* Ajusta el tamaño según el contenido */
     }
 
     .vitrina-item {
-        flex: 0 0 3%; /* Ajusta el ancho de cada tarjeta */
-        margin-right: 15px;
+        flex-shrink: 0;
+        min-width: 200px; /* Ajusta según el tamaño de las herramientas */
+        margin-right: 10px; /* Opcional: agrega espacio entre las herramientas */
     }
 
-
+    /* Definimos la animación para el desplazamiento continuo */
     @keyframes scroll {
         0% {
             transform: translateX(0);
         }
         100% {
-            transform: translateX(-100%);
+            transform: translateX(-50%); /* Se mueve hasta la mitad del contenido, luego reinicia */
         }
     }
+
 
 
 
@@ -574,8 +565,6 @@
 .hidden-sm {
     display: block;
 }
-
-
 
 /* Ocultar las barras adicionales en tamaños medianos y pequeños */
 @media (max-width: 991px) {

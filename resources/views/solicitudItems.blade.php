@@ -1,7 +1,5 @@
 @extends('layouts.dashboard')
-
 @section('titulo', 'Solicitud')
-
 @section('content')
 @can('solicitarHerramienta')
     <style>

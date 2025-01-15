@@ -96,5 +96,16 @@ class AuthController extends Controller
         }
     }
 
+    public function destroy(Request $request)
+    {
+        Auth::guard('web')->logout(); // Asegúrate de usar el guard "web"
+    
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+    
+        return redirect('/');
+    }
+    
+
     
 }
