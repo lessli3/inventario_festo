@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\VerificationCodeMail;
 
+//Controlador para el manejo de Autenticación
 class AuthController extends Controller
 {
     // Función para verificar el código de usuario
@@ -96,15 +97,22 @@ class AuthController extends Controller
         }
     }
 
-    public function destroy(Request $request)
+    //Función para el cierre de sesión
+        public function destroy(Request $request)
     {
-        Auth::guard('web')->logout(); // Asegúrate de usar el guard "web"
-    
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-    
+        // Cierra la sesión del usuario autenticado utilizando el guard web
+        Auth::guard('web')->logout(); 
+        
+        // Invalida la sesión actual, eliminando todos los datos de la sesión
+        $request->session()->invalidate(); 
+        
+        // Regenera el token CSRF asociado a la sesión
+        $request->session()->regenerateToken(); 
+        
+        // Redirige al usuario a la página de inicio (ruta "/")
         return redirect('/');
     }
+
     
 
     

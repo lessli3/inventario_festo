@@ -10,6 +10,7 @@ use App\Models\DetalleSolicitud;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 
+//Controlado para las Herramientas
 class HerramientaController extends Controller
 {
     /**
@@ -76,7 +77,7 @@ class HerramientaController extends Controller
         $request->imagencode->move($destinocode, $nombreimgcode);
         $request->imagen->move($destino, $nombreimg);
 
-        // Asignar los valores recibidos a los atributos del modelo
+        // Asignar los valores recibidos al modelo
         $newHerramienta->imagen = $nombreimg;
         $newHerramienta->imagencode = $nombreimgcode;
         $newHerramienta->cod_herramienta = $request->get('cod_herramienta');
@@ -155,7 +156,7 @@ class HerramientaController extends Controller
             $editarherramienta->imagen = $nombreimg;
         }
 
-        // Verificar si se ha subido un nuevo código QR y reemplazarlo
+        // Verificar si se ha subido un nuevo código y reemplazarlo
         if ($request->hasFile('imagencode')) {
             if ($editarherramienta->imagencode) {
                 $rutaImagenActualCode = public_path('imagenes/codeb/' . $editarherramienta->imagencode);
@@ -164,7 +165,7 @@ class HerramientaController extends Controller
                 }
             }
     
-            // Guardar el nuevo código QR
+            // Guardar el nuevo código 
             $imagencode = $request->file('imagencode');
             $nombreimgcode = time() . '.' . $imagencode->getClientOriginalExtension();
             $destinocode = public_path('imagenes/codeb');
@@ -191,33 +192,27 @@ class HerramientaController extends Controller
         //
     }
 
-    /**
-     * Maneja las solicitudes relacionadas con los posts (publicaciones).
-     * Puede mostrar, crear o eliminar publicaciones.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int|null  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function inventario(Request $request)
     {
         // Obtener todas las herramientas sin filtros iniciales
         $query = Herramienta::query();
         
         // Aplica los filtros solo si están presentes en la solicitud
+        //Filtrar por categoría
         if ($request->has('categoria') && $request->input('categoria') !== '') {
             $query->where('categoria', $request->input('categoria'));
         }
-        
+        //Filtrar por organizador
         if ($request->has('organizador') && in_array($request->input('organizador'), [1, 2])) {
             $query->where('organizador', $request->input('organizador'));
         }
-        
+        //Filtrar por cajón
         if ($request->has('cajon') && in_array($request->input('cajon'), [1, 2, 3, 4, 5, 6])) {
             $query->where('cajon', $request->input('cajon'));
         }
         
-        // Ordenar las herramientas por stock si se solicita
+        // Ordenar las herramientas por stock 
         if ($request->has('ordenar')) {
             if ($request->input('ordenar') === 'asc') {
                 $query->orderBy('stock', 'asc');
@@ -230,7 +225,7 @@ class HerramientaController extends Controller
         $porPagina = 10;
     
         // Obtener las herramientas con los filtros aplicados y paginados
-        $inventario = $query->paginate($porPagina);  // Usamos paginate aquí
+        $inventario = $query->paginate($porPagina);  
         
         // Obtener la página actual, o por defecto la primera
         $paginaActual = $inventario->currentPage();
@@ -276,12 +271,45 @@ class HerramientaController extends Controller
             'inventario', 'totalPaginas', 'paginaActual', 
             'categorias', 'categoria', 'organizador', 'cajon', 'ordenar'
         ));
+    }    
+
+    public function adjustarStock(Request $request, $id, $action)
+    {
+        // Validar que el campo 'cod_herramienta' esté presente y sea una cadena de texto
+        $validatedData = $request->validate([
+            'cod_herramienta' => 'required|string',
+        ]);
+    
+        // Buscar la herramienta correspondiente en la base de datos usando el ID 
+        $herramienta = Herramienta::find($id);
+    
+        // Si la acción es 'increase', incrementar el stock en 1
+        if ($action == 'increase') {
+            $herramienta->stock += 1;
+    
+        // Si la acción es 'decrease', reducir el stock en 1
+        } elseif ($action == 'decrease') {
+            $herramienta->stock -= 1;
+        }
+    
+        // Guardar los cambios en la base de datos.
+        $herramienta->save();
+        
+        // Redirigir al usuario a la página anterior
+        return redirect()->back();
     }
     
-    
-    
 
-    public function handlePost(Request $request, $id = null)
+    /*public function handlePost2()
+    {
+
+            $posts = Herramienta::orderBy('id')->get();
+
+            return view('posts.index', compact('posts'));
+
+    }*/
+
+        /*public function handlePost(Request $request, $id = null)
     {
         if ($request->isMethod('get')) {
             $inventario = Herramienta::all();
@@ -325,36 +353,6 @@ class HerramientaController extends Controller
 
         // Si no es una acción válida, redirigir con un mensaje de error
         return redirect()->route('inventario.index')->with('error', 'Acción no válida');
-    }
-}
-
-        public function adjustarStock(Request $request, $id, $action)
-    {
-        // Validar que el cod_herramienta esté presente
-        $validatedData = $request->validate([
-            'cod_herramienta' => 'required|string',
-        ]);
-
-        $herramienta = Herramienta::find($id);
-
-        if ($action == 'increase') {
-            $herramienta->stock += 1;
-        } elseif ($action == 'decrease') {
-            $herramienta->stock -= 1;
-        }
-
-        $herramienta->save();
-        
-        return redirect()->back();
-    }
-
-    public function handlePost2()
-    {
-
-            $posts = Herramienta::orderBy('id')->get();
-
-            return view('posts.index', compact('posts'));
-
-    }
+    }*/
 
 }

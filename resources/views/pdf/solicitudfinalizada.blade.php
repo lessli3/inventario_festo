@@ -66,7 +66,7 @@
     <div class="row clearfix" style="margin-top: 70px">
         <div class="col-md-8">
             <h4 class="fw-bold" style="color: rgb(114, 184, 135)">SOLICITANTE</h4>
-            <p>Instructor: {{ $solicitud->nombre }}</p>
+            <p>Instructor: {{ $solicitud->nombre }} {{ $solicitud->apellido }}</p>
             <p>Teléfono: {{ $solicitud->telefono }}</p>
             <p>Correo: {{ $solicitud->email }}</p>
         </div>

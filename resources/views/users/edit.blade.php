@@ -31,11 +31,17 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
+                                        <label for="apellidoUser" class="form-label">Apellido</label>
+                                        <input type="text" class="form-control" value="{{$usuEditar->lastname}}" name="lastnameEdit">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
                                         <label for="telefonoUser" class="form-label">Teléfono</label>
                                         <input type="number" class="form-control" value="{{$usuEditar->telefono}}" name="telefonoEdit">
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="emailUser" class="form-label">Correo</label>
                                         <input type="email" class="form-control" value="{{$usuEditar->email}}" name="correoEdit">

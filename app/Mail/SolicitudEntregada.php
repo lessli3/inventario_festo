@@ -11,6 +11,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
+//Correo de solicitud entregada
 class SolicitudEntregada extends Mailable
 {
     use Queueable, SerializesModels;
@@ -46,7 +47,7 @@ class SolicitudEntregada extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Solicitud Entregada',
+            subject: 'Solicitud Entregada - CONTROL FESTO',
         );
     }
 

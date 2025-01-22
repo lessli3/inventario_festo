@@ -90,7 +90,7 @@
             {
                 title: 'Solicitud #{{ $solicitud->id }}',
                 start: '{{ $solicitud->fecha }}T{{ $solicitud->hora }}',
-                description: '{{ $solicitud->nombre }}',
+                description: '{{ $solicitud->nombre }} {{ $solicitud->apellido }}',
                 id: '{{ $solicitud->id }}',
                 herramientas: {!! json_encode($solicitud->detalles->map(function($detalle) {
                     return [

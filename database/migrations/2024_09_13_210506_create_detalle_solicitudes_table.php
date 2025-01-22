@@ -11,8 +11,10 @@ return new class extends Migration
      *
      * @return void
      */
+    //Tabla de detalle solicitudes
     public function up()
     {
+        //Campos de la tabla
         Schema::create('detalle_solicitudes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('solicitud_id')->constrained('solicitudes')->onDelete('cascade');

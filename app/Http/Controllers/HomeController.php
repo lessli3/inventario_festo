@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Herramienta;
 use App\Models\Categoria;
 
+//Controlador manejo de página principal
 class HomeController extends Controller
 {
     /**

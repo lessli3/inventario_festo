@@ -7,8 +7,10 @@ use Illuminate\Support\Facades\Schema;
 class CreateSolicitudesTable extends Migration
 {
     public function up()
+    //Tabla de solicitudes
     {
         Schema::create('solicitudes', function (Blueprint $table) {
+            //Campos de la tabla
             $table->id();
             $table->bigInteger('user_identity')->unsigned(); 
             $table->foreign('user_identity')->references('user_identity')->on('users')->onDelete('cascade');

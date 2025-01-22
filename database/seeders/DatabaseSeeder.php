@@ -7,6 +7,7 @@ use Spatie\Permission\Models\Role; // Importa la clase Role
 use Spatie\Permission\Models\Permission; // Importa la clase Permission
 use App\Models\User;
 
+//Seeder para usuarios por defecto
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -25,9 +26,9 @@ class DatabaseSeeder extends Seeder
 
         // Crear usuarios y asignarles roles
         $user1 = User::firstOrCreate([
-            'name' => 'Angie',
-            'lastname' => 'Galindo',
-            'email' => 'angie@gmail.com',
+            'name' => 'Orlando',
+            'lastname' => 'Castro',
+            'email' => 'orlandocastro@gmail.com',
             'user_identity' => '1023456789',
             'telefono' => '312548648',
             'user_estado' => 'activo' 
@@ -46,7 +47,7 @@ class DatabaseSeeder extends Seeder
 
         $user3 = User::firstOrCreate([
             'name' => 'Lesly',
-            'lastname' => 'Silva',
+            'lastname' => 'Lievano',
             'email' => 'lesly@gmail.com',
             'user_identity' => '1070386099',
             'telefono' => '3102511208',

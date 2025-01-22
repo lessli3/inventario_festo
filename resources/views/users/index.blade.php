@@ -7,26 +7,26 @@
 <h2 class="text-center mb-3 mt-4 mb-4 fw-bold">PERFIL</h2>
 </div>
 
-<div class="container h-70">
+<div class="container h-90">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col col-lg-9 mb-1 mb-lg-0" style="padding-right: 0 !important">
-        <div class="card mb-1" style="border-radius: .5rem; height: 80%">
+        <div class="card mb-1" style="border-radius: .5rem; height: 90%">
           <div class="row g-0">
             <div class="col-md-4 gradient-custom text-center fw-bold"
               style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem; color:green;">
             @can('editarHerramienta')
               <img src="img/admin.png" alt="Avatar" class="img-fluid mt-5 mb-3" style="width: 150px;"/>
-              <p style="font-size: 23px">{{$usuario->name}}</p>
+              <p style="font-size: 23px  word-wrap: break-word; word-break: break-word;">{{$usuario->name}} {{$usuario->lastname}}</p>
               <h6>Cuentadante</h6>
             @endcan
             @can('solicitarHerramienta')
             <img src="img/instructor.png" alt="Avatar" class="img-fluid mt-5 mb-3" style="width: 150px;"/>
-            <p style="font-size: 23px">{{$usuario->name}}</p>
+            <p style="font-size: 23px  word-wrap: break-word; word-break: break-word;">{{$usuario->name}} {{$usuario->lastname}}</p>
             <h6>Instructor</h6>
             @endcan
             @can('editarSolicitud')
             <img src="img/instructor.png" alt="Avatar" class="img-fluid mt-5 mb-3" style="width: 150px;"/>
-            <p style="font-size: 23px">{{$usuario->name}}</p>
+            <p style="font-size: 23px  word-wrap: break-word; word-break: break-word;">{{$usuario->name}} {{$usuario->lastname}}</p>
             <h6>Monitor</h6>
             @endcan
             </div>

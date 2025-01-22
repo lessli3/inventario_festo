@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\CarritoTools;
 
+//Componente para el contador (simbolo) de solicitudes
 class SolicitudContador extends Component
 {
     // Escucha el evento 'updateSolicitudCount' y llama al método 'obtenerSolicitudCount'

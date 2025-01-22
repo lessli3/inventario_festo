@@ -7,6 +7,7 @@ use App\Models\CarritoTools;
 use App\Models\Herramienta;
 use Illuminate\Support\Facades\Auth;
 
+//Componente para las solicitudes
 class Solicitudeslist extends Component
 {
     public $solicitudItems; // Almacena los elementos de la solicitud

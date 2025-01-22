@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+//Modelo para los detalles de la solicitud
 class DetalleSolicitud extends Model
 {
     use HasFactory; // Utiliza el trait HasFactory para permitir la creación de fábricas

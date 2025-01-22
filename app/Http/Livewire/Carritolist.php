@@ -7,6 +7,7 @@ use App\Models\CarritoTools;
 use App\Models\Herramienta;
 use Illuminate\Support\Facades\Auth;
 
+//Componente para el carrito de herramientas
 class Carritolist extends Component
 {
     // Método que renderiza la vista de la lista del carrito

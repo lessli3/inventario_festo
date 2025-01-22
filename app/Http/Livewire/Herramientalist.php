@@ -9,7 +9,7 @@ use App\Models\Categoria;
 
 class Herramientalist extends Component
 {
-    // Propiedades de la clase
+
     public $herramientaCont;         // Contenedor de herramientas
     public $search = '';              // Término de búsqueda
     public $herramientas;             // Lista de herramientas

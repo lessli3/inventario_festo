@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Categoria; 
 
+//Seeder para las categorias
 class CategoriaSeeder extends Seeder
 {
     /**
@@ -15,6 +16,7 @@ class CategoriaSeeder extends Seeder
      */
     public function run()
     {
+        //Categorias por defecto
         $categorias = [
             ['nombre' => 'Herramientas manuales'],
             ['nombre' => 'Herramientas eléctricas'],

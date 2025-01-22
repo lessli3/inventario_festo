@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+//Modelo para las solicitudes
 class Solicitud extends Model
 {
     use HasFactory; 
@@ -14,7 +15,8 @@ class Solicitud extends Model
 
     protected $fillable = [
         'user_identity',
-        'nombre',         
+        'nombre',
+        'apellido',        
         'email',          
         'telefono',       
         'fecha',          

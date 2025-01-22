@@ -15,25 +15,38 @@
                     @csrf
                     
                     <div class="row">
-                        <div class="form-group col-lg-6 col-md-6 mb-3">
-                            <label for="nombre">Nombre:</label>
-                            <input type="text" id="nombre" name="nombre" value="{{ auth()->user()->name }}" class="form-control" readonly>
-                        </div>
-
-                        <div class="form-group col-lg-6 col-md-6 mb-3">
-                            <label for="telefono">Teléfono:</label>
-                            <input type="number" id="telefono" name="telefono" class="form-control" value="{{ auth()->user()->telefono }}" required>
-                        </div>
+                    <!-- Nombre y Apellido -->
+                    <div class="col-md-6 col-sm-6 mb-3">
+                        <label class="fw-bold" for="nombre">Nombre(s)</label>
+                        <input type="text" id="nombre" name="nombre" value="{{ auth()->user()->name }}" 
+                            class="form-control" readonly 
+                            style="border: none; background-color: transparent; padding-left: 0;">
+                    </div>
+                    <div class="col-md-6 col-sm-6 mb-3">
+                        <label class="fw-bold" for="apellido">Apellido(s)</label>
+                        <input type="text" id="apellido" name="apellido" value="{{ auth()->user()->lastname }}" 
+                            class="form-control" readonly 
+                            style="border: none; background-color: transparent; padding-left: 0;">
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" value="{{ auth()->user()->email }}" class="form-control" readonly>
+                    <!-- Email -->
+                    <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
+                        <label class="fw-bold" for="email">Email:</label>
+                        <input type="email" id="email" name="email" value="{{ auth()->user()->email }}" 
+                            class="form-control" readonly 
+                            style="border: none; background-color: transparent; padding-left: 0;">
                     </div>
 
+                    <!-- Teléfono -->
+                    <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
+                        <label class="fw-bold" for="telefono">Teléfono:</label>
+                        <input type="number" id="telefono" name="telefono" 
+                            class="form-control" value="{{ auth()->user()->telefono }}" required>
+                    </div>
+                </div>
                     <h6 class="mt-4">Información de la solicitud</h6>
                     <hr>
-                    <div class="card pt-4 mb-5" style="height: 200px">
+                    <div class="card pt-4 mb-5" style="height: 220px">
                     <ol >
                         @foreach($solicituditemsArray as $item)
                             <!-- Hidden inputs for storing item data -->

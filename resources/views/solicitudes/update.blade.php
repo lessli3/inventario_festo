@@ -81,7 +81,7 @@
                 <!-- Tarjetas de herramientas -->
                 @foreach($solicitud->detalles as $detalle)
                     <div class="col-md-5 my-3">
-                        <div class="card p-1 pt-2" style="background-image: url('{{ filter_var($detalle->herramienta->imagen, FILTER_VALIDATE_URL) ? $detalle->herramienta->imagen : asset('imagenes/herramientas/' . $detalle->herramienta->imagen) }}'); background-size: cover; height: 180px; width: 100% !important">
+                        <div class="card p-1 pt-2" style="background-image: url('{{ filter_var($detalle->herramienta->imagen, FILTER_VALIDATE_URL) ? $detalle->herramienta->imagen : asset('imagenes/herramientas/' . $detalle->herramienta->imagen) }}'); background-size: cover; height: 200px; width: 100% !important">
                             <div class="card-content col-md-12">
                                 <div class="row">
                                     <div class="col-sm-12 d-flex align-items-center justify-content-between">

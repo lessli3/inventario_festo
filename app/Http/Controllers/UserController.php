@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
+//Controlador para manejar los usuarios
 class UserController extends Controller
 {
     // Constructor: Aplica un middleware para asegurarse de que el usuario esté autenticado
@@ -24,17 +25,17 @@ class UserController extends Controller
             'usuario' => $usuario
         ]);
     }
-    // Muestra el formulario para crear un nuevo recurso (aún sin implementación)
+    // Muestra el formulario para crear un nuevo recurso 
     public function create()
     {
         //
     }
-    // Almacena un nuevo recurso en la base de datos (aún sin implementación)
+    // Almacena un nuevo recurso en la base de datos 
     public function store(Request $request)
     {
         //
     }
-    // Muestra un recurso específico (aún sin implementación)
+    // Muestra un recurso específico 
     public function show($id)
     {
         //
@@ -57,6 +58,7 @@ class UserController extends Controller
 
         // Asigna los nuevos valores desde el formulario a los campos del usuario
         $editarUsuario->name = $request->get('nameEdit');
+        $editarUsuario->lastname = $request->get('lastnameEdit');
         $editarUsuario->email = $request->get('correoEdit');
         $editarUsuario->telefono = $request->get('telefonoEdit');
 

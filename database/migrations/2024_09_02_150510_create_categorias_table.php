@@ -11,10 +11,12 @@ return new class extends Migration
      *
      * @return void
      */
+    //Tabla de categorías - Seeder de categorias
     public function up()
     {
         Schema::create('categorias', function (Blueprint $table) {
             $table->id();
+            //Campos
             $table->string('nombre');
             $table->timestamps();
         });

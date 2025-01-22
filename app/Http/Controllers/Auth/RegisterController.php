@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+//Controlador para el registro de usuarios
 class RegisterController extends Controller
 {
     // Función principal que maneja el registro de un nuevo usuario
@@ -52,6 +53,7 @@ class RegisterController extends Controller
     // Función que valida los datos del formulario de registro
     protected function validator(array $data)
     {
+        //Validación de los campos de registro
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],

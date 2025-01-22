@@ -2,12 +2,20 @@
 @section('titulo', 'Solicitudes')
 @section('content')
 @can('verSolicitud')
-
 <div class="container">
     <div class="row">
+        @canany(['solicitarHerramienta', 'crearHerramienta'])
         <div class="col-md-12">
-        <h2 class="text-center mb-3 mt-3 mb-4 fw-bold">SOLICITUDES ACEPTADAS</h2>
+            <h2 class="text-center mb-3 mt-3 mb-4 fw-bold">SOLICITUDES</h2>
         </div>
+        @endcanany
+
+        @can('editarSolicitud')
+        <div class="col-md-12">
+            <h2 class="text-center mb-3 mt-3 mb-4 fw-bold">SOLICITUDES ACEPTADAS Y ENTREGADAS</h2>
+        </div>
+        @endcan
+
         @can('editarSolicitud')
         <div class="col-md-5 offset-lg-7 mt-1">
         <form id="filterForm" method="GET" action="{{ route('solicitudes.index') }}">
@@ -47,8 +55,13 @@
         @endphp
     @endif
 
-@if ($solicitudesAceptadas->isNotEmpty())
+    @if($mensaje)
+    <div class="alert alert-warning">
+        {{ $mensaje }}
+    </div>
+    @endif
 @foreach($solicitudesAceptadas as $solicitud)
+
 <div class="row">
   <div class="col-md-12">
     <div id="accordion">
@@ -57,7 +70,7 @@
         <a class="card1" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCard-{{ $solicitud->id }}" aria-expanded="false" aria-controls="collapseCard-{{ $solicitud->id }}">
             <h5 class="fw-bold" style="color: green;"> {{ $solicitud->fecha }}</h5>
                     <p><strong style="color: green;">Hora de la solicitud:</strong> {{ $solicitud->hora }}<br>
-                        <strong class="mt-1" style="color: green;">Instructor:</strong> {{ $solicitud->nombre }}<br>
+                        <strong class="mt-1" style="color: green;">Instructor:</strong> {{ $solicitud->nombre }} {{ $solicitud->apellido }}<br>
                         <strong style="color: green;">Estado:</strong> {{ $solicitud->estado }}
                     </p>         
         <div class="go-corner">
@@ -106,9 +119,6 @@
                                     <p>
                                         <strong style="color: white;">Código:</strong> <span  style="color: white;">{{ $detalle->herramienta->cod_herramienta }}</span><br>
                                         <strong style="color: white;">Cantidad: {{ $detalle->cantidad}}</strong>
-                                                @if($solicitud->estado === 'entregada')
-                                                    <strong style="color: white;">Cantidad: {{ $detalle->cantidad}}</strong>
-                                                @endif
                                         <div class="row">
                                             <div class="col-md-12">
                                             <strong style="color: white;">Estado:</strong> <span class="fw-bold" style="color: green;">{{ $detalle->proceso }}</span><br>
@@ -149,11 +159,9 @@
     </div>
   </div>
 </div> 
-        @endforeach
+@endforeach
     </div>
-@else
-    <p>No se encontraron solicitudes que coincidan con la búsqueda.</p>
-@endif
+
 </div>
 
 

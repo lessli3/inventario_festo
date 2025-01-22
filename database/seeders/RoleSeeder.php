@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
-
+//Seeder para asiganación de roles y permisos
 class RoleSeeder extends Seeder
 {
     /**
@@ -22,7 +22,6 @@ class RoleSeeder extends Seeder
         $role2 = Role::firstOrCreate(['name' => 'Instructor']);
         $role3 = Role::firstOrCreate(['name' => 'Monitor']);
 
-
         //Cuentadante
         Permission::firstOrCreate(['name'=>'editarHerramienta'])->syncRoles([$role1]);
         Permission::firstOrCreate(['name'=>'crearHerramienta'])->syncRoles([$role1]);
@@ -34,8 +33,6 @@ class RoleSeeder extends Seeder
 
         //Monitor
         Permission::firstOrCreate(['name'=>'editarSolicitud'])->syncRoles([$role3]);
-
-        /*Permission::firstOrCreate(['name'=>'accesoCuentadante'])->syncRoles([$role1]);*/
         Permission::firstOrCreate(['name'=>'verSolicitud'])->syncRoles([$role1, $role2, $role3]);
         Permission::firstOrCreate(['name'=>'accesoPerfil'])->syncRoles([$role1,$role2, $role3]);
     }

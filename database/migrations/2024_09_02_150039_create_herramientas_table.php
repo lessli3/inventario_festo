@@ -11,9 +11,11 @@ return new class extends Migration
      *
      * @return void
      */
+    //TAbla de herramientas
     public function up()
     {
         Schema::create('herramientas', function (Blueprint $table) {
+            //Campos de la tabla
             $table->id();
             $table->string('cod_herramienta')->unique();
             $table->string('nombre');

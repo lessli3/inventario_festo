@@ -9,6 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
+//Correo para el código de verificación
 class VerificationCodeMail extends Mailable
 {
     use Queueable, SerializesModels;
@@ -40,7 +41,7 @@ class VerificationCodeMail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Código de Verificación',
+            subject: 'Código de Verificación - CONTROL FESTO',
         );
     }
 
