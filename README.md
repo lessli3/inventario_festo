@@ -82,6 +82,7 @@ Sigue estos pasos para configurar el proyecto localmente:
 Antes de clonar el repositorio, es importante asegurarse de tener el entorno de desarrollo correctamente configurado.Es decir, asegurarse de que los siguientes programas y herramientas estén correctamente instalados y configurados en su sistema operativo:
 
 - Visual Studio Code
+  https://code.visualstudio.com/
 - XAMPP
 - Laravel
 - Composer
