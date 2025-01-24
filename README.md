@@ -79,18 +79,15 @@ Herramientas esenciales para la gestión de dependencias y paquetes de frontend,
 ## Instalacion
 
 Sigue estos pasos para configurar el proyecto localmente:
-Antes de clonar el repositorio, es importante asegurarse de tener el entorno de desarrollo correctamente configurado.Es decir, asegurarse de que los siguientes programas y herramientas estén correctamente instalados y configurados en su sistema operativo:
+Antes de clonar el repositorio, es importante asegurarse de tener el entorno de desarrollo correctamente configurado.Es decir, asegurarse de que los siguientes programas y herramientas estén correctamente instalados y configurados en su sistema operativo, Aquí te dejo los enlaces para que puedas instalarlos sin ningún inconveniente. 
 
-- Visual Studio Code: Aquí te dejo el enlace para que puedas instalarlo sin ningún inconveniente.
-  
-  https://code.visualstudio.com/
-  
-- XAMPP
-- Laravel
-- Composer
-- Git
-- Node.jsy npm
-- PostgreSQL
+- Visual Studio Code:  https://code.visualstudio.com/
+- XAMPP: https:  //www.apachefriends.org/es/index.html
+- Laravel:   https://laravel.com/docs/11.x/installation
+- Composer:  https://getcomposer.org/download/
+- Git:   https://git-scm.com/downloads
+- Node.jsy npm:   https://nodejs.org/en/download
+- PostgreSQL:  https://www.pgadmin.org/download/
 
   
 A continuación, se detalla el orden de las carpetas  y los pasos necesarios  para que el proyecto funcione adecuadamente:
