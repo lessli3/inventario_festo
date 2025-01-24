@@ -81,7 +81,9 @@ Herramientas esenciales para la gestión de dependencias y paquetes de frontend,
 Sigue estos pasos para configurar el proyecto localmente:
 Antes de clonar el repositorio, es importante asegurarse de tener el entorno de desarrollo correctamente configurado.Es decir, asegurarse de que los siguientes programas y herramientas estén correctamente instalados y configurados en su sistema operativo, Aquí te dejo los enlaces para que puedas instalarlos sin ningún inconveniente. 
 
-- Visual Studio Code:  https://code.visualstudio.com/
+- Visual Studio Code:
+
+  https://code.visualstudio.com/
 - XAMPP: https:  //www.apachefriends.org/es/index.html
 - Laravel:   https://laravel.com/docs/11.x/installation
 - Composer:  https://getcomposer.org/download/
@@ -185,13 +187,13 @@ En el sistema, cada usuario tiene un rol específico (Cuentadante, Instructor o 
 - Livewire
 - PostgreSQL
 - XAMPP
-- git
+- Git
 - Composer
 - Node.jsy
   
   
 ## Versiones Implemantadas
-Este proyecto está desarrollado utilizando Laravel 11 , la versión más reciente de este destacado framework de PHP. Laravel se caracteriza por su enfoque en la simplicidad y la eficiencia, ofreciendo una plataforma moderna para el desarrollo de aplicaciones web. Entre las principales herramientas y características implementadas en este proyecto se encuentran:
+ Entre las principales herramientas y características implementadas en este proyecto se encuentran:
 
 - **Visual Studio Code:** 1.96.4
 - **XAMPP:** Version 3.3.0
