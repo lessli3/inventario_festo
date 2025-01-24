@@ -17,7 +17,7 @@
 
 * [Uso](#Uso)
 
-* [Tecnologías utilizadas](#tecnologías-utilizadas)
+* [Tecnologias utilizadas](#tecnologias-utilizadas)
 
 * [Versiones y Herramientas de Laravel](#Versiones-y-Herramientas-de-Laravel)
   
@@ -73,7 +73,7 @@ Herramientas esenciales para la gestión de dependencias y paquetes de frontend,
 - **PostgreSQL:**
   Sistema de gestión de bases de datos que será utilizado en este proyecto. Asegúrese de tenerlo instalado y correctamente configurado.
 
-## Instalación
+## Instalacion
 
 Sigue estos pasos para configurar el proyecto localmente:
 Antes de clonar el repositorio, es importante asegurarse de tener el entorno de desarrollo correctamente configurado. A continuación, se detalla el orden de las carpetas  y los pasos necesarios  para que el proyecto funcione adecuadamente:
