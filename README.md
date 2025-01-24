@@ -79,7 +79,8 @@ Herramientas esenciales para la gestión de dependencias y paquetes de frontend,
 ## Instalacion
 
 Sigue estos pasos para configurar el proyecto localmente:
-Antes de clonar el repositorio, es importante asegurarse de tener el entorno de desarrollo correctamente configurado.Es decir, asegurarse de que los siguientes programas y herramientas estén correctamente instalados y configurados en su sistema operativo, Aquí te dejo los enlaces para que puedas instalarlos sin ningún inconveniente. 
+Antes de clonar el repositorio, es importante asegurarse de tener el entorno de desarrollo correctamente configurado.Es decir, asegurarse de que los siguientes programas y herramientas estén correctamente instalados y configurados en su sistema operativo,Además, asegúrate de que estén añadidos al PATH del sistema para que puedan ser reconocidos y utilizados sin problemas.
+Aquí te dejo los enlaces para que puedas instalarlos sin ningún inconveniente. 
 
 - Visual Studio Code:
   https://code.visualstudio.com/
@@ -210,6 +211,8 @@ En el sistema, cada usuario tiene un rol específico (Cuentadante, Instructor o 
 - **PostgreSQL** Version 16 
 
 
+
+##
 
 ## Estructura del proyecto
 
