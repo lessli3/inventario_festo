@@ -23,7 +23,7 @@
   
 * [Estructura del proyecto](#Estructura-del-proyecto)
 
-* [Desarrolladores del Proyecto](#desarrolladores)
+* [Desarrolladores del Proyecto](#desarrolladores-del-proyecto)
 
 
 
