@@ -7,9 +7,9 @@
 ## Indice
 
 
-* [Descripción del proyecto](#Descripción-del-proyecto)
+* [Descripcion del proyecto](#Descripcion-del-proyecto)
 
-* [Características del proyecto](#Características-del-proyecto)
+* [Caracteristicas del proyecto](#Caracteristicas-del-proyecto)
 
 * [Requisitos previos](#Requisitos-previos)
 
@@ -42,7 +42,7 @@ Este proyecto tiene como objetivo organizar y gestionar un inventario de herrami
 
 
 
-## Caracteristicas
+## Caracteristicas del proyecto
 
 - **Registro y Clasificación Detallada:** 
 Cada herramienta está catalogada con un código único, tipo, características y estado, permitiendo un seguimiento exhaustivo.
