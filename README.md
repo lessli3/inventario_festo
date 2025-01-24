@@ -115,7 +115,7 @@ Este equipo > Disco local (C:) > xampp > htdocs > inventario_festo
 
 ![image](https://github.com/user-attachments/assets/40702987-8be9-4132-bbfa-97232025fba0)
 
-4 **Configurar la base de datos** 
+4 **Configurar la base de datos en el archivo .env** 
 
 ![image](https://github.com/user-attachments/assets/6ef86455-ccb5-4d87-862a-f5ebac7efc65)
 
