@@ -64,6 +64,8 @@ Antes de instalar el proyecto, asegúrate de tener instalados los siguientes pro
 Un editor de código fuente ampliamente recomendado para el desarrollo. Es ligero, potente y compatible con múltiples extensiones que facilitan el trabajo.
 - **XAMPP:**
 Un paquete de software que incluye Apache, MySQL, PHP y Perl. Útil para configurar un entorno de desarrollo local en su computadora.
+- **Laravel:**
+  Un framework de PHP que facilita el desarrollo de aplicaciones web robustas y mantenibles. Se puede instalar a través de Composer.
 - **Composer:**
  El gestor de dependencias oficial para PHP, necesario para instalar y manejar las dependencias del proyecto.
 - **Git:**
@@ -73,10 +75,22 @@ Herramientas esenciales para la gestión de dependencias y paquetes de frontend,
 - **PostgreSQL:**
   Sistema de gestión de bases de datos que será utilizado en este proyecto. Asegúrese de tenerlo instalado y correctamente configurado.
 
+
 ## Instalacion
 
 Sigue estos pasos para configurar el proyecto localmente:
-Antes de clonar el repositorio, es importante asegurarse de tener el entorno de desarrollo correctamente configurado. A continuación, se detalla el orden de las carpetas  y los pasos necesarios  para que el proyecto funcione adecuadamente:
+Antes de clonar el repositorio, es importante asegurarse de tener el entorno de desarrollo correctamente configurado.Es decir, asegurarse de que los siguientes programas y herramientas estén correctamente instalados y configurados en su sistema operativo:
+
+- Visual Studio Code
+- XAMPP
+- Laravel
+- Composer
+- Git
+- Node.jsy npm
+- PostgreSQL
+
+  
+A continuación, se detalla el orden de las carpetas  y los pasos necesarios  para que el proyecto funcione adecuadamente:
 
  **Orden de las Carpetas:**
  
