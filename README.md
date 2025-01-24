@@ -184,27 +184,23 @@ En el sistema, cada usuario tiene un rol específico (Cuentadante, Instructor o 
 - Laravel
 - Livewire
 - PostgreSQL
-- Mailtrap
+- XAMPP
+- git
+- Composer
+- Node.jsy
   
   
-## Versiones y Herramientas de Laravel
+## Versiones Implemantadas
 Este proyecto está desarrollado utilizando Laravel 11 , la versión más reciente de este destacado framework de PHP. Laravel se caracteriza por su enfoque en la simplicidad y la eficiencia, ofreciendo una plataforma moderna para el desarrollo de aplicaciones web. Entre las principales herramientas y características implementadas en este proyecto se encuentran:
 
-- **Artisan:**
-La línea de comandos de Laravel que proporciona herramientas para generar código, realizar migraciones de base de datos y automatizar tareas de desarrollo.
-
-- **Middleware:** 
-Un sistema que gestiona solicitudes HTTP antes de que lleguen al controlador. Se utiliza para autenticar usuarios, autorizar acciones y aplicar filtros personalizados.
-
-- **Sistema de Validación y Autenticación:** 
-Laravel incluye un sistema robusto para validar datos y manejar la autenticación de usuarios de manera segura y eficiente.
-
-- **Livewire:** 
-Utilizado para construir interfaces de usuario dinámicas sin necesidad de escribir JavaScript. Algunas de sus características clave son:
-  - Actualización Reactiva: Sincronización automática entre el frontend y backend.
-Fácil Integración: Compatible con Blade y otras herramientas de Laravel, lo que permite desarrollar componentes dinámicos fácilmente.
-  - Laravel Sail:
-Una solución ligera basada en Docker para configurar un entorno de desarrollo completo. Facilita la creación de entornos consistentes sin complicaciones.
+- **Visual Studio Code:** 1.96.4
+- **XAMPP:** Version 3.3.0
+- **Laravel:** Version 11
+- **Composer:** Version 2.7.9
+- **Git:** Version 2.46.0
+- **Node.js:** Version 20.18.1
+- **npm** Version 10.8.2
+- **PostgreSQL** Version 16 
 
 
 
