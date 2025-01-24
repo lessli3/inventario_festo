@@ -23,6 +23,8 @@
   
 * [Estructura del proyecto](#Estructura-del-proyecto)
 
+* [Canal de YouTube del Proyecto](#Canal-de-YouTube-del-Proyecto)
+
 * [Desarrolladores del Proyecto](#desarrolladores-del-proyecto)
 
 
@@ -212,7 +214,6 @@ En el sistema, cada usuario tiene un rol específico (Cuentadante, Instructor o 
 
 
 
-##
 
 ## Estructura del proyecto
 
@@ -243,6 +244,14 @@ En el sistema, cada usuario tiene un rol específico (Cuentadante, Instructor o 
 ![image](https://github.com/user-attachments/assets/c809ac6f-6d98-49b2-8937-8adfd7a4abe5)
 
 
+## Canal de YouTube del Proyecto
+
+Este proyecto tiene un canal de YouTube donde se subieron videos para que los usuarios entiendan mejor cómo funciona todo y tengan más herramientas para trabajar con él. La idea es que quien siga con el proyecto pueda usar o actualizar el canal sin problema. A continuación, te dejo la información necesaria para acceder a la cuenta:
+
+- **Correo Electronico:** controlfesto1@gmail.com
+- **Contraseña:** Control_festo24
+- **URL para acceso al canal de youtube:** https://www.youtube.com/@controlfesto
+  
 
 ## Desarrolladores del proyecto
 - Lesly Silva
