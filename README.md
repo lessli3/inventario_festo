@@ -81,8 +81,10 @@ Herramientas esenciales para la gestión de dependencias y paquetes de frontend,
 Sigue estos pasos para configurar el proyecto localmente:
 Antes de clonar el repositorio, es importante asegurarse de tener el entorno de desarrollo correctamente configurado.Es decir, asegurarse de que los siguientes programas y herramientas estén correctamente instalados y configurados en su sistema operativo:
 
-- Visual Studio Code
+- Visual Studio Code: Aquí te dejo el enlace para que puedas instalarlo sin ningún inconveniente.
+  
   https://code.visualstudio.com/
+  
 - XAMPP
 - Laravel
 - Composer
