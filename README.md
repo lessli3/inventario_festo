@@ -205,7 +205,7 @@ En el sistema, cada usuario tiene un rol específico (Cuentadante, Instructor o 
 
 - **Visual Studio Code:** 1.96.4
 - **XAMPP:** Version 3.3.0
-- **Laravel:** Version 11
+- **Laravel:** Version 9.52.17
 - **Composer:** Version 2.7.9
 - **Git:** Version 2.46.0
 - **Node.js:** Version 20.18.1
@@ -254,7 +254,7 @@ Este proyecto tiene un canal de YouTube donde se subieron videos para que los us
   
 
 ## Desarrolladores del proyecto
-- Lesly Silva
+- Lesly Lievano
 - Angie Galindo
 
 
