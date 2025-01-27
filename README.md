@@ -195,6 +195,7 @@ En el sistema, cada usuario tiene un rol específico (Cuentadante, Instructor o 
 - Livewire
 - PostgreSQL
 - XAMPP
+- PHP
 - Git
 - Composer
 - Node.jsy
@@ -205,11 +206,12 @@ En el sistema, cada usuario tiene un rol específico (Cuentadante, Instructor o 
 
 - **Visual Studio Code:** 1.96.4
 - **XAMPP:** Version 3.3.0
+- **PHP:** Version 8.0
 - **Laravel:** Version 9.52.17
 - **Composer:** Version 2.7.9
 - **Git:** Version 2.46.0
 - **Node.js:** Version 20.18.1
-- **npm** Version 10.8.2
+- **npm** Version 10.9.2
 - **PostgreSQL** Version 16 
 
 
