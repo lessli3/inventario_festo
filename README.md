@@ -19,7 +19,7 @@
 
 * [Tecnologias utilizadas](#tecnologias-utilizadas)
 
-* [Versiones y Herramientas de Laravel](#Versiones-y-Herramientas-de-Laravel)
+* [Versiones  Implementadas](#Versiones-Implementadas)
   
 * [Estructura del proyecto](#Estructura-del-proyecto)
 
