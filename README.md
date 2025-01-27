@@ -201,7 +201,7 @@ En el sistema, cada usuario tiene un rol específico (Cuentadante, Instructor o 
 - Node.jsy
   
   
-## Versiones Implemantadas
+## Versiones Implementadas
  Entre las principales herramientas y características implementadas en este proyecto se encuentran:
 
 - **Visual Studio Code:** 1.96.4
