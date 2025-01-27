@@ -149,8 +149,9 @@ Para acceder a las diferentes funcionalidades del sistema, sigue estos pasos:
 
 El sistema permite que los usuarios con uno de los tres roles definidos inicien sesión usando su número de documento de identidad. Se envía un código de verificación al correo electrónico del usuario para confirmar su identidad, gestionado de forma segura por Mailtrap. Esto asegura que solo personas autorizadas puedan acceder al sistema.
 
-![image](https://github.com/user-attachments/assets/7a158aa9-ee70-40a7-ae37-95194f213184)
-![image](https://github.com/user-attachments/assets/3416230e-f882-4be5-902d-39f62e81db15)
+![image](https://github.com/user-attachments/assets/4b17b5dd-687a-4893-9de7-4da1c06e25f2)
+![image](https://github.com/user-attachments/assets/39731900-b80a-4444-a9c5-105dbb141b75)
+
 
  **Roles disponibles:**
  
@@ -160,9 +161,10 @@ En el sistema, cada usuario tiene un rol específico (Cuentadante, Instructor o 
   Su funcion principal es gestionar la creacion y administracion de las herramientas disponibles en Festo
 
   
-  ![image](https://github.com/user-attachments/assets/fbfedbae-56ca-4b2a-b98c-24ea39050636)
-  ![image](https://github.com/user-attachments/assets/0d7b2ae2-ac07-470b-bbe3-9fbc6161fe40)
-  ![image](https://github.com/user-attachments/assets/ce26afd1-a06d-4801-89fe-d25677f08dd5)
+![image](https://github.com/user-attachments/assets/91174caa-7774-4a68-a971-16395f4f7f8c)
+![image](https://github.com/user-attachments/assets/f997be2b-90a4-499d-9d89-fc1830faedeb)
+![image](https://github.com/user-attachments/assets/14f4210c-650c-4722-bb59-335c8f76cbf2)
+
 
 
 
@@ -171,9 +173,10 @@ En el sistema, cada usuario tiene un rol específico (Cuentadante, Instructor o 
   Su funcion principal es solicitar las herramientas que  se requeran.
   
 
-  ![image](https://github.com/user-attachments/assets/e36b3ec3-d5cf-4ff6-beca-f5328f930887)
-  ![image](https://github.com/user-attachments/assets/262ca66f-bd67-4c56-b9c9-23896dc76887)
-  ![image](https://github.com/user-attachments/assets/69dc5007-838d-42cb-a481-5b32a40c5aef)
+![image](https://github.com/user-attachments/assets/1f087464-697d-4e5e-afc6-1c21979dbea6)
+![image](https://github.com/user-attachments/assets/c950e199-7ea4-403f-989d-d2316be269d8)
+![image](https://github.com/user-attachments/assets/7cebd100-b1e6-48fd-afa5-9460658a0766)
+
 
 
 
@@ -183,9 +186,10 @@ En el sistema, cada usuario tiene un rol específico (Cuentadante, Instructor o 
   Su funcion principal es revisar las solicitudes pendientes y entregar las herramientas que se han solicitado.
 
   
-  ![image](https://github.com/user-attachments/assets/8f3c56de-cc79-4470-8caf-145d9dc04853)
-  ![image](https://github.com/user-attachments/assets/bc4d2665-3496-48ad-a104-9caf824f9449)
-  ![image](https://github.com/user-attachments/assets/5ee872b9-d88d-4c27-8000-c17ad07da752)
+![image](https://github.com/user-attachments/assets/7bb6a0fb-1fe4-40a3-878a-e61ec9ebf79e)
+![image](https://github.com/user-attachments/assets/067f479b-4fb0-4b12-a0df-1363e69007c8)
+![image](https://github.com/user-attachments/assets/074ec9a1-63ee-4242-b6c4-aa18edf55b9d)
+
 
 
 
