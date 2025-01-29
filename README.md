@@ -255,8 +255,8 @@ En el sistema, cada usuario tiene un rol específico (Cuentadante, Instructor o 
 
 Este proyecto tiene un canal de YouTube donde se subieron videos para que los usuarios entiendan mejor cómo funciona todo y tengan más herramientas para trabajar con él. La idea es que quien siga con el proyecto pueda usar o actualizar el canal sin problema. A continuación, te dejo la información necesaria para acceder a la cuenta:
 
-- **Correo Electronico:** controlfesto1@gmail.com
-- **Contraseña:** Control_festo24
+- **Correo Electronico:** controlfesto@gmail.com
+- **Contraseña:** controlsena&fest0
 - **URL para acceso al canal de youtube:** https://www.youtube.com/@controlfesto
   
 
