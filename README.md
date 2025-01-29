@@ -257,7 +257,7 @@ Este proyecto tiene un canal de YouTube donde se subieron videos para que los us
 
 - **Correo Electronico:** controlfesto@gmail.com
 - **Contraseña:** controlsena&fest0
-- **URL para acceso al canal de youtube:** https://www.youtube.com/@controlfesto
+- **URL para acceso al canal de youtube:** https://www.youtube.com/@controlfesto24
   
 
 ## Desarrolladores del proyecto
